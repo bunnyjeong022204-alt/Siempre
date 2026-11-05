@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siempre · 크레딧</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="page" style="max-width:1040px">
+  <div class="page-top">
+    <a class="back" href="/">← 대화로 돌아가기</a>
+    <a href="/plans" style="font-weight:700;font-size:14px">요금제 바꾸기</a>
+  </div>
+  <h1 style="margin:0;font-size:28px">크레딧</h1>
+  <div class="row">
+    <section class="card dark" style="flex:2 1 420px">
+      <span class="muted small" id="planLine">이번 주 남은 크레딧</span>
+      <div><span class="big" id="balance">—</span> <span class="muted" id="weekly"></span></div>
+      <div class="bar" style="background:#3A3D47"><span id="fill" style="width:0%;background:#8FA2FF"></span></div>
+      <p class="small" style="margin:0;color:#E1E3EA" id="resetLine"></p>
+      <button type="button" class="btn" style="align-self:flex-start" id="topup">크레딧 추가 충전</button>
+    </section>
+    <section class="card" style="flex:1 1 260px">
+      <span class="muted small">이번 주 가벼운 대화</span>
+      <span class="big" style="font-size:32px" id="light">—</span>
+      <span class="small muted" id="lightLine"></span>
+    </section>
+  </div>
+  <section class="card">
+    <h2 id="usageTitle">이번 주 사용 내역</h2>
+    <div id="usage" style="display:flex;flex-direction:column;gap:12px"></div>
+  </section>
+  <section class="card">
+    <h2>최근 기록</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>시간</th><th>작업</th><th>모델</th><th class="num">크레딧</th></tr></thead>
+        <tbody id="history"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<script type="module" src="/wallet.js"></script>
+</body>
+</html>

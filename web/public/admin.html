@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siempre · 관리자</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body style="background:#F2F3F6">
+<div class="page" style="max-width:1240px">
+  <div class="page-top">
+    <div>
+      <div style="font-size:13px;font-weight:700;color:#2846D8">Siempre 관리자</div>
+      <h1 style="margin:4px 0 0;font-size:26px">베타 지표와 라우팅</h1>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <a class="btn" href="/" style="display:inline-flex;align-items:center;text-decoration:none">서비스 화면 보기</a>
+      <button type="button" class="btn" id="reset">데모 데이터 초기화</button>
+    </div>
+  </div>
+  <section class="card" style="padding:16px 20px">
+    <h2>공급사 연결</h2>
+    <div class="row small" id="providers"></div>
+  </section>
+  <div class="kpis" id="kpis"></div>
+  <section class="card">
+    <h2>라우팅 규칙</h2>
+    <p class="small muted" style="margin:0">규칙을 끄면 그 유형의 요청은 글쓰기 규칙으로 보내요. 기본 모델의 키가 없거나 호출이 실패하면 대체 모델로 자동 전환해요.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>요청 유형</th><th>기본 모델</th><th>대체 모델</th><th class="num">차감 크레딧</th><th class="num">요청 수</th><th>사용</th></tr></thead>
+        <tbody id="rules"></tbody>
+      </table>
+    </div>
+  </section>
+</div>
+<script type="module" src="/admin.js"></script>
+</body>
+</html>

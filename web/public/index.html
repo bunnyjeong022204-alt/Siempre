@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Siempre · 대화</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="app">
+  <nav class="side" aria-label="주 메뉴">
+    <div class="brand"><span class="brand-mark">AI</span><span>Siempre</span></div>
+    <button type="button" class="btn btn-dark" id="newChat">+ 새 대화</button>
+    <p class="side-note">요청을 적으면 알맞은 AI가 자동으로 답해요. 답변 아래 버튼으로 다른 모델의 답도 받아 볼 수 있어요.</p>
+    <div class="side-links">
+      <a href="/wallet"><span>크레딧</span><b id="sideBalance">—</b></a>
+      <a href="/plans"><span>요금제</span><span class="muted" id="sidePlan">—</span></a>
+      <a href="/admin"><span>관리자</span><span class="muted">지표</span></a>
+    </div>
+  </nav>
+  <main class="main">
+    <header class="topbar">
+      <h1>새 대화</h1>
+      <a class="meter" href="/wallet">
+        <span>이번 주 크레딧</span>
+        <span class="meter-bar"><span class="meter-fill" id="meterFill" style="width:0%"></span></span>
+        <b id="meterText">—</b>
+        <span class="muted">월요일 충전</span>
+      </a>
+    </header>
+    <section class="thread" id="thread" aria-live="polite"></section>
+    <div class="composer-wrap">
+      <form class="composer" id="composer">
+        <label for="prompt">무엇이든 적으면 알맞은 AI가 답해요 · Enter로 보내기, Shift+Enter로 줄바꿈</label>
+        <textarea id="prompt" rows="2" placeholder="예) 다음 주 출시할 비건 포카치아 인스타 게시글 3개 써줘"></textarea>
+        <div class="composer-row">
+          <span class="estimate" id="estimate">자동 선택</span>
+          <button type="submit" class="btn btn-primary" id="sendBtn">보내기</button>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+<script type="module" src="/chat.js"></script>
+</body>
+</html>
