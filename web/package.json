@@ -1,0 +1,14 @@
+{
+  "name": "siempre-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "한 대화에서 요청에 맞는 AI 모델을 자동으로 골라 주는 서비스의 MVP",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test test/router.test.js"
+  }
+}
