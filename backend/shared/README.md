@@ -85,7 +85,7 @@
 
 ## 5. 공통 규칙
 
-- **시간:** DB에는 UTC로 저장. "이번 주"는 사용자마다 다르다. 결제일과 같은 요일 0시(한국 시간)부터 7일 (PRD 4-1).
+- **시간:** DB에는 UTC로 저장. "이번 주"는 사용자마다 다르다. 결제일과 같은 요일 0시(한국 시간)부터 7일 (PRD 6-1).
 - **가격·차감량 같은 숫자:** 코드 곳곳에 쓰지 말고 설정 파일 한 곳에 모아요. 요금은 `subscription/` 설정, 차감량·모델은 `chat/` 설정. PRD가 바뀌면 그 파일만 고쳐요.
 - **환경 변수 이름:** 아래를 기준으로 `.env.example`에 적어요.
 
@@ -94,7 +94,7 @@
 | `PORT` | 공통 | 서버 포트 |
 | `DATABASE_URL` | 공통 | DB 위치 |
 | `FIREBASE_PROJECT_ID` | auth | Firebase 프로젝트 ID (토큰 확인). 화면은 `frontend/.env.local`의 `VITE_FIREBASE_*` |
-| `OPENAI_API_KEY` 등 AI 키 | chat | 입점 AI별 키 (PRD 3-1의 AI마다 하나) |
+| `ANTHROPIC_API_KEY`, `DASHSCOPE_API_KEY`(Qwen), `MISTRAL_API_KEY`, `GEMINI_API_KEY`(Nano Banana) | chat | 입점 AI별 키 (PRD 4장) |
 
 ## 6. 이 폴더에 올라갈 코드 (예정)
 
