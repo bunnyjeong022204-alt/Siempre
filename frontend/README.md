@@ -20,3 +20,34 @@
 - `node_modules/`, `dist/`, `build/` 같은 설치·빌드 결과물
 
 코드를 올릴 때 실행 방법(설치·실행 명령)을 이 README 아래에 적어 주세요.
+
+---
+
+## 실행 방법 (2026-11-09, 회원가입·로그인)
+
+React 18 + TypeScript + Vite + Tailwind. 화면은 `backend/`의 API만 불러요.
+
+```bash
+# 1. 백엔드 (다른 터미널)
+cd backend
+npm start                 # http://localhost:8787
+
+# 2. 프런트엔드
+cd frontend
+npm install
+npm run dev               # http://localhost:5173  (/api 요청은 8787로 넘어감)
+npm run build             # 타입 검사 + 배포용 빌드
+```
+
+| 경로 | 화면 |
+| --- | --- |
+| `/signup` | 회원가입 1단계: 이메일 확인(새 이메일·탈퇴 이메일·이미 가입 → 로그인 안내), 비밀번호, 닉네임 중복 확인 |
+| `/signup/terms` | 2단계: 약관 동의(필수 4개 + 선택 소식 받기) → 가입 후 바로 로그인 |
+| `/signup/done` | 3단계: 가입 완료 |
+| `/login` | 로그인 (`?next=`로 원래 가려던 화면으로 돌아감) |
+| `/` | 임시 홈 (로그인 필요). 구독·대화·크레딧 화면이 생기면 바꿔요 |
+
+- 로그인이 필요한 화면은 `<RequireAuth>`로 감싸면 로그인 안 한 사용자를 `/login`으로 보내요 (PRD 5-0).
+- 바뀔 수 있는 값·문구는 `src/config/auth.ts`, 검사 함수는 `src/lib/auth.ts`, API 호출은 `src/api/auth.ts`.
+- 색·글꼴 토큰은 `tailwind.config.js` (디자인 명세 2장 색, 글꼴 Pretendard).
+- 디자인 시안: Figma `siempre · 확정용 > 회원가입 시안` (https://www.figma.com/design/gBNj0gHsS4457DHLWG7N0O)

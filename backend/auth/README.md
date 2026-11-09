@@ -27,6 +27,23 @@ PRD 5-0. 이메일과 비밀번호로 가입하고 로그인해요. 소셜 로�
 | 요청 제한 | `check-email`, `login`에 IP당 횟수 제한 (`rate_limited`) |
 | 로그 | 요청 본문(비밀번호)을 로그에 남기지 않음 |
 
+## 구현 메모 (2026-11-09, `feat/signup-flow`)
+
+| 파일 | 내용 |
+| --- | --- |
+| `config.js` | 위 규칙 값 (닉네임 2~12자, 비밀번호 8~64자, 예약어, 세션 14일, 요청 제한) |
+| `schema.js` | `users`, `sessions`, `withdrawn_members` 만들기 + 시연용 탈퇴 기록(`rejoin@siempre.test`, `SEED_DEMO=0`이면 안 넣음) |
+| `validate.js` | 입력 검증 (저장할 형태로 정리: 이메일 소문자·공백 제거, 닉네임 공백 제거) |
+| `service.js` | 가입·로그인 규칙. 비밀번호 scrypt, 세션 토큰은 `SESSION_SECRET`으로 HMAC 해시만 DB에 저장 |
+| `routes.js` | 위 API 6개 등록, `currentUser`·`requireUser` 제공 |
+| `test/auth.test.js` | "끝났는지 확인" 5개 + 입력 규칙·잘못된 요청·요청 제한 (`cd backend && npm test`) |
+
+- `check-email`의 `nickname?`은 돌려주지 않아요. 이메일만으로 남의 닉네임을 알 수 있게 되기 때문이에요.
+- 닉네임 형식이 틀리면 `check-nickname`은 `{ available: false, reason: "invalid" }`, `signup`은 400 `invalid_nickname`(새 코드)이에요. 예약어·중복은 `reason: "reserved" | "taken"`, 가입 때는 409 `nickname_taken`.
+- 없는 이메일과 틀린 비밀번호는 같은 401 `invalid_credentials`로 답하고, 응답 시간도 비슷하게 맞춰요.
+- 요청 제한(IP당 1분): `check-email` 20회, `login` 10회, `signup` 10회. 프록시 뒤에서는 `TRUST_PROXY=1`.
+- `/api/auth/me`의 `subscribed`는 subscription 파트가 생기기 전까지 항상 `false`예요 (`shared/server.js`의 `getSubscription`).
+
 ## 다루는 테이블
 
 `users`, `sessions`, `withdrawn_members` (소유표: [shared/README.md](../shared/README.md) 4장)
@@ -37,7 +54,7 @@ PRD 5-0. 이메일과 비밀번호로 가입하고 로그인해요. 소셜 로�
 
 ## 오류 코드
 
-`invalid_email`, `exists`, `nickname_taken`, `weak_password`, `terms_required`, `invalid_credentials`, `login_required`, `rate_limited`
+`invalid_email`, `invalid_nickname`, `exists`, `nickname_taken`, `weak_password`, `terms_required`, `invalid_credentials`, `login_required`, `rate_limited` (+ 공통 `invalid_body`)
 
 ## 끝났는지 확인
 

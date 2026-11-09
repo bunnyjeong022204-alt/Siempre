@@ -6,10 +6,25 @@
 
 | 항목 | 결정 | 정한 날짜 |
 | --- | --- | --- |
-| 언어·프레임워크 | ____ (예: Node.js + Express) | |
-| DB | ____ (예: SQLite → 나중에 PostgreSQL) | |
-| 로그인 방식 | HttpOnly 세션 쿠키 (제안) | |
-| 서버 주소·포트 | `http://localhost:____` | |
+| 언어·프레임워크 | **제안:** Node.js 22.13 이상, 내장 `http`만 사용 (설치 패키지 없음) — B 확인 필요 | 2026-11-09 제안 |
+| DB | **제안:** SQLite(`node:sqlite`) → 나중에 PostgreSQL — B 확인 필요 | 2026-11-09 제안 |
+| 로그인 방식 | HttpOnly 세션 쿠키 `siempre_session` (SameSite=Lax, 14일) — auth에 구현 | 2026-11-09 제안 |
+| 서버 주소·포트 | `http://localhost:8787` (프런트 Vite가 `/api`를 넘겨 줌) — B 확인 필요 | 2026-11-09 제안 |
+
+> 위 "제안"은 회원가입 PR(`feat/signup-flow`)에서 auth를 돌리려고 먼저 올린 값이에요. 규칙 2번대로 B가 확인한 뒤 확정해요.
+
+### 지금 올라간 공통 코드
+
+| 파일 | 내용 |
+| --- | --- |
+| `server.js` | 서버 시작, 파트별 라우트 등록 한 줄씩, 오류를 2장 형식으로 변환, 로그는 경로·상태만 |
+| `router.js` | `router.get/post(경로, 처리함수)`. 같은 주소를 두 파트가 붙이면 시작할 때 오류 |
+| `db.js` | `DATABASE_URL`로 SQLite 열기, 예전 DB에 없는 컬럼 붙이기 |
+| `errors.js` | `ApiError(status, code, message, extra)` → `{ error: { code, message, ... } }` |
+| `http.js` | JSON 본문 읽기(잘못된 본문·인코딩·Content-Length는 400 `invalid_body`), 쿠키, 요청 IP |
+| `../.env.example`, `../package.json` | 환경 변수 이름, `npm start` / `npm test` |
+
+파트 처리함수는 `{ status?, body, headers? }`를 돌려주면 돼요. 다른 파트에서는 `ctx.requireUser(req)`, `ctx.currentUser(req)`로 로그인 회원을 받아요.
 
 ## 2. 응답·오류 형식
 
