@@ -1,0 +1,13 @@
+{
+  "name": "siempre-backend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Siempre 백엔드. 설치할 패키지 없이 Node.js 22.13 이상(내장 http, node:sqlite)에서 실행된다.",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning shared/server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch shared/server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"**/test/*.test.js\""
+  }
+}
