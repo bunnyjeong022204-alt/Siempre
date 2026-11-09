@@ -34,5 +34,8 @@ export type RequiredTermKey = (typeof REQUIRED_TERMS)[number]['key'];
 /** 선택 약관 (marketing) */
 export const MARKETING_LABEL = '할인·새 AI 입점 소식 받기';
 
-/** 로그인 후 기본으로 갈 화면. 구독·대화·크레딧 화면이 생기면 바꾼다. */
+/** 로그인 후 기본으로 갈 화면 (React 라우트). "/"는 아래 서비스 화면으로 넘겨 준다. */
 export const HOME_PATH = '/';
+
+/** 로그인한 사람이 쓰는 서비스 화면: 권희수 님의 구독·대화·크레딧 페이지 (React 밖의 별도 HTML) */
+export const SERVICE_PAGE = '/siempre-figma-prototype.html';
