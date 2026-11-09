@@ -7,11 +7,12 @@ import { useAuth } from '../../state/AuthState';
  * 그 화면들을 만들 때 <RequireAuth>로 감싸면 된다.
  */
 export function RequireAuth({ children }: { children: ReactNode }) {
-  const { user } = useAuth();
+  const { user, pendingEmail } = useAuth();
   const location = useLocation();
   if (user === undefined) {
     return <p role="status" className="p-10 text-center text-sm text-ink-sub">로그인 상태를 확인하고 있어요.</p>;
   }
+  if (!user && pendingEmail) return <Navigate to="/signup" replace />; // 가입을 마저 끝내도록
   if (!user) return <Navigate to={`/login?next=${encodeURIComponent(location.pathname + location.search)}`} replace />;
   return <>{children}</>;
 }

@@ -5,6 +5,7 @@ import { MARKETING_LABEL, REQUIRED_TERMS, type RequiredTermKey } from '../../con
 import { AuthLayout } from '../../components/auth/AuthLayout';
 import { Alert, Checkbox, PrimaryButton } from '../../components/auth/Controls';
 import { ChevronIcon } from '../../components/auth/icons';
+import { firebaseCode, firebaseErrorMessage } from '../../lib/firebase';
 import { useAuth, useSignup } from '../../state/AuthState';
 
 const NONE = Object.fromEntries(REQUIRED_TERMS.map((t) => [t.key, false])) as Record<RequiredTermKey, boolean>;
@@ -12,7 +13,7 @@ const NONE = Object.fromEntries(REQUIRED_TERMS.map((t) => [t.key, false])) as Re
 /** 2단계: 약관 동의 → 가입 → 바로 로그인 */
 export function SignupTermsPage() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { createAccount, refresh, firebaseReady } = useAuth();
   const { draft, setDraft, setDone } = useSignup();
   const [req, setReq] = useState(NONE);
   const [marketing, setMarketing] = useState(false);
@@ -30,20 +31,27 @@ export function SignupTermsPage() {
     if (!draft || left > 0) return;
     setBusy(true);
     setError(null);
+    // 1) Firebase 계정 만들기 (이어서 가입이면 이미 로그인된 계정을 쓴다) → 2) Siempre 회원 정보 만들기
+    let created: Awaited<ReturnType<typeof createAccount>> | null = null;
     try {
-      await authApi.signup({ email: draft.email, password: draft.password, nickname: draft.nickname, agreeTerms: true, marketing });
-      let loggedIn = true;
-      try {
-        await login(draft.email, draft.password); // 가입 직후 바로 로그인 상태로
-      } catch {
-        loggedIn = false;
-      }
-      setDone({ email: draft.email, nickname: draft.nickname, marketing, loggedIn });
+      if (draft.emailStatus !== 'resume') created = await createAccount(draft.email, draft.password);
+    } catch (e) {
+      const f = firebaseErrorMessage(firebaseCode(e));
+      setError({ text: f.message, back: f.kind === 'exists' || firebaseCode(e) === 'auth/weak-password' });
+      setBusy(false);
+      return;
+    }
+    try {
+      await authApi.signup({ nickname: draft.nickname, agreeTerms: true, marketing });
+      await refresh();
+      setDone({ email: draft.email, nickname: draft.nickname, marketing });
       setDraft(null); // 비밀번호를 메모리에서도 지운다
       navigate('/signup/done', { replace: true });
     } catch (e) {
+      // 방금 만든 Firebase 계정은 지워서, 닉네임을 고친 뒤 같은 이메일로 다시 가입할 수 있게 한다
+      if (created) await created.delete().catch(() => {});
       if (!(e instanceof ApiError)) setError({ text: '가입하지 못했어요. 잠시 후 다시 시도해 주세요.' });
-      else if (['exists', 'nickname_taken', 'invalid_email', 'invalid_nickname', 'weak_password'].includes(e.code)) setError({ text: e.message, back: true });
+      else if (['exists', 'nickname_taken', 'invalid_email', 'invalid_nickname'].includes(e.code)) setError({ text: e.message, back: true });
       else setError({ text: e.message });
     } finally {
       setBusy(false);
@@ -86,7 +94,7 @@ export function SignupTermsPage() {
           {error.back && <button type="button" onClick={() => navigate('/signup')} className="ml-2 min-h-tap font-bold underline">고치러 가기</button>}
         </Alert>
       )}
-      <PrimaryButton disabled={busy || left > 0} onClick={submit}>{busy ? '가입 처리 중' : '동의하고 가입하기'}</PrimaryButton>
+      <PrimaryButton disabled={busy || left > 0 || !firebaseReady} onClick={submit}>{busy ? '가입 처리 중' : '동의하고 가입하기'}</PrimaryButton>
     </AuthLayout>
   );
 }

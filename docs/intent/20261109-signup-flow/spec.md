@@ -38,3 +38,14 @@
 - 약관 문구는 임시 값이다. 법무 검토 전 공개 금지.
 
 실행: [계획](plan.md)
+
+## Firebase 전환 후 계약 (2026-11-09, 위 AU-3~AU-6을 대체)
+
+| 요구 | 계약 | 수용 기준 | 검증 |
+| --- | --- | --- | --- |
+| FB-1 | 로그인 필요 요청은 `Authorization: Bearer <Firebase ID 토큰>` | RS256 서명(구글 공개 인증서), `aud`=`FIREBASE_PROJECT_ID`, `iss`, `exp`·`iat`·`auth_time`, `sub` 확인. 하나라도 틀리면 401 `login_required` | test (가짜 키) |
+| FB-2 | `POST /api/auth/signup {nickname, agreeTerms, marketing?}` + 토큰 → 201 `{user}` | 이메일은 토큰 값 사용(본문 무시), 같은 uid·이메일 409 `exists`, 닉네임·약관 규칙은 AU-2·AU-3과 같음 | test |
+| FB-3 | `GET /api/auth/me` + 토큰 → `{user, subscribed}` | 가입 전 Firebase 계정은 404 `profile_missing`(+`email`) | test |
+| FB-4 | 로그인·로그아웃 | 화면에서 Firebase(`signInWithEmailAndPassword`, `signOut`), 브라우저를 닫아도 로그인 유지 | 사람 확인 필요 |
+| FB-5 | 가입 중 백엔드 저장 실패 | 방금 만든 Firebase 계정을 지워서 같은 이메일로 다시 가입 가능 | 사람 확인 필요 |
+| FB-6 | 설정 누락 | 화면: "Firebase 설정이 없어요" 안내·버튼 비활성. 백엔드: 503 `auth_not_configured` | 브라우저·test |

@@ -33,11 +33,8 @@ export function SignupDonePage() {
           ))}
         </dl>
       </section>
-      {done.loggedIn ? (
-        <PrimaryButton className="mt-7" onClick={() => navigate(HOME_PATH)}>구독 구성 시작하기</PrimaryButton>
-      ) : (
-        <PrimaryButton className="mt-7" onClick={() => navigate(`/login?email=${encodeURIComponent(done.email)}`)}>로그인하기</PrimaryButton>
-      )}
+      {/* Firebase 계정을 만들면 바로 로그인 상태라 따로 로그인할 필요가 없다 */}
+      <PrimaryButton className="mt-7" onClick={() => navigate(HOME_PATH)}>구독 구성 시작하기</PrimaryButton>
     </AuthLayout>
   );
 }

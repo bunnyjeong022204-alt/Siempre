@@ -14,13 +14,14 @@ import { registerAuthRoutes } from '../auth/routes.js';
 
 const BACKEND_DIR = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-export function createApp({ env = process.env, now = () => Date.now() } = {}) {
+export function createApp({ env = process.env, now = () => Date.now(), getFirebaseCerts } = {}) {
   const db = openDb(env.DATABASE_URL, BACKEND_DIR);
   const router = createRouter();
   const ctx = {
     db,
     env,
     now,
+    getFirebaseCerts, // 테스트용 (없으면 auth가 구글 공개 인증서를 받아 씀)
     // subscription 파트(A)가 생기면 getSubscription(userId)로 바꾼다. 지금은 모두 "구독 안 함".
     getSubscription: () => null,
   };
@@ -30,6 +31,7 @@ export function createApp({ env = process.env, now = () => Date.now() } = {}) {
   // registerSubscriptionRoutes(router, ctx);   // A: 구독·데모 결제 (예정)
   // registerChatRoutes(router, ctx);           // B: 대화 (예정)
   // registerCreditsRoutes(router, ctx);        // B: 크레딧 (예정)
+  // 로그인 회원 확인 (async): const user = await ctx.requireUser(req)
   ctx.currentUser = auth.currentUser;
   ctx.requireUser = auth.requireUser;
 
@@ -70,6 +72,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   server.listen(port, () => {
     console.log(`Siempre 백엔드: http://localhost:${port}`);
     console.log(`라우트: ${router.list().join(', ')}`);
-    if (!process.env.SESSION_SECRET) console.warn('SESSION_SECRET이 없어 임시 키를 써요. 서버를 다시 켜면 로그인이 풀려요.');
+    if (!process.env.FIREBASE_PROJECT_ID) console.warn('FIREBASE_PROJECT_ID가 없어 로그인이 필요한 API는 503으로 답해요. backend/.env에 넣어 주세요.');
   });
 }

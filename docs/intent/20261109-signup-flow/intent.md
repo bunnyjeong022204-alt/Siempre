@@ -33,3 +33,10 @@
 - `check-email` 응답의 `nickname?`은 이메일만으로 남의 닉네임이 드러나므로 돌려주지 않는다.
 
 다음: [명세](spec.md) → [계획](plan.md)
+
+## 추가 결정: Firebase Authentication으로 로그인 (2026-11-09)
+
+- 요청자가 Firebase 웹 설정을 준비했고 이메일/비밀번호 로그인을 켰다. Firebase Authentication이 비밀번호 보관·확인과 로그인 유지를 맡도록 바꿨다 (요청자 선택: "로그인까지 Firebase").
+- 백엔드는 서비스 계정 키 없이 구글 공개 인증서로 Firebase ID 토큰을 확인한다 (설치 패키지 없음 유지). 필요한 값은 `FIREBASE_PROJECT_ID` 하나.
+- 이 때문에 `backend/auth/README.md`의 API 계약이 바뀌었다(`login`·`logout`·세션 쿠키 제거, `signup`은 토큰 + 닉네임·약관만, `requireUser`가 async). 백엔드 B와 합의가 필요하다. 바뀐 점은 auth README 마지막 표.
+- 실제 Firebase로 계정을 만드는 확인은 사람이 해야 한다 (자동 검사는 테스트용 RSA 키로 만든 토큰으로 서명 확인까지만).

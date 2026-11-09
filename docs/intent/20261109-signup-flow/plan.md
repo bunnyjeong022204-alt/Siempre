@@ -23,4 +23,16 @@
 - [ ] backend/README.md "백엔드 A" 담당자 이름
 - [ ] Figma 회원가입 시안을 3단계 흐름(본인 인증·간편가입 제거)으로 정리
 - [ ] 글꼴(Pretendard vs Noto Sans KR)·Primary 버튼 글자색 팀 결정
-- [ ] 약관 문구 법무 검토, 운영 `SESSION_SECRET`·`COOKIE_SECURE=1`·`SEED_DEMO=0`
+- [ ] 약관 문구 법무 검토, 운영 `FIREBASE_PROJECT_ID`·`SEED_DEMO=0`, Firebase 승인 도메인에 배포 주소 추가
+- [ ] 실제 Firebase로 가입·로그인·로그아웃 확인 (사람)
+- [ ] 백엔드 B와 바뀐 auth 계약(토큰 방식, async requireUser) 합의
+
+## Firebase 전환 검증 (2026-11-09)
+
+| 단계 | 실행 내용·증거 | 결과 |
+| --- | --- | --- |
+| 백엔드 검사 | `cd backend && npm test` — 9개: 토큰 → 가입 전 `profile_missing` → 가입(토큰 이메일 사용) → me, 재가입·다른 uid 같은 이메일 `exists`, 토큰 10종 거부(없음·형식·만료·다른 aud·다른 iss·빈 sub·미래 iat·다른 키 서명·모르는 kid·HS256), 이메일·닉네임 규칙, 약관·마케팅 타입, 400 `invalid_body`·404, 요청 제한 429, `FIREBASE_PROJECT_ID` 없음 503 | 9/9 통과 |
+| 공개 인증서 | 구글 `securetoken@system.gserviceaccount.com` 인증서 실제로 받기 | 키 2개 받음 |
+| 프런트 빌드 | `npm run build` (firebase 10.14.1 추가) | 통과 |
+| 브라우저 | Firebase 값 없이: `/` → `/login?next=/`, 로그인·가입 화면에 설정 안내, 버튼 비활성, 이메일·닉네임 확인은 동작, 새 탭 콘솔 오류 0 | 통과 |
+| 실제 Firebase | `.env.local`·`.env` 값을 넣고 가입 → 로그인 → 새로고침 유지 → 로그아웃 | **미실행** (값이 아직 없음, 사람이 확인) |

@@ -1,9 +1,10 @@
-// auth 파트 라우트 등록. shared/server.js에서 한 줄로 부른다.
-// API 표: auth/README.md
+// auth 파트 라우트 등록. shared/server.js에서 한 줄로 부른다. API 표: auth/README.md
+// 로그인은 화면이 Firebase Authentication으로 하고, 요청마다 "Authorization: Bearer <Firebase ID 토큰>"을 보낸다.
 
 import { ApiError } from '../shared/errors.js';
-import { clientIp, parseCookies, readJson } from '../shared/http.js';
-import { RATE_LIMITS, SESSION_COOKIE, SESSION_DAYS } from './config.js';
+import { clientIp, readJson } from '../shared/http.js';
+import { RATE_LIMITS } from './config.js';
+import { createCertSource, createIdTokenVerifier } from './firebase.js';
 import { migrateAuth } from './schema.js';
 import { createAuthService } from './service.js';
 
@@ -25,19 +26,32 @@ function createRateLimiter(now) {
 export function registerAuthRoutes(router, ctx) {
   const { db, env, now } = ctx;
   migrateAuth(db, { seedDemo: env.SEED_DEMO !== '0', now: now() });
-  const svc = createAuthService(db, { now, sessionSecret: env.SESSION_SECRET });
+  const svc = createAuthService(db, { now });
   const limit = createRateLimiter(now);
-  const secure = env.COOKIE_SECURE === '1' ? '; Secure' : '';
-  const sessionCookie = (token) => `${SESSION_COOKIE}=${token}; HttpOnly; SameSite=Lax; Path=/; Max-Age=${SESSION_DAYS * 24 * 3600}${secure}`;
-  const clearCookie = `${SESSION_COOKIE}=; HttpOnly; SameSite=Lax; Path=/; Max-Age=0${secure}`;
-  const tokenOf = (req) => parseCookies(req)[SESSION_COOKIE] || null;
+  // 테스트에서는 ctx.getFirebaseCerts로 가짜 공개키를 넣는다
+  const verify = createIdTokenVerifier({ projectId: env.FIREBASE_PROJECT_ID, getCerts: ctx.getFirebaseCerts ?? createCertSource(fetch, now), now });
 
-  /** 다른 파트에 주는 함수 (shared/README.md 3장) */
-  const currentUser = (req) => svc.userFromToken(tokenOf(req));
-  const requireUser = (req) => {
-    const u = currentUser(req);
-    if (!u) throw new ApiError(401, 'login_required', '로그인이 필요해요.');
-    return u;
+  const bearer = (req) => /^Bearer\s+(\S+)$/i.exec(String(req.headers.authorization || ''))?.[1] ?? null;
+
+  /** Firebase 계정 확인. 토큰이 없거나 틀리면 401 login_required */
+  async function requireIdentity(req) {
+    if (!env.FIREBASE_PROJECT_ID) throw new ApiError(503, 'auth_not_configured', '로그인 설정이 아직 안 됐어요. (FIREBASE_PROJECT_ID)');
+    const token = bearer(req);
+    const identity = token ? await verify(token) : null;
+    if (!identity) throw new ApiError(401, 'login_required', '로그인이 필요해요.');
+    return identity;
+  }
+
+  /** 다른 파트에 주는 함수 (shared/README.md 3장). Firebase 확인이 들어가서 async다. */
+  const currentUser = async (req) => {
+    const token = bearer(req);
+    const identity = token ? await verify(token) : null;
+    return identity ? svc.userByUid(identity.uid) : null;
+  };
+  const requireUser = async (req) => {
+    const user = await currentUser(req);
+    if (!user) throw new ApiError(401, 'login_required', '로그인이 필요해요.');
+    return user;
   };
 
   router.post('/api/auth/check-email', async (req) => {
@@ -45,26 +59,22 @@ export function registerAuthRoutes(router, ctx) {
     return { body: svc.checkEmail(await readJson(req)) };
   });
 
-  router.post('/api/auth/check-nickname', async (req) => ({ body: svc.checkNickname(await readJson(req)) }));
+  router.post('/api/auth/check-nickname', async (req) => {
+    limit('checkNickname', clientIp(req));
+    return { body: svc.checkNickname(await readJson(req)) };
+  });
 
   router.post('/api/auth/signup', async (req) => {
     limit('signup', clientIp(req));
-    return { status: 201, body: svc.signup(await readJson(req)) };
-  });
-
-  router.post('/api/auth/login', async (req) => {
-    limit('login', clientIp(req));
-    const { user, token } = svc.login(await readJson(req));
-    return { body: { user }, headers: { 'set-cookie': sessionCookie(token) } };
-  });
-
-  router.post('/api/auth/logout', async (req) => {
-    svc.logout(tokenOf(req));
-    return { body: { ok: true }, headers: { 'set-cookie': clearCookie } };
+    const identity = await requireIdentity(req);
+    return { status: 201, body: svc.signup(identity, await readJson(req)) };
   });
 
   router.get('/api/auth/me', async (req) => {
-    const user = requireUser(req);
+    const identity = await requireIdentity(req);
+    const user = svc.userByUid(identity.uid);
+    // Firebase 계정은 있는데 Siempre 가입(닉네임·약관)을 마치지 않은 경우
+    if (!user) throw new ApiError(404, 'profile_missing', '가입을 마저 끝내 주세요.', { email: identity.email });
     return { body: { user, subscribed: ctx.getSubscription(user.id) != null } };
   });
 
