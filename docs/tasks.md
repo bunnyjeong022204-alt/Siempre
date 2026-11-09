@@ -34,7 +34,18 @@
 | 공통 | 크레딧 부족 안내 + 추가 충전 버튼 | | 대기 |
 | 백엔드 | `api/client.ts`를 실제 서버로 연결 (`web/server.js` 참고) | | 대기 |
 
+## 범위 밖 요청으로 진행한 작업
+
+| 작업 | 관련 파일 | 담당 | 상태 |
+| --- | --- | --- | --- |
+| 회원가입 5단계 화면 + 회원가입 API + 간편가입(시연 모드) | `app/src/pages/signup/*`, `server/`, [intent](../intent/20261109-signup-flow/intent.md) | 미배정 | 진행 중 (로컬 검증, PR 미승인) |
+
 ## 열린 질문
+
+- [ ] **회원가입을 MVP에 넣을까?** CLAUDE.md 6장은 "회원가입·로그인은 안 만든다"인데 요청에 따라 `feat/signup-flow`에서 만들었다. 넣는다면 CLAUDE.md 6장을 고치고, 아니면 PR을 보류한다. 근거: [intent/20261109-signup-flow](../intent/20261109-signup-flow/intent.md)
+- [ ] **글꼴:** `main`의 `Siempre 디자인.md`는 Noto Sans KR로 통일, `app/`과 이 문서는 Pretendard. 회원가입은 요청대로 Pretendard를 썼다. 하나로 정하기.
+- [ ] **Primary 버튼 글자색:** 디자인 명세는 흰 글자인데 `#F375B4` 위 흰 글자는 대비 2.6:1. 회원가입은 `ink` 글자(6.5:1)를 썼다. 다른 화면도 맞출지 정하기.
+- [ ] **Figma 원본 파일:** 디자인 명세는 `AubCFTLtVsf5tR5X50jjvt`, 회원가입 시안은 `gBNj0gHsS4457DHLWG7N0O`(확정용), 이 문서는 `3q4gIcPMPS5egzZuSr8WJc`를 가리킨다. 원본 하나를 정하기.
 
 - [ ] **입점 AI: GPT인가 Claude인가?** PRD02는 GPT, 최근 Figma 시안은 Claude. 정해지면 `config/providers.ts`와 `config/routing.ts`만 고치면 된다.
 - [ ] **Nano Banana 색:** 크레딧 화면은 회색, 최신 장바구니 시안은 노란색. Figma 기준으로 하나로 정하기.

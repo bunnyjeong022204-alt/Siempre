@@ -1,0 +1,13 @@
+{
+  "name": "siempre-server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Siempre 회원가입 API. 설치할 패키지 없이 Node.js 22.13 이상(node:sqlite)에서 실행된다.",
+  "engines": { "node": ">=22.13" },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
+    "test": "node --disable-warning=ExperimentalWarning --test \"test/**/*.test.js\""
+  }
+}
