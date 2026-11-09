@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>Siempre 홍보 영상</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+:root{
+  --page:#F5EDF1; --primary:#F375B4; --soft:#F7D0E4; --accent:#D63F8C;
+  --strong:#1E1A22; --sec:#5E5563; --muted:#8A8090; --subtle:#EDE3ED; --danger:#C92A2A;
+  --gpt-l:#FED9CE; --gpt-d:#9A3B1F; --qwen-l:#B8CEFE; --qwen-d:#2B4BA8;
+  --el-l:#D7B5DA; --el-d:#6B2F72; --mis-l:#B6FDC9; --mis-d:#1F6B3A; --nb-l:#F9E49F; --nb-d:#5C4A00;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--page);
+  font-family:"Pretendard Variable",Pretendard,-apple-system,system-ui,sans-serif;color:var(--strong);
+  -webkit-font-smoothing:antialiased}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:var(--page)}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+.abs{position:absolute;transform-origin:center}
+.hl{color:var(--accent)}
+
+/* header & footer */
+#header{position:absolute;left:70px;right:70px;top:70px;height:100px;display:flex;align-items:center;justify-content:space-between}
+#header .brand{display:flex;align-items:center;gap:14px}
+#header .brand img.m{height:84px}
+#header .brand img.w{height:60px}
+#counter{font-size:34px;font-weight:700;color:var(--sec);background:#fff;border-radius:999px;padding:12px 26px;letter-spacing:.02em}
+#dots{position:absolute;left:0;right:0;top:1770px;display:flex;justify-content:center;gap:16px}
+#dots i{display:block;height:18px;width:18px;border-radius:999px;background:#E2CFDB}
+#hint{position:absolute;left:0;right:0;top:1820px;text-align:center;font-size:30px;font-weight:500;color:var(--muted)}
+
+/* cards */
+.card{position:absolute;left:70px;top:220px;width:940px;height:1500px;background:#fff;border-radius:64px;
+  box-shadow:0 40px 90px rgba(214,63,140,.16);overflow:hidden;transform-origin:center}
+.kicker{left:80px;top:96px;font-size:30px;font-weight:700;color:var(--accent);background:#FDEAF3;border-radius:999px;padding:10px 24px}
+.title{left:80px;top:176px;font-size:80px;font-weight:900;line-height:1.2;letter-spacing:-.04em;white-space:nowrap}
+
+/* card 1 windows */
+.win{width:420px;height:290px;background:#fff;border-radius:28px;border:3px solid #EFE6EC;box-shadow:0 20px 40px rgba(30,26,34,.10);overflow:hidden}
+.win .bar{height:64px;display:flex;align-items:center;gap:10px;padding:0 22px;font-size:28px;font-weight:800}
+.win .bar i{width:14px;height:14px;border-radius:50%;background:rgba(0,0,0,.18);display:block}
+.win .bar span{margin-left:8px}
+.win .ln{height:22px;border-radius:11px;background:#EFE8EE;margin:22px 26px 0}
+.tag{font-size:30px;font-weight:800;background:var(--strong);color:#fff;border-radius:16px;padding:12px 22px}
+.sub{font-size:46px;font-weight:700;line-height:1.35;color:var(--sec);letter-spacing:-.03em}
+
+/* card 2 tiles */
+.tile{left:80px;width:780px;height:150px;border-radius:32px;border:4px solid #E3E5EA;background:#fff;display:flex;align-items:center;padding:0 30px;gap:26px}
+.ico{width:88px;height:88px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:900;flex:none}
+.tile .nm{font-size:42px;font-weight:900;letter-spacing:-.02em}
+.tile .rl{font-size:28px;color:var(--sec);margin-top:4px}
+.tile .chk{margin-left:auto;width:64px;height:64px;border-radius:50%;border:4px solid #D9DCE3;display:flex;align-items:center;justify-content:center;flex:none}
+.tile .chk svg{opacity:0}
+#cart{left:80px;top:1320px;width:780px;height:120px;border-radius:36px;background:var(--primary);color:#fff;display:flex;align-items:center;padding:0 36px;gap:20px;font-size:40px;font-weight:800}
+#cart .cnt{margin-left:auto;background:#fff;color:var(--accent);border-radius:999px;padding:8px 26px;font-size:38px;font-weight:900;transform-origin:center}
+
+/* card 3 chat */
+#chat{left:60px;top:440px;width:820px;height:1010px}
+.u{right:0;background:var(--soft);color:#3D0A24;font-size:36px;font-weight:600;border-radius:36px 36px 10px 36px;padding:20px 32px;height:84px;white-space:nowrap;transform-origin:right center}
+.ai{left:0;transform-origin:left top}
+.chip{display:inline-flex;align-items:center;gap:12px;font-size:28px;font-weight:800;border-radius:999px;padding:6px 20px 6px 6px;height:48px}
+.chip b{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;font-weight:900}
+.bub{margin-top:12px;border-radius:10px 36px 36px 36px;padding:22px 30px;font-size:30px;line-height:1.5;color:var(--strong)}
+.badge{display:inline-flex;align-items:center;margin-left:12px;font-size:24px;font-weight:800;color:var(--accent);background:#FDEAF3;border-radius:999px;padding:8px 16px;vertical-align:middle}
+.thumbs{margin-top:12px;display:flex;gap:16px}
+.th{width:230px;height:200px;border-radius:24px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:18px;font-size:40px;font-weight:900;line-height:1.05;letter-spacing:-.04em;transform-origin:center}
+.typing{display:flex;gap:10px;padding:26px 30px}
+.typing i{width:16px;height:16px;border-radius:50%;background:var(--muted);display:block}
+
+/* card 4 */
+.day{width:96px;height:96px;border-radius:50%;background:var(--subtle);display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:800;color:var(--sec)}
+.mini{font-size:30px;font-weight:800;border-radius:999px;padding:10px 22px}
+
+/* card 5 */
+#c5{background:linear-gradient(180deg,#FFF 0%,#FDEAF3 100%)}
+.cta{background:var(--primary);color:#fff;font-size:40px;font-weight:800;border-radius:999px;padding:26px 56px;box-shadow:0 18px 40px rgba(243,117,180,.45)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="blob" id="b1" style="width:700px;height:700px;background:#F7B9D8;left:-200px;top:-120px"></div>
+  <div class="blob" id="b2" style="width:600px;height:600px;background:#FBD7C9;right:-220px;top:900px"></div>
+  <div class="blob" id="b3" style="width:560px;height:560px;background:#E9C7EC;left:-160px;top:1450px"></div>
+
+  <div id="header">
+    <div class="brand"><img class="m" src="assets/mark.png" alt=""><img class="w" src="assets/wordmark.png" alt="Siempre"></div>
+    <div id="counter">1 / 5</div>
+  </div>
+
+  <!-- CARD 1 : 문제 -->
+  <section class="card" id="c1">
+    <div class="abs kicker" data-at="0">요즘 AI 쓰는 법</div>
+    <div class="abs title" data-at="0.1">AI 쓸 때마다<br><span class="hl">창을 옮겨 다니나요?</span></div>
+    <div class="abs win" style="left:70px;top:490px" data-at="0.35" data-rot="-5">
+      <div class="bar" style="background:var(--gpt-l);color:var(--gpt-d)"><i></i><i></i><i></i><span>대본은 여기</span></div>
+      <div class="ln" style="width:80%"></div><div class="ln" style="width:65%"></div><div class="ln" style="width:72%"></div>
+    </div>
+    <div class="abs win" style="left:450px;top:670px" data-at="0.6" data-rot="4">
+      <div class="bar" style="background:var(--qwen-l);color:var(--qwen-d)"><i></i><i></i><i></i><span>번역은 저기</span></div>
+      <div class="ln" style="width:70%"></div><div class="ln" style="width:85%"></div><div class="ln" style="width:55%"></div>
+    </div>
+    <div class="abs win" style="left:110px;top:900px" data-at="0.85" data-rot="-2">
+      <div class="bar" style="background:var(--nb-l);color:var(--nb-d)"><i></i><i></i><i></i><span>썸네일은 또 딴 데</span></div>
+      <div class="ln" style="width:60%"></div><div class="ln" style="width:78%"></div><div class="ln" style="width:66%"></div>
+    </div>
+    <div class="abs tag" style="left:560px;top:510px" data-at="1.05" data-rot="6">Ctrl + C</div>
+    <div class="abs tag" style="left:590px;top:1030px" data-at="1.25" data-rot="-6">Ctrl + V</div>
+    <div class="abs sub" style="left:80px;top:1250px" data-at="1.45">복사하고, 붙여 넣고,<br><span style="color:var(--danger)">구독료는 따로따로.</span></div>
+  </section>
+
+  <!-- CARD 2 : 골라 담기 -->
+  <section class="card" id="c2">
+    <div class="abs kicker" data-at="0">STEP 1 · 골라 담기</div>
+    <div class="abs title" data-at="0.08">쓸 AI만<br><span class="hl">장바구니처럼</span> 쏙</div>
+    <div class="abs tile" id="t0" style="top:460px" data-at="0.25"><div class="ico" style="background:var(--gpt-l);color:var(--gpt-d)">G</div><div><div class="nm">GPT</div><div class="rl">글쓰기 · 대본</div></div><div class="chk"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="abs tile" id="t1" style="top:630px" data-at="0.33"><div class="ico" style="background:var(--qwen-l);color:var(--qwen-d)">Q</div><div><div class="nm">Qwen</div><div class="rl">번역 · 요약</div></div><div class="chk"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="abs tile" id="t2" style="top:800px" data-at="0.41"><div class="ico" style="background:var(--el-l);color:var(--el-d)">E</div><div><div class="nm">ElevenLabs</div><div class="rl">음성</div></div><div class="chk"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="abs tile" id="t3" style="top:970px" data-at="0.49"><div class="ico" style="background:var(--mis-l);color:var(--mis-d)">M</div><div><div class="nm">Mistral</div><div class="rl">가벼운 대화</div></div><div class="chk"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="abs tile" id="t4" style="top:1140px" data-at="0.57"><div class="ico" style="background:var(--nb-l);color:var(--nb-d)">N</div><div><div class="nm">Nano Banana</div><div class="rl">이미지 · 썸네일</div></div><div class="chk"><svg width="34" height="34" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div>
+    <div class="abs" id="cart" data-at="0.7" style="display:flex">
+      <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 3.5h3l2.2 11h10.6l2.2-8H7"/><circle cx="9.5" cy="19.5" r="1.6" fill="#fff"/><circle cx="17" cy="19.5" r="1.6" fill="#fff"/></svg>
+      <span>내 장바구니</span><span class="cnt" id="cnt">0개 담김</span>
+    </div>
+  </section>
+
+  <!-- CARD 3 : 대화 -->
+  <section class="card" id="c3">
+    <div class="abs kicker" data-at="0">STEP 2 · 대화하기</div>
+    <div class="abs title" data-at="0.08">한 대화창에서<br><span class="hl">알맞은 AI</span>가 자동으로</div>
+    <div class="abs" id="chat">
+      <div class="abs u" id="m1" style="top:0">8분 유튜브 대본 써줘</div>
+      <div class="abs ai" id="m2" style="top:108px">
+        <div class="chip" style="background:var(--gpt-l);color:var(--gpt-d)"><b style="background:var(--gpt-d)">G</b>GPT · 글쓰기</div>
+        <div class="bub" id="m2b" style="background:rgba(254,217,206,.55);width:720px;height:150px">[도입] 월급날, 통장이 금세 비는 이유<br>딱 3가지만 기억하세요…</div>
+      </div>
+      <div class="abs u" id="m3" style="top:342px">이 영상 썸네일 3장</div>
+      <div class="abs ai" id="m4" style="top:450px">
+        <div class="chip" style="background:var(--nb-l);color:var(--nb-d)"><b style="background:var(--nb-d)">N</b>Nano Banana · 이미지</div><span class="badge" id="mem">앞 대본을 기억해요</span>
+        <div class="thumbs">
+          <div class="th" id="th0" style="background:linear-gradient(150deg,#FFF3C4,#F2CC4A);color:#3B2F00">통장<br>텅장?!</div>
+          <div class="th" id="th1" style="background:linear-gradient(150deg,#FDE2EF,#F375B4);color:#fff">월급<br>3원칙</div>
+          <div class="th" id="th2" style="background:linear-gradient(150deg,#DCE7FF,#7FA2F5);color:#fff">이것만<br>지켜요</div>
+        </div>
+      </div>
+      <div class="abs u" id="m5" style="top:734px">고마워!</div>
+      <div class="abs ai" id="m6" style="top:842px">
+        <div class="chip" style="background:var(--mis-l);color:var(--mis-d)"><b style="background:var(--mis-d)">M</b>Mistral · 0 크레딧</div>
+        <div class="bub" style="background:rgba(182,253,201,.55)">천만에요! 다음 영상도 함께해요 :)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARD 4 : 크레딧 -->
+  <section class="card" id="c4">
+    <div class="abs kicker" data-at="0">STEP 3 · 크레딧</div>
+    <div class="abs title" data-at="0.08">남은 만큼 한눈에,<br><span class="hl">매주 새로 충전</span></div>
+    <div class="abs" style="left:220px;top:440px;width:500px;height:500px" data-at="0.15">
+      <svg width="500" height="500" viewBox="0 0 500 500">
+        <circle cx="250" cy="250" r="210" fill="none" stroke="#F3E6EE" stroke-width="44"/>
+        <circle id="ring" cx="250" cy="250" r="210" fill="none" stroke="#F375B4" stroke-width="44" stroke-linecap="round"
+          stroke-dasharray="1319.47" stroke-dashoffset="1319.47" transform="rotate(-90 250 250)"/>
+      </svg>
+      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center">
+        <div id="num" style="font-size:132px;font-weight:900;color:var(--accent);letter-spacing:-.04em;line-height:1">0</div>
+        <div style="font-size:32px;font-weight:600;color:var(--muted);margin-top:10px">이번 주 남은 크레딧</div>
+      </div>
+    </div>
+    <div class="abs mini" style="left:110px;top:990px;background:var(--gpt-l);color:var(--gpt-d)" data-at="0.7">GPT 290</div>
+    <div class="abs mini" style="left:375px;top:990px;background:var(--qwen-l);color:var(--qwen-d)" data-at="0.8">Qwen 120</div>
+    <div class="abs mini" style="left:650px;top:990px;background:var(--nb-l);color:var(--nb-d)" data-at="0.9">Nano 118</div>
+    <div class="abs" id="week" style="left:80px;top:1120px;width:780px;display:flex;justify-content:space-between" data-at="1.0">
+      <div class="day" id="mon">월</div><div class="day">화</div><div class="day">수</div><div class="day">목</div><div class="day">금</div><div class="day">토</div><div class="day">일</div>
+    </div>
+    <div class="abs" id="charge" style="left:82px;top:1232px;font-size:28px;font-weight:800;color:var(--accent);background:#FDEAF3;border-radius:999px;padding:8px 18px">충전!</div>
+    <div class="abs sub" style="left:80px;top:1320px;font-size:40px" data-at="1.45">결제한 요일마다 채워지고, 쓴 만큼만 차감</div>
+  </section>
+
+  <!-- CARD 5 : 엔딩 -->
+  <section class="card" id="c5">
+    <img class="abs" id="mark" src="assets/mark.png" style="left:220px;top:170px;width:500px" alt="">
+    <img class="abs" id="word" src="assets/wordmark.png" style="left:150px;top:690px;width:640px" alt="Siempre">
+    <div class="abs" id="tagline" style="left:0;width:940px;top:960px;text-align:center;font-size:52px;font-weight:800;line-height:1.4;letter-spacing:-.03em">쓸 AI만 골라 담고,<br>고르는 건 <span class="hl">Siempre</span>가 할게요.</div>
+    <div class="abs" id="cta" style="left:0;width:940px;top:1210px;display:flex;justify-content:center"><div class="cta">AI 통합 구독, Siempre</div></div>
+  </section>
+
+  <div id="dots"><i></i><i></i><i></i><i></i><i></i></div>
+  <div id="hint">옆으로 넘겨보세요 →</div>
+</div>
+
+<script>
+const DURATION = 17.7;
+const T = [3.1, 6.05, 9.55, 12.75];   // slide transition starts
+const SLIDE = 0.55;
+const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+const eOut = p => 1 - Math.pow(1 - p, 3);
+const eInOut = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+const eBack = p => { const c1 = 1.7, c3 = c1 + 1; return 1 + c3 * Math.pow(p - 1, 3) + c1 * Math.pow(p - 1, 2); };
+const prog = (lt, at, dur) => clamp((lt - at) / dur);
+const $ = id => document.getElementById(id);
+const cards = [...document.querySelectorAll('.card')];
+const dots = [...document.querySelectorAll('#dots i')];
+const pops = cards.map(c => [...c.querySelectorAll('[data-at]')]);
+
+function popStyle(el, lt, at, dur = 0.5, dy = 50) {
+  const p = prog(lt, at, dur);
+  const rot = +(el.dataset.rot || 0);
+  const s = 0.86 + 0.14 * eBack(p);
+  el.style.opacity = eOut(clamp(p * 1.6));
+  el.style.transform = `translateY(${(1 - eOut(p)) * dy}px) scale(${s}) rotate(${rot}deg)`;
+}
+function localT(t, i) { return i === 0 ? t : t - T[i - 1] - 0.2; }
+
+function render(t) {
+  // carousel position
+  let pos = 0;
+  T.forEach(s => pos += eInOut(clamp((t - s) / SLIDE)));
+  cards.forEach((c, i) => {
+    const d = i - pos;
+    const sc = 1 - 0.07 * Math.min(1, Math.abs(d));
+    c.style.transform = `translateX(${d * 1010}px) scale(${sc})`;
+    c.style.visibility = Math.abs(d) > 1.2 ? 'hidden' : 'visible';
+    const lt = localT(t, i);
+    pops[i].forEach(el => popStyle(el, lt, +el.dataset.at));
+  });
+  $('counter').textContent = `${Math.round(pos) + 1} / 5`;
+  dots.forEach((d, i) => {
+    const a = clamp(1 - Math.abs(i - pos));
+    d.style.width = (18 + 34 * a) + 'px';
+    d.style.background = a > .5 ? '#F375B4' : '#E2CFDB';
+  });
+  $('hint').style.opacity = 1 - clamp((t - T[3] + 0.2) / 0.4);
+
+  // background blobs drift
+  $('b1').style.transform = `translate(${Math.sin(t * .5) * 60}px,${Math.cos(t * .4) * 40}px)`;
+  $('b2').style.transform = `translate(${Math.cos(t * .45) * 70}px,${Math.sin(t * .35) * 60}px)`;
+  $('b3').style.transform = `translate(${Math.sin(t * .3) * 50}px,${Math.cos(t * .5) * 50}px)`;
+
+  // card 1: windows wobble slightly
+  // card 2: selection
+  const l2 = localT(t, 1);
+  const sel = [[0, 0.85], [1, 1.1], [4, 1.35], [3, 1.6]];
+  let count = 0, lastAt = -1;
+  for (let k = 0; k < 5; k++) {
+    const tile = $('t' + k), chk = tile.querySelector('.chk'), svg = chk.querySelector('svg');
+    const s = sel.find(x => x[0] === k);
+    const p = s ? prog(l2, s[1], 0.3) : 0;
+    if (s && l2 >= s[1]) { count++; lastAt = Math.max(lastAt, s[1]); }
+    tile.style.borderColor = p > 0 ? '#F375B4' : '#E3E5EA';
+    tile.style.background = p > 0 ? `rgba(247,208,228,${0.35 * p})` : '#fff';
+    chk.style.background = p > 0 ? '#F375B4' : 'transparent';
+    chk.style.borderColor = p > 0 ? '#F375B4' : '#D9DCE3';
+    chk.style.transform = `scale(${p > 0 ? 0.6 + 0.4 * eBack(p) : 1})`;
+    svg.style.opacity = p;
+  }
+  $('cnt').textContent = `${count}개 담김`;
+  const bump = lastAt >= 0 ? prog(l2, lastAt, 0.3) : 1;
+  $('cnt').style.transform = `scale(${1 + 0.25 * Math.sin(Math.PI * bump)})`;
+
+  // card 3: chat
+  const l3 = localT(t, 2);
+  const chatSeq = [['m1', 0.1, 'u'], ['m2', 0.42, 'a'], ['m3', 1.05, 'u'], ['m4', 1.37, 'a'], ['m5', 2.05, 'u'], ['m6', 2.3, 'a']];
+  chatSeq.forEach(([id, at]) => popStyle($(id), l3, at, 0.45, 30));
+  // GPT bubble types out (reveal width via clip)
+  const tp = prog(l3, 0.58, 0.5);
+  $('m2b').style.clipPath = `inset(0 ${100 - 100 * eOut(tp)}% 0 0 round 10px 36px 36px 36px)`;
+  ['th0', 'th1', 'th2'].forEach((id, i) => {
+    const p = prog(l3, 1.53 + i * 0.12, 0.35);
+    $(id).style.opacity = p;
+    $(id).style.transform = `scale(${0.7 + 0.3 * eBack(p)})`;
+  });
+  const mp = prog(l3, 1.85, 0.3);
+  $('mem').style.opacity = mp;
+  $('mem').style.transform = `scale(${0.6 + 0.4 * eBack(mp)})`;
+
+  // card 4: ring & count
+  const l4 = localT(t, 3);
+  const rp = eOut(prog(l4, 0.2, 1.1));
+  const frac = 528 / 800;
+  $('ring').setAttribute('stroke-dashoffset', 1319.47 * (1 - frac * rp));
+  $('num').textContent = Math.round(528 * rp);
+  const cp = prog(l4, 1.3, 0.35);
+  $('mon').style.background = cp > 0 ? '#F375B4' : '';
+  $('mon').style.color = cp > 0 ? '#fff' : '';
+  $('mon').style.transform = `scale(${1 + 0.25 * Math.sin(Math.PI * cp)})`;
+  $('charge').style.opacity = cp;
+  $('charge').style.transform = `translateY(${(1 - eOut(cp)) * 20}px)`;
+
+  // card 5: end
+  const l5 = localT(t, 4);
+  const mk = prog(l5, 0.05, 0.7);
+  const wob = l5 > 0.75 ? Math.sin((l5 - 0.75) * 3) * 3 : 0;
+  $('mark').style.opacity = clamp(mk * 2);
+  $('mark').style.transform = `translateY(${(1 - eOut(mk)) * 120 + Math.sin(l5 * 2.4) * 8 * clamp(l5 - .7)}px) scale(${0.4 + 0.6 * eBack(mk)}) rotate(${(1 - eOut(mk)) * -18 + wob}deg)`;
+  const wp = prog(l5, 0.3, 0.5);
+  $('word').style.opacity = wp;
+  $('word').style.transform = `translateY(${(1 - eOut(wp)) * 60}px) scale(${0.9 + 0.1 * eBack(wp)})`;
+  const tg = prog(l5, 0.5, 0.5);
+  $('tagline').style.opacity = tg;
+  $('tagline').style.transform = `translateY(${(1 - eOut(tg)) * 40}px)`;
+  const ct = prog(l5, 1.0, 0.5);
+  $('cta').style.opacity = ct;
+  $('cta').style.transform = `scale(${(0.7 + 0.3 * eBack(ct)) * (1 + 0.03 * Math.sin(clamp(l5 - 1.8, 0, 9) * 6))})`;
+}
+window.render = render;
+window.DURATION = DURATION;
+
+// live preview loop (disabled when ?render is in the URL)
+if (!location.search.includes('render')) {
+  const t0 = performance.now();
+  const loop = now => { render(((now - t0) / 1000) % DURATION); requestAnimationFrame(loop); };
+  requestAnimationFrame(loop);
+} else {
+  render(0);
+}
+</script>
+</body>
+</html>
