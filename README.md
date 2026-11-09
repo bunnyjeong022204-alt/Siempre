@@ -12,8 +12,8 @@
 
 | 폴더 | 담당 | 올리는 것 |
 | --- | --- | --- |
-| [`frontend/`](frontend/) | 곽희수 (전체 흐름), 김형민 (회원가입·로그인 화면) | 화면 코드 (HTML·CSS·JS 또는 프레임워크 프로젝트) |
-| [`backend/`](backend/) | 김형민 (회원가입·로그인), 곽희수 (구독·대화·크레딧) | 서버 코드. 분담과 병합 규칙은 [`backend/README.md`](backend/README.md) |
+| [`frontend/`](frontend/) | 권희수 (전체 흐름), 김형민 (회원가입·로그인 화면) | 화면 코드 (HTML·CSS·JS 또는 프레임워크 프로젝트) |
+| [`backend/`](backend/) | 김형민 (회원가입·로그인), 권희수 (구독·대화·크레딧) | 서버 코드. 분담과 병합 규칙은 [`backend/README.md`](backend/README.md) |
 | [`docs/`](docs/) | PM | PRD, SWOT, 사용 시나리오, 손익 추정, 회의록, 프로젝트 문서(INTENT·SPEC·PLAN) |
 
 각 폴더의 `README.md`에 무엇을 어떻게 올리는지 적혀 있습니다.
