@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import { HOME_PATH } from '../../config/auth';
 import { AuthLayout } from '../../components/auth/AuthLayout';
 import { Alert, Field, PasswordToggle, PrimaryButton } from '../../components/auth/Controls';
-import { isEmail, safeNext } from '../../lib/auth';
+import { isEmail, isHtmlPage, safeNext } from '../../lib/auth';
 import { firebaseCode, firebaseErrorMessage } from '../../lib/firebase';
 import { useAuth } from '../../state/AuthState';
 
@@ -19,7 +19,10 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const next = safeNext(params.get('next'), HOME_PATH);
 
-  if (user) return <Navigate to={next} replace />;
+  if (user) {
+    if (isHtmlPage(next)) { window.location.replace(next); return null; }
+    return <Navigate to={next} replace />;
+  }
   // Firebase 계정은 있지만 Siempre 가입을 마치지 않았으면 가입 화면에서 이어서
   if (pendingEmail) return <Navigate to="/signup" replace />;
 
@@ -30,7 +33,10 @@ export function LoginPage() {
     setError(null);
     try {
       const r = await login(email.trim(), password);
-      if (r === 'ok') navigate(next, { replace: true });
+      if (r === 'ok') {
+        if (isHtmlPage(next)) window.location.replace(next); // 서비스 화면 같은 별도 HTML 페이지
+        else navigate(next, { replace: true });
+      }
       else if (r === 'profile_missing') navigate('/signup', { replace: true });
     } catch (err) {
       setError(firebaseErrorMessage(firebaseCode(err)).message);

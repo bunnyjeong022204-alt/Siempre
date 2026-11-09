@@ -28,5 +28,8 @@ export function confirmState(pw: string, confirm: string, left: boolean): 'empty
 
 /** 로그인 뒤 돌아갈 주소. 외부 주소로 튀지 않게 같은 사이트 경로만 허용한다. */
 export function safeNext(next: string | null, fallback: string): string {
-  return next && next.startsWith('/') && !next.startsWith('//') ? next : fallback;
+  return next && next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/\\') ? next : fallback;
 }
+
+/** React 라우트가 아닌 별도 HTML 페이지인지 (그런 곳은 router.navigate 대신 페이지를 새로 연다) */
+export const isHtmlPage = (path: string) => /\.html(\?|#|$)/.test(path);

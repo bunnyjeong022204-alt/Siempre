@@ -1,6 +1,6 @@
 import { BrowserRouter, Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { RequireAuth } from './components/auth/RequireAuth';
-import { HomePage } from './pages/HomePage';
+import { GoToServicePage } from './pages/GoToServicePage';
 import { LoginPage } from './pages/auth/LoginPage';
 import { SignupAccountPage } from './pages/auth/SignupAccountPage';
 import { SignupDonePage } from './pages/auth/SignupDonePage';
@@ -12,8 +12,8 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* 구독·대화·크레딧 화면도 이렇게 RequireAuth로 감싼다 (PRD 5-0) */}
-          <Route path="/" element={<RequireAuth><HomePage /></RequireAuth>} />
+          {/* 로그인했으면 서비스 화면(권희수 님 페이지)으로. 그 페이지는 bridge/prototypeAuth.ts가 로그인을 확인한다 (PRD 5-0) */}
+          <Route path="/" element={<RequireAuth><GoToServicePage /></RequireAuth>} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupProvider><Outlet /></SignupProvider>}>
             <Route index element={<SignupAccountPage />} />
