@@ -72,8 +72,6 @@ nav button.on{background:var(--pink-l);color:#1b1b22}
 .total-l{font-size:12px;opacity:.9;margin-top:14px}
 .total{font-size:46px;font-weight:900;letter-spacing:-1px;line-height:1.2}
 .total-s{font-size:12px;opacity:.9}
-.save{background:#fff;color:#1b1b22;border-radius:14px;padding:14px 16px;margin-top:16px}
-.save s{color:#888;font-size:12px}.save .big{color:var(--pink-d);font-weight:800;font-size:19px}.save small{display:block;font-size:11px;color:var(--mute)}
 .yearly{background:rgba(255,255,255,.22);border-radius:14px;padding:14px 16px;margin-top:14px;font-size:13px}
 .yearly .big{font-size:22px;font-weight:800;color:#c4ffd9}
 .yearly button{background:#fff;color:var(--pink-d);font-weight:700;font-size:12px;padding:6px 12px;border-radius:8px;margin-top:8px}
@@ -100,6 +98,73 @@ nav button.on{background:var(--pink-l);color:#1b1b22}
 .m-sum b{color:#000;font-size:18px}
 .modal .go{width:100%;background:var(--pink);color:#fff;font-weight:800;border-radius:12px;padding:15px;margin-top:16px}
 .modal .auto{font-size:12px;color:var(--mute);margin-top:12px}
+/* 결제하기(02-1·1b·1c) · 결제 완료(02-2) 모달 (피그마 수치) */
+.modal.pay{line-height:1.2;display:flex;flex-direction:column;gap:20px;text-align:left;width:520px;padding:28px 32px;border-radius:24px;max-height:calc(100vh - 32px);overflow:auto}
+.modal.pay>*{flex:none}   /* 창이 길어 스크롤될 때 버튼·박스가 찌그러지지 않게 */
+.pay-head{display:flex;align-items:center;justify-content:space-between}
+.pay-head h2{margin:0;font-size:22px;font-weight:900;color:#1e1a22}
+.pay-x{width:32px;height:32px;margin:-3px -6px -3px 0;border-radius:50%;display:grid;place-items:center;color:#8a8090;font-size:16px}   /* 누르는 영역은 32px, 높이는 피그마 헤더(26px)에 맞춤 */
+.pay-x:hover{background:#f5edf1}
+.pay-order{background:#f5edf1;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:9px}
+.pay-order .hd{display:flex;justify-content:space-between;align-items:baseline;font-size:14px;font-weight:700;color:#1e1a22}
+.pay-order .hd small{font-size:12px;font-weight:500;color:#8a8090}
+.pay-order .li{display:flex;justify-content:space-between;font-size:13px;color:#5e5563}
+.pay-order .li b{font-weight:500;color:#1e1a22}
+.pay-order .li.disc,.pay-order .li.disc b{color:#d63f8c}.pay-order .li.disc b{font-weight:700}
+.pay-order hr{border:0;border-top:1px solid #e6dae2;margin:2px 0}
+.pay-order .tot{display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;color:#1e1a22}
+.pay-order .tot b{font-size:22px;font-weight:900}
+.pay-order .sub{font-size:12px;color:#8a8090}
+.pay-sec{display:flex;flex-direction:column;gap:10px}
+.pay-sec>.t{font-size:14px;font-weight:700;color:#1e1a22}
+.pay-tabs{display:flex;gap:8px}
+.pay-tabs button{flex:1;height:45px;border-radius:12px;border:1px solid #d9dce3;background:#fff;font-size:14px;font-weight:500;color:#5e5563}
+.pay-tabs button.on{background:#f7d0e4;border:2px solid #f375b4;color:#1e1a22;font-weight:700}
+.pay-f label{display:block;font-size:12px;font-weight:500;color:#5e5563;margin-bottom:6px}
+.pay-f input,.pay-f select{width:100%;height:44px;border:1px solid #d9dce3;border-radius:10px;padding:0 14px;font:inherit;font-size:15px;background:#fff;color:#1e1a22}
+.pay-f select{appearance:none;-webkit-appearance:none;padding-right:40px;cursor:pointer;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%238a8090' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E") no-repeat right 14px center}
+.pay-f select.empty{color:#b5adb9}
+.pay-f select option{color:#1e1a22}
+.pay-f input::placeholder{color:#b5adb9}
+.pay-f input:focus,.pay-f select:focus{outline:2px solid #f375b4;outline-offset:-1px;border-color:#f375b4}
+.pay-row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pay-easy{display:flex;flex-direction:column;gap:8px}
+.pay-opt{display:flex;align-items:center;gap:12px;width:100%;height:54px;padding:0 16px;border:1px solid #d9dce3;border-radius:12px;background:#fff;text-align:left;font-size:14px;font-weight:500;color:#1e1a22}
+.pay-opt.on{height:56px;margin:-1px 0;border:2px solid #f375b4;background:#fdf3f8;font-weight:700}
+.pay-opt .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid #d9dce3;background:#fff;flex:none;box-sizing:border-box}
+.pay-opt.on .rd{border:6px solid #f375b4}
+.pay-opt .lg{width:28px;height:28px;border-radius:8px;background:#f5edf1;display:grid;place-items:center;font-size:13px;font-weight:900;color:#5e5563;flex:none}
+.pay-opt .nm{flex:1}
+.pay-opt .tg{font-size:12px;font-weight:500;color:#d63f8c}
+.pay-opt:focus-visible,.pay-tabs button:focus-visible,.pay-x:focus-visible{outline:2px solid #1e1a22;outline-offset:2px}
+.pay-info{display:flex;gap:6px;font-size:12px;color:#8a8090;line-height:1.4}
+.pay-info span:first-child{font-weight:700}
+.pay-note{background:#f5edf1;border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:4px;font-size:12px;color:#5e5563}
+.pay-note b{color:#1e1a22}
+.pay-agree{display:flex;flex-direction:column;gap:6px}
+.pay-agree label{display:flex;gap:10px;align-items:center;font-size:13px;font-weight:500;color:#1e1a22;cursor:pointer}
+.pay-agree input{appearance:none;-webkit-appearance:none;width:20px;height:20px;border-radius:6px;border:1.5px solid #c9bfc7;background:#fff;margin:0;cursor:pointer;flex:none;display:grid;place-items:center}
+.pay-agree input:checked{background:#f375b4;border-color:#f375b4}
+.pay-agree input:checked::after{content:'';width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.pay-agree input:focus-visible{outline:2px solid #1e1a22;outline-offset:2px}
+.pay-agree small{font-size:12px;color:#8a8090;padding-left:30px}
+.pay-go{width:100%;height:51px;border-radius:12px;background:#f375b4;color:#fff;font-size:16px;font-weight:700}
+.pay-go:disabled{opacity:.45;cursor:not-allowed}
+.pay-demo{background:#f5edf1;border-radius:10px;padding:8px 12px;font-size:12px;color:#5e5563;text-align:center}
+/* 결제 완료 (02-2): 폭 480, 안쪽 여백 36/36/32/36, 간격 18 */
+.modal.pay.done{width:480px;padding:36px 36px 32px;align-items:center;text-align:center;gap:18px}
+.modal.pay.done>*{margin:0}
+.modal.pay.done h2{font-size:24px;font-weight:900;color:#1e1a22}
+.modal.pay.done .s{font-size:14px;color:#5e5563}
+.modal.pay.done .m-credit,.modal.pay.done .m-list,.modal.pay.done .m-sum,.modal.pay.done .go{align-self:stretch}
+.modal.pay.done .m-credit{background:#f5edf1;border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;text-align:left}
+.modal.pay.done .m-credit .bar{margin:0}
+.modal.pay.done .m-list{display:flex;flex-direction:column;gap:10px}
+.modal.pay.done .m-list>div{padding:0}
+.modal.pay.done .m-sum{margin:0;padding-top:12px}
+.modal.pay.done .go{height:51px;padding:0;font-weight:700;font-size:16px}
+.modal.pay.done .auto{color:#8a8090}
+@media(max-width:560px){.modal.pay{padding:22px 18px}.pay-row2{grid-template-columns:1fr}}
 
 /* ---------- 대화 ---------- */
 #chat{display:grid;grid-template-columns:248px minmax(0,1fr);grid-template-rows:minmax(0,1fr);height:calc(100vh - 67px - var(--demoH,0px));overflow:hidden}
@@ -117,7 +182,12 @@ nav button.on{background:var(--pink-l);color:#1b1b22}
 .side .mine .badge.off{opacity:.3;filter:grayscale(.6)}
 .main{display:flex;flex-direction:column;min-width:0;background:var(--bg)}
 .ch-head{height:48px;padding:0 24px;background:#f6eaf1;border-bottom:1px solid #eadae3;display:flex;align-items:center;justify-content:space-between;font-weight:800;font-size:14px;flex:none}
-.ch-head small{font-weight:500;color:var(--mute);font-size:12px}.ch-head small b{color:var(--pink-d)}
+.ch-head small{font-weight:500;color:var(--mute);font-size:12px;display:inline-flex;align-items:center;gap:6px}.ch-head small b{color:var(--pink-d)}
+/* 남은 크레딧 % 게이지: 50% 이하 주황, 20% 이하 빨강 */
+.gauge{width:96px;height:8px;border-radius:99px;background:#e3cfdb;overflow:hidden;display:inline-block;flex:none}
+.gauge>i{display:block;height:100%;width:100%;background:var(--pink);border-radius:99px;transition:width .25s,background .25s}
+.gauge.mid>i{background:#f2a33a}.gauge.low>i{background:#e53935}
+.ch-head .pct{min-width:34px;text-align:right;color:var(--ink)}
 .msgs{flex:1;overflow:auto;padding:24px 72px 12px;display:flex;flex-direction:column;gap:10px}
 .msgs .sp{flex:1}
 .u{align-self:flex-end;background:#f5a3cb;padding:9px 18px;border-radius:18px;max-width:70%;font-size:14px}
@@ -179,13 +249,39 @@ nav button.on{background:var(--pink-l);color:#1b1b22}
 .quick{display:flex;gap:6px;flex-wrap:wrap;width:min(810px,calc(100% - 48px));margin:0 auto 4px}
 .quick button{background:#fff;border:1px dashed var(--pink);color:var(--pink-d);font-size:12px;padding:4px 12px;border-radius:99px}
 .typing{align-self:flex-start;color:var(--mute);font-size:13px}
+.est.warn{background:#fff3cd;color:#6b4e00}
+.alert.err{border-color:#e57373;background:#fff8f8}
+/* 무료 사용 종료 안내 (E4) */
+.modal.pay.freeend{width:480px;align-items:center;text-align:center;gap:16px}
+.modal.pay.freeend>*{margin:0}
+.fe-ic{width:64px;height:64px;border-radius:50%;background:#f7d0e4;color:#d63f8c;display:grid;place-items:center;font-size:30px;font-weight:900}
+.modal.pay.freeend h2{font-size:22px;font-weight:900;color:#1e1a22}
+.modal.pay.freeend .s{font-size:14px;color:#5e5563}
+.fe-list{align-self:stretch;background:#f5edf1;border-radius:16px;padding:14px 18px;display:flex;flex-direction:column;gap:9px;text-align:left}
+.fe-row{display:flex;align-items:center;gap:10px;font-size:13px;color:#1e1a22}
+.fe-row .badge{flex:none}
+.fe-row b{font-weight:500;flex:1}
+.fe-row span:last-child{color:#d63f8c;font-weight:700}
+.fe-row span:last-child small{color:#8a8090;font-weight:500;font-size:12px}
+.fe-note{font-size:12px;color:#8a8090}
+.fe-opts{align-self:stretch;display:flex;flex-direction:column;gap:8px}
+.fe-opt{width:100%;text-align:left;border:1.5px solid #d9dce3;background:#fff;border-radius:12px;padding:12px 16px;display:flex;flex-direction:column;gap:3px}
+.fe-opt b{font-size:15px;color:#1e1a22}
+.fe-opt small{font-size:12px;color:#8a8090}
+.fe-opt:hover{border-color:#f375b4}
+.fe-opt.main{background:#f375b4;border-color:#f375b4}
+.fe-opt.main b{color:#fff}.fe-opt.main small{color:#fff;opacity:.9}
+.fe-opt:focus-visible{outline:2px solid #1e1a22;outline-offset:2px}
+.fe-demo{font-size:11px;color:#8a8090}
+.pick{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mute);font-weight:600}
+.pick select{height:34px;border:1.5px solid var(--pink);border-radius:999px;padding:0 30px 0 14px;font:inherit;font-size:12.5px;font-weight:700;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 16 16' fill='none' stroke='%23d63384' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m4 6 4 4 4-4'/%3E%3C/svg%3E") no-repeat right 11px center;color:var(--ink);appearance:none;-webkit-appearance:none;cursor:pointer}
+.pick select:focus-visible{outline:2px solid #1e1a22;outline-offset:2px}
 
 /* ---------- 07 크레딧 ---------- */
 #credit{background:#fff;margin:34px 0 0}
 .cr-wrap{max-width:1440px;margin:0 auto;padding:28px 30px 32px}
 .cr-top{display:flex;justify-content:space-between;align-items:flex-start}
 .cr-top h1{margin:0;font-size:32px;letter-spacing:-1px}.cr-top p{margin:4px 0 0;color:#666;font-size:13px}
-.charge{background:var(--pink);color:#fff;font-weight:800;border-radius:12px;padding:14px 26px}
 .kpis{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:0;margin:26px 0 30px}
 .kpi{padding:28px;min-height:229px}
 .kpi.a{background:var(--pink);color:#fff;border-radius:26px 0 0 26px}
@@ -203,7 +299,11 @@ nav button.on{background:var(--pink-l);color:#1b1b22}
 .aic .n{font-size:30px;font-weight:900}.aic .n small{font-size:12px;font-weight:500;color:#555}
 .aic .bar{background:#ede4ee}.aic .bar>i{background:var(--pink)}
 .aic .r{display:flex;justify-content:space-between;font-size:12px;color:#555}.aic .r b{color:#000}
-.aic .u2{font-size:11px;color:var(--mute);margin-top:12px}
+.aic .u2{font-size:11px;color:var(--mute);margin-top:12px;margin-bottom:14px}
+.aic>div{display:flex;flex-direction:column}
+.aic-charge{margin-top:auto;width:100%;height:36px;border-radius:10px;border:1.5px solid var(--pink);background:#fff;color:var(--pink-d);font-size:13px;font-weight:700}
+.aic-charge:hover{background:var(--pink-xl)}
+.aic-charge:focus-visible{outline:2px solid #1e1a22;outline-offset:2px}
 .two{display:grid;grid-template-columns:500px 1fr;gap:20px}
 .pan{border:1px solid var(--line);border-radius:22px;padding:24px}
 .pan h3{margin:0 0 6px;font-size:18px}
@@ -244,6 +344,7 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
   <span style="opacity:.5">|</span>
   <button id="d-e1">E1 크레딧 부족 시연</button>
   <button id="d-e2">E2 음성 AI 미구독 시연</button>
+  <button id="d-e4">E4 무료 사용 종료 시연</button>
   <button id="d-reset">초기화</button>
   <button class="gk" id="d-groq">AI 연결: 꺼짐</button>
   <span style="opacity:.6;margin-left:auto">Figma "유튜버 시나리오 화면 흐름" 기반 · 크레딧 숫자는 가정값</span>
@@ -284,7 +385,7 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
     <div class="mine"><div class="row" id="mineRow"></div></div>
   </aside>
   <div class="main">
-    <div class="ch-head"><span>월급 300만 원으로 1년에 1,000만 원 모으는 법 · 8분 영상</span><small><select id="gSwitch" class="hidden" title="Groq AI 모델 변경" style="font-size:12px;padding:3px 6px;border:1px solid #e3c9d6;border-radius:8px;background:#fff;margin-right:10px;color:#b3261e;font-weight:700"></select>이번 주 크레딧 <b id="hBal">608 남음</b> · 월요일 충전</small></div>
+    <div class="ch-head"><span>월급 300만 원으로 1년에 1,000만 원 모으는 법 · 8분 영상</span><small><select id="gSwitch" class="hidden" title="Groq AI 모델 변경" style="font-size:12px;padding:3px 6px;border:1px solid #e3c9d6;border-radius:8px;background:#fff;margin-right:10px;color:#b3261e;font-weight:700"></select>이번 주 크레딧 <b id="hBal">608 남음</b><span class="gauge" id="hGauge" role="progressbar" aria-label="이번 주 남은 크레딧" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100"><i></i></span><b class="pct" id="hPct">100%</b> · 월요일 충전</small></div>
     <div class="msgs" id="msgs"><div class="sp"></div></div>
     <div class="quick" id="quick"></div>
     <form class="composer" id="form">
@@ -293,6 +394,7 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
       <div class="comp-row">
         <div class="clip" title="파일 첨부(데모)">📎</div>
         <span class="est" id="est">입력하면 예상 크레딧이 보여요</span>
+        <label class="pick"><span>답할 AI</span><select id="aiPick" aria-label="답할 AI 선택"></select></label>
         <button class="send" id="send" disabled>보내기</button>
       </div>
     </form>
@@ -316,6 +418,7 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
   <div id="gerr" style="color:#c62828;font-size:12.5px;margin-top:10px;text-align:left"></div>
   <div class="row2"><button class="o" id="gOff">연결 끄기</button><button class="p" id="gOn">저장하고 연결</button></div>
 </div></div>
+<div class="dim hidden" id="freeEnd"><div class="modal pay freeend" id="freeBox" role="dialog" aria-modal="true" aria-labelledby="feTitle"></div></div>
 <div class="lightbox hidden" id="lightbox" onclick="this.classList.add('hidden')"><img id="lightboxImg" alt="썸네일 시안 크게 보기"></div>
 <div class="toast hidden" id="toast"></div>
 
@@ -337,13 +440,12 @@ const AIS=[
  {id:'nano',name:'Nano Banana',init:'N',cls:'c-nano',sub:'초고화질 포스터 · 프로덕트 디자인 생성',tag:'가장 저렴',role:'이미지 생성',
   tiers:[['무료',0,'일반 이미지 2장 (결제 없이)',30],['라이트',9900,'일반 이미지 70장|또는 고화질 35장',80],['스탠다드',19900,'일반 이미지 145장|또는 고화질 70장',160],['헤비',39900,'일반 이미지 290장|또는 고화질 140장',320]]},
 ];
-const BASE_PAY=55000;           // "지금 내는" 합계(Claude Pro + ElevenLabs Starter + Midjourney Basic)
 const DEFAULT_SEL={gpt:2,qwen:1,mis:2,el:2,nano:1};
 
 let S;
 function fresh(){
   S={screen:'subscribe',sel:{...DEFAULT_SEL},cycle:'month',paid:false,
-     bal:0,grant:0,usedAi:{gpt:0,qwen:0,mis:0,el:0,nano:0,groq:0},msgs:[],usedCat:{script:0,voice:0,thumb:0,light:0},hist:[],lightCnt:0,
+     bal:0,grant:0,usedAi:{gpt:0,qwen:0,mis:0,el:0,nano:0,groq:0},topup:{},pick:'auto',msgs:[],usedCat:{script:0,voice:0,thumb:0,light:0},hist:[],lightCnt:0,
      scriptDone:false,pending:null,chatHtml:''};
 }
 fresh();
@@ -362,7 +464,7 @@ function show(name){
   S.screen=name;
   ['subscribe','chat','credit'].forEach(k=>$('#'+k).classList.toggle('hidden',k!==name));
   $$('nav button').forEach(b=>b.classList.remove('on')); $('#n-'+name).classList.add('on');
-  if(name==='subscribe')renderSub(); if(name==='credit')renderCredit(); if(name==='chat'){renderMine();updBal();setTimeout(()=>{$('#msgs').scrollTop=1e6;$('#inp').focus()},0)}
+  if(name==='subscribe')renderSub(); if(name==='credit')renderCredit(); if(name==='chat'){renderMine();renderPick();updBal();setTimeout(()=>{$('#msgs').scrollTop=1e6;$('#inp').focus()},0)}
   window.scrollTo(0,0);
 }
 document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g){
@@ -392,7 +494,6 @@ function renderCart(){
   <hr><div class="total-l">${S.cycle==='month'?'월 결제액 (부가세 포함)':'1년 결제액 (부가세 포함)'}</div>
   <div class="total">${won(S.cycle==='month'?c.month:yt)}</div>
   <div class="total-s">${S.cycle==='year'?`월 ${won(yr)}꼴 · `:''}매주 ${c.credits}크레딧 · 담은 AI 어디에나 나눠 쓸 수 있어요</div>
-  ${c.n>=2&&c.month<BASE_PAY?`<div class="save"><s>지금 내는 ${won(BASE_PAY)}</s> → <b>Siempre 월 ${won(S.cycle==='month'?c.month:yr)}</b><div class="big">매달 ${won(BASE_PAY-(S.cycle==='month'?c.month:yr))} 절약</div><small>Claude Pro + ElevenLabs Starter + Midjourney Basic 합계 기준</small></div>`:''}
   ${S.cycle==='month'&&c.n>=2?`<div class="yearly"><b>1년 구독으로 바꾸면 15% 저렴해요</b><div class="big">월 ${won(yr)}꼴 <small style="font-size:13px;color:#fff;font-weight:700;display:block">1년 총액 ${won(yt)}</small></div><div style="font-size:11px;opacity:.9">지금 월 구독을 이용 중이면 최근 결제한 금액을 최대 2개월분까지 1년 구독 금액에서 빼 드려요.</div><button data-cy="year">1년 구독으로 보기 →</button></div>`:''}
   <div class="checks"><div><i>✓</i>한 대화에서 요청에 맞는 모델을 자동으로 골라요</div><div><i>✓</i>크레딧은 매주 월요일에 채워지고 다음 주로 넘어가지 않아요</div><div><i>✓</i>2개 담으면 5%, 3개 이상 담으면 10% 할인</div></div>
   ${c.n<2?`<div class="checks" style="background:#fff3cd;color:#6b4e00;margin-top:14px">결제는 유료 AI를 <b>2개 이상</b> 담아야 할 수 있어요. 지금 ${c.n}개 담았어요.</div>`:''}
@@ -407,23 +508,111 @@ document.addEventListener('click',e=>{
   if(e.target.id==='startFree'){startPaid('free');show('chat');toast('무료로 시작했어요 · 무료 크레딧 '+S.bal+' 사용 가능')}
 });
 
-/* ---------- 02 결제 완료 ---------- */
+/* ---------- 02-1 결제하기(데모) → 02-2 결제 완료 (피그마) ---------- */
 let payTimer;
+const payTotal=c=>S.cycle==='year'?Math.round(c.month*12*.85/1000)*1000:c.month;
+const payNext=()=>S.cycle==='year'?'1년 선결제 · 다음 결제 내년 11월 6일':'매달 6일 자동 결제 · 다음 결제 12월 6일';
+const PAY_METHODS=[['card','신용·체크카드'],['easy','간편결제'],['bank','계좌이체']];
+const EASY_PAYS=[['kakao','카카오페이','K','최근 사용'],['naver','네이버페이','N',''],['toss','토스페이','T',''],['payco','페이코','P','']];
+const BANKS=['국민은행','신한은행','우리은행','하나은행','NH농협은행','IBK기업은행','카카오뱅크','토스뱅크'];   // 피그마에는 목록이 없어 흔히 쓰는 은행으로 채움
+const payBtnLabel=(d,total)=>d.method==='easy'?`${EASY_PAYS.find(x=>x[0]===d.easy)[1]}로 ${won(total)} 결제하기`
+  :d.method==='bank'?`계좌 등록하고 ${won(total)} 결제하기`:`${won(total)} 결제하기`;
+
+// 02-1: 주문 내용 · 결제 수단 · 약관 동의 · 결제 버튼. 결제 전에는 크레딧을 채우지 않는다
 function pay(){
   const c=cartCalc(); if(c.n<2){toast('결제는 유료 AI를 2개 이상 담아야 할 수 있어요');return}
-  startPaid('paid');
-  $('#payBox').innerHTML=`<div class="ok">✓</div><h2>결제가 완료됐어요</h2><div class="s">데모 결제라 실제로 청구되지 않았어요. 이번 주 크레딧이 채워졌어요.</div>
-  <div class="m-credit"><span class="n">${c.credits}</span> <small>/ ${c.credits} 크레딧</small><div class="bar"><i style="width:100%"></i></div><small style="font-size:11px">다음 충전 11월 9일(월) 오전 9시</small></div>
-  <div class="m-list">${c.items.map(i=>`<div><span class="badge sm ${i.a.cls}">${i.a.init}</span><span>${i.a.name} · ${i.t[0]}</span><span>${won(i.t[1])}</span></div>`).join('')}</div>
-  ${c.rate?`<div class="m-list"><div style="color:var(--pink-d);font-size:13px"><span>${c.n}개 묶음 할인 ${c.rate*100}%</span><span>−${won(c.disc)}</span></div></div>`:''}
-  <div class="m-sum">${S.cycle==='year'?`<span>1년 결제액 · 다음 결제 내년 11월 6일</span><b>${won(Math.round(c.month*12*.85/1000)*1000)}</b>`:`<span>월 결제액 · 다음 결제 12월 6일</span><b>${won(c.month)}</b>`}</div>
-  <button class="go" id="goChat">대화 시작하기 →</button><div class="auto"><span id="cnt">3</span>초 뒤 대화 화면으로 자동 이동해요</div>`;
+  clearInterval(payTimer);
+  S.payDraft={method:'card',agree:false,card:'',exp:'',cvc:'',easy:'kakao',bank:'',acct:'',holder:'',birth:''};
+  renderPayForm(c);
   $('#payModal').classList.remove('hidden');
+  setTimeout(()=>$('#payBox .pay-x')?.focus(),0);
+}
+function payDialog(done){
+  const box=$('#payBox'); box.className='modal pay'+(done?' done':'');
+  box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true'); box.setAttribute('aria-labelledby','payTitle');
+  return box;
+}
+// 결제 수단별 입력 영역 (02-1 카드 / 02-1b 간편결제 / 02-1c 계좌이체)
+function payMethodBody(d,yr){
+  if(d.method==='easy')return `<div class="pay-easy" role="radiogroup" aria-label="간편결제 수단">${EASY_PAYS.map(([k,n,l,tag])=>
+      `<button type="button" role="radio" aria-checked="${d.easy===k}" class="pay-opt ${d.easy===k?'on':''}" data-easy="${k}"><span class="rd"></span><span class="lg">${l}</span><span class="nm">${n}</span>${tag?`<span class="tg">${tag}</span>`:''}</button>`).join('')}</div>
+    <div class="pay-info"><span aria-hidden="true">ⓘ</span><span>결제하기를 누르면 선택한 앱에서 인증해요. 데모에서는 인증 없이 바로 완료돼요.</span></div>`;
+  if(d.method==='bank')return `<div class="pay-f"><label for="pbank">은행</label><select id="pbank" class="${d.bank?'':'empty'}"><option value="" disabled ${d.bank?'':'selected'}>은행을 선택해 주세요</option>${BANKS.map(b=>`<option ${d.bank===b?'selected':''}>${b}</option>`).join('')}</select></div>
+    <div class="pay-f"><label for="pacct">계좌번호</label><input id="pacct" inputmode="numeric" autocomplete="off" maxlength="16" placeholder="- 없이 숫자만 입력" value="${esc(d.acct)}"></div>
+    <div class="pay-row2 pay-f"><div><label for="pholder">예금주</label><input id="pholder" autocomplete="off" maxlength="20" placeholder="이름" value="${esc(d.holder)}"></div><div><label for="pbirth">생년월일</label><input id="pbirth" inputmode="numeric" autocomplete="off" maxlength="6" placeholder="YYMMDD 6자리" value="${esc(d.birth)}"></div></div>
+    <div class="pay-note"><b>${yr?'등록한 계좌에서 1년 결제액이 한 번에 출금돼요':'매달 6일, 등록한 계좌에서 자동 출금돼요'}</b><span>결제하기를 누르면 계좌 본인 확인(1원 인증)을 진행해요. 데모에서는 생략돼요.</span></div>`;
+  return `<div class="pay-f"><label for="pcard">카드 번호</label><input id="pcard" inputmode="numeric" autocomplete="off" maxlength="19" placeholder="0000 0000 0000 0000" value="${esc(d.card)}"></div>
+    <div class="pay-row2 pay-f"><div><label for="pexp">유효기간</label><input id="pexp" inputmode="numeric" autocomplete="off" maxlength="7" placeholder="MM / YY" value="${esc(d.exp)}"></div><div><label for="pcvc">CVC</label><input id="pcvc" inputmode="numeric" autocomplete="off" maxlength="3" placeholder="3자리" value="${esc(d.cvc)}"></div></div>`;
+}
+function renderPayForm(c){
+  const d=S.payDraft, total=payTotal(c), yr=S.cycle==='year';
+  payDialog(false).innerHTML=`<div class="pay-head"><h2 id="payTitle">결제하기</h2><button type="button" class="pay-x" data-pay="close" aria-label="닫기">✕</button></div>
+  <div class="pay-order">
+    <div class="hd"><span>Siempre ${yr?'1년':'월'} 구독</span><small>AI ${c.n}개</small></div>
+    ${c.items.map(i=>`<div class="li"><span>${i.a.name} · ${i.t[0]}</span><b>${won(i.t[1])}</b></div>`).join('')}
+    ${c.rate?`<div class="li disc"><span>${c.n}개 묶음 할인 ${c.rate*100}%</span><b>−${won(c.disc)}</b></div>`:''}
+    ${yr?`<div class="li"><span>12개월 합계</span><b>${won(c.month*12)}</b></div><div class="li disc"><span>1년 구독 15% 할인</span><b>−${won(c.month*12-total)}</b></div>`:''}
+    <hr>
+    <div class="tot"><span>${yr?'1년 결제액':'월 결제액'} (부가세 포함)</span><b>${won(total)}</b></div>
+    <div class="sub">매주 ${c.credits}크레딧 · ${payNext()}</div>
+  </div>
+  <div class="pay-sec"><div class="t">결제 수단</div>
+    <div class="pay-tabs" role="tablist">${PAY_METHODS.map(([k,l])=>`<button type="button" role="tab" aria-selected="${d.method===k}" class="${d.method===k?'on':''}" data-pm="${k}">${l}</button>`).join('')}</div>
+    ${payMethodBody(d,yr)}
+  </div>
+  <div class="pay-agree"><label><input type="checkbox" id="pagree" ${d.agree?'checked':''}> 주문 내용을 확인했고 정기 결제에 동의해요 (필수)</label><small>${yr?'1년 단위로 결제되고':'매달 6일에 자동으로 결제되고'}, 언제든 해지할 수 있어요.</small></div>
+  <button type="button" class="pay-go" id="payGo" ${d.agree?'':'disabled'}>${payBtnLabel(d,total)}</button>
+  <div class="pay-demo">데모 결제예요 · 카드 정보는 저장되지 않고 실제로 청구되지 않아요</div>`;
+}
+// 02-2: 결제 완료. 여기서 크레딧을 채운다
+function renderPayDone(c){
+  const total=payTotal(c), yr=S.cycle==='year';
+  payDialog(true).innerHTML=`<div class="ok" aria-hidden="true">✓</div><h2 id="payTitle">결제가 완료됐어요</h2>
+  <div class="s">데모 결제라 실제로 청구되지 않았어요. 이번 주 크레딧이 채워졌어요.</div>
+  <div class="m-credit"><div><span class="n">${c.credits}</span> <small>/ ${c.credits} 크레딧</small></div><div class="bar"><i style="width:100%"></i></div><small style="font-size:12px">다음 충전 11월 9일(월) 오전 9시</small></div>
+  <div class="m-list">${c.items.map(i=>`<div><span class="badge sm ${i.a.cls}">${i.a.init}</span><span>${i.a.name} · ${i.t[0]}</span><span>${won(i.t[1])}</span></div>`).join('')}
+  ${c.rate?`<div style="color:var(--pink-d);font-size:14px"><span>${c.n}개 묶음 할인 ${c.rate*100}%</span><span>−${won(c.disc)}</span></div>`:''}</div>
+  <div class="m-sum"><span>${yr?'1년 결제액 · 다음 결제 내년 11월 6일':'월 결제액 · 다음 결제 12월 6일'}</span><b>${won(total)}</b></div>
+  <button class="go" id="goChat">대화 시작하기 →</button><div class="auto"><span id="cnt">3</span>초 뒤 대화 화면으로 자동 이동해요</div>`;
   let n=3; clearInterval(payTimer);
   payTimer=setInterval(()=>{n--; if($('#cnt'))$('#cnt').textContent=n; if(n<=0)closePay()},1000);
+  setTimeout(()=>$('#goChat')?.focus(),0);
 }
 function closePay(){clearInterval(payTimer);$('#payModal').classList.add('hidden');show('chat')}
-document.addEventListener('click',e=>{if(e.target.id==='goChat')closePay()});
+function cancelPay(){clearInterval(payTimer);S.payDraft=null;$('#payModal').classList.add('hidden')}   // 결제 전에 닫으면 구독 화면에 그대로 남는다
+
+// 입력 서식: 카드 4자리마다 띄우기, 유효기간 MM / YY, CVC·계좌번호·생년월일은 숫자만
+const digits=s=>String(s||'').replace(/\D/g,'');
+document.addEventListener('input',e=>{
+  const t=e.target, d=S.payDraft; if(!d||!t.closest?.('#payBox'))return;
+  if(t.id==='pcard'){t.value=d.card=digits(t.value).slice(0,16).replace(/(.{4})/g,'$1 ').trim()}
+  else if(t.id==='pexp'){const v=digits(t.value).slice(0,4);t.value=d.exp=v.length>2?v.slice(0,2)+' / '+v.slice(2):v}
+  else if(t.id==='pcvc'){t.value=d.cvc=digits(t.value).slice(0,3)}
+  else if(t.id==='pacct'){t.value=d.acct=digits(t.value).slice(0,16)}
+  else if(t.id==='pbirth'){t.value=d.birth=digits(t.value).slice(0,6)}
+  else if(t.id==='pholder'){d.holder=t.value}
+});
+document.addEventListener('change',e=>{
+  const d=S.payDraft; if(!d)return;
+  if(e.target.id==='pagree'){d.agree=e.target.checked;$('#payGo').disabled=!e.target.checked}
+  else if(e.target.id==='pbank'){d.bank=e.target.value;e.target.classList.toggle('empty',!d.bank)}
+});
+document.addEventListener('click',e=>{
+  const t=e.target;
+  if(t.id==='goChat'){closePay();return}
+  if(t.closest?.('[data-pay="close"]')){cancelPay();return}
+  const pm=t.closest?.('[data-pm]');
+  if(pm&&S.payDraft){S.payDraft.method=pm.dataset.pm;renderPayForm(cartCalc());return}
+  const ez=t.closest?.('[data-easy]');
+  if(ez&&S.payDraft){S.payDraft.easy=ez.dataset.easy;renderPayForm(cartCalc());return}
+  if(t.id==='payGo'&&S.payDraft?.agree){
+    const c=cartCalc(); if(c.n<2)return;
+    startPaid('paid'); S.payDraft=null; renderPayDone(c);
+  }
+});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'&&!$('#payModal').classList.contains('hidden')&&S.payDraft)cancelPay();
+});
 function startPaid(plan='paid'){
   const upgrade=S.paid&&S.plan==='free'&&plan==='paid';
   if(S.paid&&!upgrade)return; const c=cartCalc();
@@ -461,7 +650,7 @@ function classify(t){
   if(groqOn()&&!/(대본|써줘|써 줘|작성|게시글|카피)/.test(t))return 'light';
   return 'write';
 }
-function plan(t){
+function planAuto(t){
   const k=classify(t);
   switch(k){
    case 'voice':return{k,ai:'el',cr:25,why:'음성 요청이라 자동 선택',est:'예상: 음성 · 약 2,400자 · 25크레딧',cat:'voice',job:'내레이션 음성 · 약 2,400자'};
@@ -472,20 +661,62 @@ function plan(t){
    default:return{k,ai:'gpt',cr:5,why:'글쓰기 요청이라 자동 선택 · 5크레딧',est:'예상: 글쓰기 · 5크레딧',cat:'script',job:'유튜브 대본 작성 · 8분'};
   }
 }
+/* ---- 답할 AI 직접 고르기: 유료는 구매한 AI만, 무료 사용자는 모든 AI ---- */
+const pickable=()=>S.plan==='free'?AIS:AIS.filter(a=>S.sel[a.id]>0);
+const KIND_LABEL={voice:'음성 생성',thumb:'이미지 생성',bulk:'번역·요약',light:'가벼운 대화',write:'글쓰기',edit:'글 수정'};
+// 조사: 이름 끝소리에 따라 [은/는, 이/가, 으로/로, 을/를]
+const JOSA={'Claude':['는','가','로','를'],'Qwen':['은','이','으로','을'],'Mistral':['은','이','로','을'],'ElevenLabs':['는','가','로','를'],'Nano Banana':['는','가','로','를'],'Groq':['은','이','으로','을']};
+const jo=(name,i)=>(JOSA[name]||JOSA.Claude)[i];
+const PICK_TEXT={gpt:5,qwen:1,mis:0};   // 글 답변 AI별 차감 크레딧 (유형별 자동 선택 때와 같은 값)
+function plan(t){
+  const p=planAuto(t), pick=S.pick;
+  if(!pick||pick==='auto'||!pickable().some(a=>a.id===pick))return p;
+  const A=AIS.find(a=>a.id===pick), isText=['write','edit','bulk','light'].includes(p.k);
+  if(pick in PICK_TEXT){
+    if(!isText)return{...p,warn:`⚠ ${A.name}${jo(A.name,0)} 글 답변만 해요`,errTitle:`${A.name}${jo(A.name,2)}는 이 요청을 처리할 수 없어요`,
+      blocked:`${A.name}${jo(A.name,0)} 글 답변만 해요. 지금 요청은 ${KIND_LABEL[p.k]} 요청이라 ${MODEL[p.ai].name}${jo(MODEL[p.ai].name,1)} 필요해요. ${MODEL[p.ai].name}${jo(MODEL[p.ai].name,3)} 고르거나 "자동 선택"으로 바꿔 주세요.`};
+    const cr=PICK_TEXT[pick];
+    return{...p,ai:pick,cr,cat:pick==='mis'?'light':'script',why:`직접 고른 AI · ${cr===0?'0':cr}크레딧`,est:`예상: ${A.name} · ${cr===0?'크레딧 차감 없음':cr+'크레딧'}`};
+  }
+  const need=pick==='el'?'voice':'thumb';
+  if(p.k!==need)return{...p,warn:`⚠ ${A.name}${jo(A.name,0)} ${pick==='el'?'음성':'이미지'} 요청에만 써요`,errTitle:`${A.name}${jo(A.name,2)}는 이 요청을 처리할 수 없어요`,
+      blocked:`${A.name}${jo(A.name,0)} ${pick==='el'?'음성':'이미지'} 생성 요청에만 쓸 수 있어요. 지금 요청은 ${KIND_LABEL[p.k]} 요청이라 ${MODEL[p.ai].name}${jo(MODEL[p.ai].name,1)} 필요해요. ${MODEL[p.ai].name}${jo(MODEL[p.ai].name,3)} 고르거나 "자동 선택"으로 바꿔 주세요.`};
+  return{...p,why:p.why.replace('자동 선택','직접 고른 AI')};
+}
+function renderPick(){
+  const sel=$('#aiPick'); if(!sel)return;
+  const list=pickable(), free=S.plan==='free';
+  if(S.pick&&S.pick!=='auto'&&!list.some(a=>a.id===S.pick))S.pick='auto';
+  sel.innerHTML='<option value="auto">자동 선택</option>'+list.map(a=>`<option value="${a.id}">${a.name} · ${free||S.sel[a.id]===0?'무료':a.tiers[S.sel[a.id]][0]}</option>`).join('');
+  sel.value=S.pick||'auto';
+}
+$('#aiPick').onchange=e=>{S.pick=e.target.value;setEst($('#inp').value);toast(S.pick==='auto'?'요청에 맞는 AI가 자동으로 답해요':(AIS.find(a=>a.id===S.pick).name+jo(AIS.find(a=>a.id===S.pick).name,1)+' 답하도록 골랐어요'))};
 const addHTML=h=>{const m=$('#msgs');m.insertAdjacentHTML('beforeend',h);m.scrollTop=m.scrollHeight};
 const chip=(ai,txt)=>`<div class="chip"><span class="badge xs ${MODEL[ai].cls}" style="background:#fff;color:inherit">${MODEL[ai].init}</span><b>${MODEL[ai].name}</b> · ${txt}</div>`;
 
-function updBal(){$('#hBal').textContent=S.bal+' 남음'}
+function updBal(){
+  $('#hBal').textContent=S.bal+' 남음';
+  const pct=S.grant?Math.max(0,Math.min(100,Math.round(S.bal/S.grant*100))):0, g=$('#hGauge');   // 이번 주 지급량 대비 남은 %
+  g.firstElementChild.style.width=pct+'%'; g.setAttribute('aria-valuenow',pct);
+  g.classList.toggle('low',pct<=20); g.classList.toggle('mid',pct>20&&pct<=50);
+  $('#hPct').textContent=pct+'%';
+}
 function renderMine(){$('#mineRow').innerHTML=['gpt','qwen','el','mis','nano'].map(id=>AIS.find(a=>a.id===id)).map(a=>`<div class="badge ${a.cls} ${subscribed(a.id)?'':'off'}" title="${a.name}${subscribed(a.id)?'':' (미구독)'}">${a.init}</div>`).join('')}
 
 function send(text){
   text=text.trim(); if(!text)return;
   const p=plan(text);
+  if(p.blocked){   // 고른 AI가 못 하는 요청: 크레딧을 쓰지 않고 대화창에 오류 카드를 남긴다
+    addHTML(`<div class="u">${esc(text)}</div>`);
+    S.pendingPick=text; $('#inp').value='';$('#send').disabled=true;setEst('');
+    addHTML(`<div class="alert err" role="alert"><h4><span class="ic">!</span>${esc(p.errTitle)}</h4><p>${esc(p.blocked)}</p><div class="b"><button type="button" class="p" data-act="pick-auto">자동 선택으로 보내기</button><button type="button" class="o" data-act="pick-change">AI 다시 고르기</button></div><small>크레딧은 차감되지 않았어요.</small></div>`);
+    return;
+  }
   addHTML(`<div class="u">${esc(text)}</div>`);
   $('#inp').value='';$('#send').disabled=true;setEst('');refreshQuick();
   // E2: 미구독
   S.msgs.push({role:'user',content:text});
-  const freeLeft=id=>Math.max(AIS.find(x=>x.id===id).tiers[0][3]-S.usedAi[id],0);
+  const freeLeft=id=>Math.max(AIS.find(x=>x.id===id).tiers[0][3]+(S.topup[id]||0)-S.usedAi[id],0);
   if(!isLLM(p.ai)&&S.sel[p.ai]===0&&freeLeft(p.ai)<p.cr){
     const a=AIS.find(x=>x.id===p.ai), lite=a.tiers[1];
     S.pending=text;
@@ -493,6 +724,11 @@ function send(text){
     return;
   }
   // E1: 크레딧 부족
+  if(p.cr>S.bal&&S.plan==='free'){   // E4: 무료 크레딧을 다 쓴 사용자에게 다음 선택지를 묻는다
+    S.pending=text; S.freeNeed={cr:p.cr,job:p.job};
+    addHTML(`<div class="alert err" role="alert"><h4><span class="ic">!</span>무료 사용량을 모두 썼어요</h4><p>${esc(p.job)}에 ${p.cr}크레딧이 필요한데, 무료 크레딧은 ${S.bal}만 남았어요.</p><div class="b"><button type="button" class="p" data-act="free-end">이어서 쓰는 방법 보기</button></div><small>크레딧은 차감되지 않았어요.</small></div>`);
+    openFreeEnd(true); return;
+  }
   if(p.cr>S.bal){
     S.pending=text;
     addHTML(`<div class="alert"><h4><span class="ic">!</span>크레딧이 부족해요</h4><p>${esc(p.job)}에 ${p.cr}크레딧이 필요한데, 이번 주 남은 크레딧은 ${S.bal}이에요.</p><div class="kv"><span>필요 ${p.cr}</span>·<span>보유 ${S.bal}</span>·<span class="bad">${p.cr-S.bal} 부족</span></div><div class="b"><button class="p" data-act="topup">추가 충전</button><button class="o" data-go="subscribe">구성 바꾸기</button></div><small>충전하면 이 요청(${esc(p.job)})을 그대로 이어서 만들어요.</small></div>`);
@@ -542,6 +778,8 @@ document.addEventListener('click',e=>{
   if(a==='addai'){const ad=AIS.find(x=>x.id===b.dataset.ai),d=ad.tiers[1][3]-ad.tiers[S.sel[ad.id]][3];S.sel[ad.id]=1;S.bal+=d;S.grant+=d;renderMine();updBal();toast(AIS.find(x=>x.id===b.dataset.ai).name+'를 담았어요. 요청을 이어서 처리할게요.');b.closest('.alert').remove();const t=S.pending;S.pending=null;if(t)setTimeout(()=>send(t),300)}
   if(a==='copy'){navigator.clipboard?.writeText(b.closest('.ai').querySelector('.bub').innerText).catch(()=>{});toast('복사했어요')}
   if(a==='dl')toast('데모라 실제 파일은 내려받지 않아요')
+  if(a==='pick-auto'){const t=S.pendingPick;S.pick='auto';renderPick();b.closest('.alert')?.remove();S.pendingPick=null;if(t){const last=[...document.querySelectorAll('#msgs .u')].pop();if(last&&last.textContent===t)last.remove();send(t)}}
+  if(a==='pick-change'){$('#aiPick').focus();toast('위쪽 "답할 AI"에서 다른 AI를 골라 주세요')}
   if(a==='zoom'){$('#lightboxImg').src=THUMBS[+b.dataset.i];$('#lightbox').classList.remove('hidden')}
   if(a==='dlthumb'){const l=document.createElement('a');l.href=THUMBS[+b.dataset.i];l.download='썸네일_시안'+'ABC'[+b.dataset.i]+'.webp';document.body.appendChild(l);l.click();l.remove();toast('시안 '+'ABC'[+b.dataset.i]+' 이미지를 내려받았어요')}
   if(a==='regen'){
@@ -561,7 +799,9 @@ document.addEventListener('click',e=>{
 function setEst(t){
   const el=$('#est');
   if(!t.trim()){el.className='est';el.textContent='입력하면 예상 크레딧이 보여요';return}
-  const p=plan(t);el.className='est hot '+({gpt:'gpt',qwen:'qwen',mis:'mis',nano:'nano',el:''}[p.ai]);
+  const p=plan(t);
+  if(p.warn){el.className='est warn';el.textContent=p.warn;return}   // 고른 AI가 못 하는 요청
+  el.className='est hot '+({gpt:'gpt',qwen:'qwen',mis:'mis',nano:'nano',el:''}[p.ai]);
   el.innerHTML=`<span class="badge xs" style="background:#fff;color:inherit">${MODEL[p.ai].init}</span>${p.est}`;
 }
 $('#inp').addEventListener('input',e=>{$('#send').disabled=!e.target.value.trim();setEst(e.target.value)});
@@ -579,13 +819,13 @@ $('#newChat').onclick=()=>{$('#msgs').innerHTML='<div class="sp"></div>';S.scrip
 /* ---------- 07 크레딧 ---------- */
 function renderCredit(){
   const c=cartCalc(), used=S.grant-S.bal, pct=S.grant?Math.round(used/S.grant*100):0;
-  const cap=id=>AIS.find(a=>a.id===id).tiers[S.sel[id]][3];
+  const cap=id=>AIS.find(a=>a.id===id).tiers[S.sel[id]][3]+(S.topup[id]||0);   // AI별로 따로 충전한 크레딧 포함
   const tot=S.usedCat.script+S.usedCat.voice+S.usedCat.thumb;
   const cats=[['대본','Claude · 작성 5 + 다듬기 5','script','#f4a58a'],['내레이션 음성','ElevenLabs · 약 2,400자','voice','#b07cc0'],['썸네일','Nano Banana · 15 × 3장','thumb','#f2c94c'],['가벼운 대화','Mistral','light','#bdf5d2']];
   const lv=a=>`<span class="lv ${a.cls}">${a.tiers[S.sel[a.id]][0]}${S.sel[a.id]===1&&(a.id==='qwen'||a.id==='mis')?' · 기본 포함':''}</span>`;
   const sum=(a)=>({gpt:`대본 ${S.hist.filter(h=>h.ai==='gpt').length}회`,qwen:'이번 주 사용 없음',mis:`가벼운 대화 ${S.lightCnt}회 · 0크레딧`,el:S.usedAi.el?'내레이션 1회 (약 2,400자)':'이번 주 사용 없음',nano:S.usedAi.nano?`썸네일 시안 ${S.usedAi.nano/15}장`:'이번 주 사용 없음'})[a.id];
   $('#crWrap').innerHTML=`
-  <div class="cr-top"><div><h1>크레딧</h1><p>11월 2일(월) ~ 11월 8일(일) · 담은 AI ${c.n}개</p></div><button class="charge" id="crCharge">크레딧 추가 충전</button></div>
+  <div class="cr-top"><div><h1>크레딧</h1><p>11월 2일(월) ~ 11월 8일(일) · 담은 AI ${c.n}개</p></div></div>
   <div class="kpis">
    <div class="kpi a"><div class="l">이번 주 남은 크레딧</div><div class="v">${S.bal} <small>/ ${S.grant}</small></div><div class="bar"><i style="width:${S.grant?S.bal/S.grant*100:0}%"></i></div><div class="s">11월 9일(월) 오전 9시에 ${c.credits}크레딧이 새로 채워져요</div></div>
    <div class="kpi b"><div class="l">이번 주 사용</div><div class="v">${used} 크레딧</div><div class="s">지급량의 ${pct}%를 썼어요</div></div>
@@ -593,7 +833,7 @@ function renderCredit(){
    <div class="kpi d"><div class="l">${S.plan==='free'?'이용 요금':'다음 결제'}</div><div class="v">${S.plan==='free'?'무료':'12월 6일'}</div><div class="s">${S.plan==='free'?'유료 AI를 2개 이상 담으면 결제할 수 있어요':`월 ${won(c.month)} · ${c.n}개 묶음 ${c.rate*100}% 할인 적용`}</div></div>
   </div>
   <div class="sec-h"><h2>AI별 크레딧</h2><small>막대는 이번 주 지급량 중 사용한 만큼이에요</small></div>
-  <div class="aic">${AIS.map(a=>{const cp=cap(a.id), u=S.usedAi[a.id];return `<div><div class="h"><div class="badge ${a.cls}">${a.init}</div><div><b>${a.name}</b><small>${a.role}</small></div></div>${subscribed(a.id)?lv(a):'<span class="lv" style="background:#eee;color:#888">미구독</span>'}<div class="n">${Math.max(cp-u,0)} <small>남음 / ${cp}</small></div><div class="bar"><i style="width:${cp?Math.min(u/cp*100,100):0}%"></i></div><div class="r"><span>사용</span><b>${u} 크레딧</b></div><div class="u2">${sum(a)}</div></div>`}).join('')}</div>
+  <div class="aic">${AIS.map(a=>{const cp=cap(a.id), u=S.usedAi[a.id];return `<div><div class="h"><div class="badge ${a.cls}">${a.init}</div><div><b>${a.name}</b><small>${a.role}</small></div></div>${subscribed(a.id)?lv(a):'<span class="lv" style="background:#eee;color:#888">미구독</span>'}<div class="n">${Math.max(cp-u,0)} <small>남음 / ${cp}</small></div><div class="bar"><i style="width:${cp?Math.min(u/cp*100,100):0}%"></i></div><div class="r"><span>사용</span><b>${u} 크레딧</b></div><div class="u2">${sum(a)}</div><button type="button" class="aic-charge" data-charge="${a.id}" aria-label="${a.name} 크레딧 충전">충전하기</button></div>`}).join('')}</div>
   <div class="two">
    <div class="pan"><h3>이번 영상에 쓴 크레딧</h3><div style="font-size:12px;color:#666">월급 300만 원으로 1년에 1,000만 원 모으는 법 · 8분 영상</div>
     <div class="v">${used} <small>크레딧 · 대본 ${S.usedCat.script} + 음성 ${S.usedCat.voice} + 썸네일 ${S.usedCat.thumb}</small></div>
@@ -606,7 +846,14 @@ function renderCredit(){
   </div>`;
   $('#annB').textContent=`남은 ${S.bal}크레딧은 11월 8일(일) 자정에 사라져요`;
 }
-document.addEventListener('click',e=>{if(e.target.id==='crCharge'){S.bal+=100;S.grant+=100;S.hist.unshift({t:'오늘',ai:null,job:'추가 충전 (데모)',cr:100});renderCredit();toast('100크레딧을 충전했어요 (데모)')}});
+// AI별 충전: 눌린 AI의 크레딧(막대·남음/지급)과 이번 주 전체 크레딧이 같이 늘어난다 (데모라 실제 결제는 없음)
+document.addEventListener('click',e=>{
+  const b=e.target.closest?.('[data-charge]'); if(!b)return;
+  const id=b.dataset.charge, a=AIS.find(x=>x.id===id); if(!a)return;
+  S.topup[id]=(S.topup[id]||0)+100; S.bal+=100; S.grant+=100;
+  S.hist.unshift({t:'오늘',ai:id,job:a.name+' 추가 충전 (데모)',cr:100});
+  renderCredit(); toast(a.name+' 크레딧 100을 충전했어요 (데모)');
+});
 
 /* ---------- 기본 대화 AI 연결 (Groq) ---------- */
 const mem={};  // sessionStorage가 막힌 환경(file:// 등)에서는 메모리에만 보관
@@ -745,10 +992,36 @@ $('#gOn').onclick=async()=>{
 $('#gOff').onclick=()=>{store.del('key_groq');$('#gkey').value='';$('#keyModal').classList.add('hidden');paintGroqBtn();toast('Groq 연결을 껐어요')};
 paintGroqBtn();
 
+/* ---------- E4 무료 사용 종료 안내 ---------- */
+// real=true: 실제 남은 무료 크레딧 기준 / false: 시연 바에서 모두 소진된 모습으로 보여 줌
+function openFreeEnd(real){
+  const rows=AIS.map(a=>{const total=a.tiers[0][3]+(S.topup?.[a.id]||0);return{a,total,left:real?Math.max(total-(S.usedAi?.[a.id]||0),0):0}});
+  const grant=real?S.grant:rows.reduce((s,r)=>s+r.total,0), bal=real?S.bal:0, need=real&&S.freeNeed;
+  const msg=bal===0||!real?`이번 주 무료 크레딧 ${grant}을 모두 썼어요.`:`남은 무료 크레딧은 ${bal}이에요. ${need?`"${need.job}"에는 ${need.cr}크레딧이 필요해요.`:''}`;
+  $('#freeBox').innerHTML=`<div class="fe-ic" aria-hidden="true">!</div><h2 id="feTitle">무료 사용량을 모두 썼어요</h2>
+  <div class="s">${esc(msg)} 이어서 쓰려면 아래에서 골라 주세요.</div>
+  <div class="fe-list">${rows.map(r=>`<div class="fe-row"><span class="badge sm ${r.a.cls}">${r.a.init}</span><b>${r.a.name}</b><span>${r.left} <small>/ 무료 ${r.total}</small></span></div>`).join('')}</div>
+  <div class="fe-note">다음 무료 충전은 11월 9일(월) 오전 9시예요 · 남은 크레딧은 다음 주로 넘어가지 않아요</div>
+  <div class="fe-opts">
+    <button type="button" class="fe-opt main" data-fe="subscribe" data-go="subscribe"><b>유료 구독 시작하기</b><small>AI를 2개 이상 담으면 매주 크레딧이 채워져요</small></button>
+    <button type="button" class="fe-opt" data-fe="credit" data-go="credit"><b>AI별 크레딧 충전하기</b><small>필요한 AI에만 100크레딧씩 바로 충전해요</small></button>
+    <button type="button" class="fe-opt" data-fe="wait"><b>다음 충전일까지 기다리기</b><small>11월 9일(월) 오전 9시에 무료 크레딧이 다시 채워져요</small></button>
+  </div>${real?'':'<div class="fe-demo">시연 화면이에요 · 실제로는 무료 크레딧이 모자랄 때 자동으로 떠요</div>'}`;
+  $('#freeEnd').classList.remove('hidden');
+  setTimeout(()=>$('#freeBox .fe-opt.main')?.focus(),0);
+}
+const closeFreeEnd=()=>$('#freeEnd').classList.add('hidden');
+document.addEventListener('click',e=>{
+  if(e.target.closest?.('[data-fe]')){closeFreeEnd();return}        // 화면 이동은 data-go 핸들러가 이어서 처리
+  if(e.target.closest?.('[data-act="free-end"]'))openFreeEnd(true);
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#freeEnd').classList.contains('hidden'))closeFreeEnd()});
+
 /* ---------- 데모 바 ---------- */
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.add('hidden'),2200)}
 function resetAll(){fresh();$('#msgs').innerHTML='<div class="sp"></div>';$('#payModal').classList.add('hidden');clearInterval(payTimer);show('subscribe')}
 $('#d-reset').onclick=resetAll;
+$('#d-e4').onclick=()=>openFreeEnd(false);
 $('#d-e1').onclick=()=>{ if(!S.paid)startPaid(); S.bal=30; show('chat'); updBal(); $('#inp').value="이 영상 썸네일 시안 3개, 큰 글씨는 '1년에 1,000만 원'";$('#send').disabled=false;setEst($('#inp').value);toast('남은 크레딧을 30으로 맞췄어요. 보내기를 눌러 보세요') };
 $('#d-e2').onclick=()=>{ S.sel.el=0; if(!S.paid)startPaid(); show('chat'); $('#inp').value='이 대본 차분한 남자 목소리로 읽어줘';$('#send').disabled=false;setEst($('#inp').value);toast('ElevenLabs를 무료로 바꿨어요. 무료 사용량(10)보다 큰 요청이라 E2가 떠요') };
 
