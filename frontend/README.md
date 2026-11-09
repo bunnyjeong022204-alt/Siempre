@@ -57,9 +57,13 @@ npm run build             # 타입 검사 + 배포용 빌드
 | `/signup/terms` | 2단계: 약관 동의(필수 4개 + 선택 소식 받기) → Firebase 계정 만들기 + Siempre 회원 정보 저장 (바로 로그인 상태) |
 | `/signup/done` | 3단계: 가입 완료 |
 | `/login` | Firebase 로그인 (`?next=`로 원래 가려던 화면으로 돌아감). 가입을 마치지 않은 계정이면 `/signup`에서 이어서 |
-| `/` | 임시 홈 (로그인 필요). 구독·대화·크레딧 화면이 생기면 바꿔요 |
+| `/` | 로그인했으면 서비스 화면으로, 안 했으면 `/login`으로 |
+| `/siempre-figma-prototype.html` | 서비스 화면 (권희수 님: 구독·대화·크레딧). 로그인해야 열려요 |
 
-- 로그인이 필요한 화면은 `<RequireAuth>`로 감싸면 로그인 안 한 사용자를 `/login`으로 보내요 (PRD 5-0).
+- 로그인이 필요한 React 화면은 `<RequireAuth>`로 감싸면 로그인 안 한 사용자를 `/login`으로 보내요 (PRD 5-0).
+- **서비스 화면과 로그인 연결:** `siempre-figma-prototype.html`의 `<head>`에 `src/bridge/prototypeAuth.ts`를 부르는 `<script>` 한 줄만 넣었어요. 이 스크립트가
+  로그인 확인(안 했으면 `/login?next=…`, 가입을 안 끝냈으면 `/signup`), 상단바 "도윤 님" 자리에 실제 닉네임, 로그아웃 버튼을 맡아요. 그 HTML의 다른 부분은 건드리지 않아요.
+- 빌드하면 페이지 두 개가 나와요 (`vite.config.ts`의 `build.rollupOptions.input`): `index.html`(회원가입·로그인), `siempre-figma-prototype.html`(서비스 화면).
 - 바뀔 수 있는 값·문구는 `src/config/auth.ts`, 검사 함수는 `src/lib/auth.ts`, Firebase 연결·오류 문구는 `src/lib/firebase.ts`, API 호출은 `src/api/auth.ts` (로그인 필요 요청에 Firebase ID 토큰을 붙임).
 - 색·글꼴 토큰은 `tailwind.config.js` (디자인 명세 2장 색, 글꼴 Pretendard).
 - 디자인 시안: Figma `siempre · 확정용 > 회원가입 시안` (https://www.figma.com/design/gBNj0gHsS4457DHLWG7N0O)
