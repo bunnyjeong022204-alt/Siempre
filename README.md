@@ -13,7 +13,7 @@
 | 폴더 | 담당 | 올리는 것 |
 | --- | --- | --- |
 | [`frontend/`](frontend/) | 프론트엔드 담당자 | 화면 코드 (HTML·CSS·JS 또는 프레임워크 프로젝트) |
-| [`backend/`](backend/) | 백엔드 담당자 | 서버 코드: 회원가입·로그인·구독·크레딧·대화 API |
+| [`backend/`](backend/) | 백엔드 A·B | 서버 코드. A: 회원가입·로그인·구독 / B: 대화·크레딧. 분담과 병합 규칙은 [`backend/README.md`](backend/README.md) |
 | [`docs/`](docs/) | 기획 | PRD, SWOT, 사용 시나리오, 손익 추정, 회의록 등 |
 
 각 폴더의 `README.md`에 무엇을 어떻게 올리는지 적혀 있습니다.
