@@ -19,13 +19,13 @@
 
 ## 남은 일
 
-- [ ] 곽희수: shared/ 제안 확인 (언어·DB·포트)
+- [ ] 권희수: shared/ 제안 확인 (언어·DB·포트)
 - [x] auth 담당자 배정: 김형민 (web-structure `2a02079`)
 - [ ] Figma 회원가입 시안을 3단계 흐름(본인 인증·간편가입 제거)으로 정리
 - [ ] 글꼴(Pretendard vs Noto Sans KR)·Primary 버튼 글자색 팀 결정
 - [ ] 약관 문구 법무 검토, 운영 `FIREBASE_PROJECT_ID`·`SEED_DEMO=0`, Firebase 승인 도메인에 배포 주소 추가
 - [ ] 실제 Firebase로 가입·로그인·로그아웃 확인 (사람)
-- [ ] 곽희수와 바뀐 auth 계약(토큰 방식, async requireUser) 합의
+- [ ] 권희수와 바뀐 auth 계약(토큰 방식, async requireUser) 합의
 
 ## Firebase 전환 검증 (2026-11-09)
 
