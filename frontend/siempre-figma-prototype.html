@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Siempre · 피그마 프로토타입</title>
+<link rel="icon" type="image/png" href="/brand/siempre-favicon-64.png">
 <style>
 :root{
   --pink:#f678b6; --pink-d:#d63384; --pink-l:#f8cfe3; --pink-xl:#fbe4ef; --bg:#f6eaf1; --ink:#1b1b22; --mute:#7a7585; --line:#ece3ea; --card:#fff;
@@ -27,8 +28,8 @@ button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 
 /* GNB */
 header.gnb{height:67px;background:#fff;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 40px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--pink);font-size:18px}
-.logo i{font-style:normal;background:var(--pink);color:#fff;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-size:12px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo img{display:block;width:auto}.logo .s{height:34px}.logo .w{height:26px}
 nav{display:flex;gap:8px}
 nav button{padding:8px 18px;border-radius:999px;font-weight:600;color:#555}
 nav button.on{background:var(--pink-l);color:#1b1b22}
@@ -351,7 +352,7 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
 </div>
 
 <header class="gnb">
-  <div class="logo"><i>AI</i>Siempre</div>
+  <div class="logo"><img class="s" src="/brand/siempre-symbol-96.png" alt="" width="37" height="34"><img class="w" src="/brand/siempre-wordmark-240.png" alt="Siempre" width="84" height="26"></div>
   <nav>
     <button data-go="chat" id="n-chat">대화</button>
     <button data-go="credit" id="n-credit">크레딧</button>
