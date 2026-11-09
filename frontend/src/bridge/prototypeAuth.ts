@@ -7,9 +7,11 @@
 //    고른 구성(담은 AI·결제 주기)을 저장하고 로그인 화면으로 보낸다
 // 3. 로그인하고 돌아오면 고른 구성을 되살리고, 누르려던 동작을 이어서 한다
 // 4. Firebase 계정은 있는데 Siempre 가입을 끝내지 않았으면 /signup으로 보낸다
+// 5. 시연 모드(백엔드 DEMO_LOGIN=1)로 들어온 관리자 계정도 같은 방식으로 인식한다 (Firebase 없이)
 
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { ApiError, authApi, type User } from '../api/auth';
+import { clearDemoToken, getDemoToken } from '../lib/demo';
 import { auth } from '../lib/firebase';
 
 const HERE = window.location.pathname;
@@ -124,7 +126,8 @@ function showMember(user: User) {
   out.style.cssText = btnStyle;
   out.addEventListener('click', async () => {
     out.disabled = true;
-    if (auth) await signOut(auth).catch(() => {});
+    clearDemoToken();
+    if (auth?.currentUser) await signOut(auth).catch(() => {});
     window.location.replace(HERE); // 로그아웃해도 구독 화면에 그대로 남는다
   });
   box.appendChild(out);
@@ -146,33 +149,35 @@ window.addEventListener('click', (e) => {
   window.location.assign(`/login?next=${encodeURIComponent(HERE)}`);
 }, true);
 
-if (!auth) {
-  // Firebase 설정이 없으면 둘러보기만 된다 (시작하면 로그인 화면이 설정 안내를 보여 준다)
-  known = true;
-  showGuest();
-} else {
-  onAuthStateChanged(auth, async (fu) => {
-    if (!fu) {
-      member = null;
-      known = true;
-      showGuest();
+/** 지금 로그인 상태를 확인해 상단바·이어서 할 동작을 정한다 (Firebase 계정 또는 시연 모드 토큰) */
+async function check() {
+  if (!auth?.currentUser && !getDemoToken()) {
+    member = null;
+    known = true;
+    showGuest();
+    return;
+  }
+  try {
+    const { user } = await authApi.me();
+    member = user;
+    known = true;
+    showMember(user);
+    const pending = takePending();
+    if (pending) {
+      if (pending.state) restoreState(pending.state);
+      setTimeout(() => runAction(pending.action), 0); // 화면이 다시 그려진 뒤 누르려던 동작을 이어서
+    }
+  } catch (e) {
+    member = null;
+    known = true;
+    if (auth?.currentUser && e instanceof ApiError && e.code === 'profile_missing') {
+      window.location.replace('/signup');
       return;
     }
-    try {
-      const { user } = await authApi.me();
-      member = user;
-      known = true;
-      showMember(user);
-      const pending = takePending();
-      if (pending) {
-        if (pending.state) restoreState(pending.state);
-        setTimeout(() => runAction(pending.action), 0); // 화면이 다시 그려진 뒤 누르려던 동작을 이어서
-      }
-    } catch (e) {
-      member = null;
-      known = true;
-      if (e instanceof ApiError && e.code === 'profile_missing') window.location.replace('/signup');
-      else showGuest(); // 서버 연결 실패면 둘러보기 상태로 둔다
-    }
-  });
+    if (!auth?.currentUser && e instanceof ApiError && e.status === 401) clearDemoToken(); // 시연 토큰 만료·백엔드 재시작
+    showGuest(); // 서버 연결 실패 등이면 둘러보기 상태로 둔다
+  }
 }
+
+if (auth) onAuthStateChanged(auth, () => { void check(); });
+else void check(); // Firebase 설정이 없으면 시연 모드 토큰만 확인한다
