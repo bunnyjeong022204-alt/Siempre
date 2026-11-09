@@ -1,13 +1,13 @@
 # credits — 크레딧 (권희수)
 
-PRD 4-1(지급과 소멸), 5-4(크레딧 화면). 크레딧은 매주 결제일과 같은 요일 0시(한국 시간)에 채워지고, 남은 크레딧은 이월되지 않아요.
+PRD 6-1(지급과 소멸), 7-4(크레딧 화면). 크레딧은 매주 결제일과 같은 요일 0시(한국 시간)에 채워지고, 남은 크레딧은 이월되지 않아요.
 
 ## API
 
 | 메서드 | 주소 | 요청 | 성공 응답 |
 | --- | --- | --- | --- |
 | GET | `/api/credits` | — | 이번 주 요약 (아래) |
-| POST | `/api/credits/topup` | `{ provider, amount? }` | `{ ok: true, amount, summary }` (데모 충전) |
+| POST | `/api/credits/topup` | `{ provider, amount? }` | `{ ok: true, amount, summary }` (데모 충전, **고른 AI 하나만**) |
 
 `GET /api/credits` 응답:
 ```json
@@ -15,17 +15,17 @@ PRD 4-1(지급과 소멸), 5-4(크레딧 화면). 크레딧은 매주 결제일�
   "weekStart": "2026-11-08T15:00:00Z",
   "nextGrantAt": "2026-11-15T15:00:00Z",
   "total": { "granted": 658, "used": 81, "left": 577 },
-  "providers": [{ "provider": "gpt", "tier": "standard", "granted": 497, "used": 80, "left": 417, "requests": 4 }],
+  "providers": [{ "provider": "claude", "tier": "standard", "granted": 497, "used": 80, "left": 417, "requests": 4 }],
   "daily": [81, 0, 0, 0, 0, 0, 0],
   "lightThisWeek": 12,
-  "recent": [{ "createdAt": "...", "type": "writing", "model": "GPT-6 Sol", "credits": -5, "task": "영상 대본 초안" }]
+  "recent": [{ "createdAt": "...", "type": "writing", "model": "Claude Sonnet 5.5", "credits": -5, "task": "영상 대본 초안" }]
 }
 ```
 `daily`는 이번 주 시작일(충전 요일)부터 7일 동안 날마다 쓴 크레딧이에요. 첫 칸이 충전일이에요.
 
 ## 규칙
 
-- 지급량은 `getSubscription(userId)`로 구성을 받아 PRD 4-1 기준으로 계산해요.
+- 지급량은 `getSubscription(userId)`로 구성을 받아 PRD 6-1 기준으로 계산해요.
 - 충전 요일은 첫 결제일(`subscriptions.started_at`)의 요일로 정하고, 구성을 바꿔도 유지해요.
 - 주가 바뀐 뒤 첫 요청 때 지난주 잔액을 버리고 새로 채워요 (예약 작업 없이도 동작).
 - 차감과 기록은 한 번에 처리(트랜잭션)해서 숫자가 어긋나지 않게 해요.

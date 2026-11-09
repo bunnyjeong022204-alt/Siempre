@@ -123,7 +123,7 @@ export function SignupAccountPage() {
           </MiniButton>
         }
         message={exists ? (
-          // PRD 5-0: 이미 가입된 이메일은 막지 않고 로그인 화면으로 안내
+          // PRD 7-0: 이미 가입된 이메일은 막지 않고 로그인 화면으로 안내
           <span className="text-ink">
             이미 가입한 이메일이에요.{' '}
             <Link to={`/login?email=${encodeURIComponent(email.trim())}`} className="inline-flex min-h-tap items-center font-bold underline underline-offset-2">로그인하러 가기</Link>
