@@ -24,3 +24,15 @@
 - API 키, 비밀번호, `.env` 파일은 절대 올리지 않습니다. (`.gitignore`에 등록되어 있어요)
 - `node_modules/`, 빌드 결과물(`dist/`, `build/`)은 올리지 않습니다.
 - 기획과 코드가 다르면 `docs/PRD.md`가 기준입니다.
+
+## 기획·조사 자료
+
+여러 AI를 골라 담고 한 대화에서 글·음성·이미지 작업을 이어가는 웹 서비스예요.
+
+- [MVP PRD (PRD03)](docs/Siempre_MVP_PRD.md) · [PRD02 (회원가입·로그인 포함)](docs/PRD.md) — 두 버전이 함께 있어요. 어느 쪽을 기준으로 할지는 [`docs/README.md`](docs/README.md) 참고
+- [상세 사용자 페르소나 7종](personas/Siempre_상세_페르소나.md)
+- [멀티 AI 사용 공개 사례 조사 원본](personas/멀티%20AI%20사용%20사용자%20사례%20조사.xlsx)
+- [페르소나 출처와 데이터 범위](personas/persona_sources.json)
+- [자료 반영 점검 기록](personas/검증_기록.md)
+
+페르소나는 PRD와 제공 자료를 바탕으로 만든 기획 가설입니다. 조사 엑셀의 실존 인물과 구분하며, 외국인 실명을 한국인 실명으로 바꾸지 않고 가상 페르소나에 한국어 이름을 사용했습니다.
