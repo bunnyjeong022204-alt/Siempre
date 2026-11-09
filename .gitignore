@@ -1,9 +1,29 @@
+# 비밀 값 (API 키·비밀번호) — 절대 올리지 않기
+.env
+.env.*
+!.env.example
+
+# 설치·빌드 결과물
 node_modules/
 dist/
-.env
-.env.local
-.DS_Store
+build/
+.next/
+out/
+coverage/
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 로컬 데이터·로그
 *.log
-web/data/
-server/data/
-server/tmp/
+*.db
+*.sqlite
+*.sqlite3
+
+# OS·에디터
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

@@ -1,45 +1,26 @@
 # Siempre
 
-쓸 AI만 골라 담고, 한 대화에서 요청마다 알맞은 AI가 자동으로 답하는 AI 통합 구독 서비스.
+쓸 AI만 장바구니처럼 골라 담고, 한 대화창에서 요청마다 알맞은 AI가 자동으로 답하는 AI 통합 구독 서비스입니다.
+담은 사용량은 크레딧으로 바뀌고, 크레딧은 매주 월요일에 채워지며 이월되지 않습니다.
 
-## 바로 시작하기
+## MVP 범위
 
-```bash
-cd app
-npm install
-npm run dev   # http://localhost:5173
-```
+회원가입·로그인, 구독 선택(장바구니), 데모 결제, 대화(자동 라우팅), 크레딧 확인.
+자세한 내용은 [`docs/PRD.md`](docs/PRD.md)를 봐 주세요.
 
-회원가입 화면(`/signup`)을 실제 API로 확인하려면 서버를 함께 띄운다 (외부 패키지 없음, Node.js 22.13 이상).
+## 폴더별 역할
 
-```bash
-cd server
-npm start          # http://localhost:8787, 테스트는 npm test
-# 다른 터미널에서
-cd app
-echo VITE_SIGNUP_API=1 > .env.local
-npm run dev        # http://localhost:5173/signup
-```
+| 폴더 | 담당 | 올리는 것 |
+| --- | --- | --- |
+| [`frontend/`](frontend/) | 프론트엔드 담당자 | 화면 코드 (HTML·CSS·JS 또는 프레임워크 프로젝트) |
+| [`backend/`](backend/) | 백엔드 A·B | 서버 코드. A: 회원가입·로그인·구독 / B: 대화·크레딧. 분담과 병합 규칙은 [`backend/README.md`](backend/README.md) |
+| [`docs/`](docs/) | 기획 | PRD, SWOT, 사용 시나리오, 손익 추정, 회의록 등 |
 
-`VITE_SIGNUP_API`를 비워 두면 서버 없이 가짜 응답으로 동작한다. 자세한 내용: [`intent/20261109-signup-flow`](intent/20261109-signup-flow/intent.md)
+각 폴더의 `README.md`에 무엇을 어떻게 올리는지 적혀 있습니다.
 
-AI 코딩 도구로 작업한다면 [`CLAUDE.md`](CLAUDE.md)를 먼저 읽게 해 주세요. 폴더 구조, 규칙, 작업 순서가 모두 들어 있습니다.
+## 올릴 때 지킬 것
 
-## 문서
-
-| 문서 | 내용 |
-| --- | --- |
-| [PRD/PRD.md](PRD/PRD.md) | 제품 요구사항 |
-| [SWOT.md](SWOT.md) | 강점·약점·기회·위협 |
-| [docs/design.md](docs/design.md) | 색, 폰트, 컴포넌트, Figma 링크 |
-| [docs/pricing.md](docs/pricing.md) | 요금표와 크레딧 계산식 |
-| [docs/routing.md](docs/routing.md) | 요청 유형별 모델과 차감 크레딧 |
-| [docs/tasks.md](docs/tasks.md) | 작업 목록과 열린 질문 |
-
-## 폴더
-
-- `app/` 메인 프런트엔드 (React + TypeScript + Tailwind)
-- `server/` 회원가입 API (Node 내장 http + SQLite)
-- `intent/` 작업별 의도·명세·검증 기록
-- `web/` 이전 프로토타입 (참고용)
-- `PRD/`, `docs/` 기획·설계 문서
+- 자기 폴더 안에만 올립니다. 프론트엔드는 `frontend/`, 백엔드는 `backend/`.
+- API 키, 비밀번호, `.env` 파일은 절대 올리지 않습니다. (`.gitignore`에 등록되어 있어요)
+- `node_modules/`, 빌드 결과물(`dist/`, `build/`)은 올리지 않습니다.
+- 기획과 코드가 다르면 `docs/PRD.md`가 기준입니다.
