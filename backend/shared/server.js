@@ -22,15 +22,15 @@ export function createApp({ env = process.env, now = () => Date.now(), getFireba
     env,
     now,
     getFirebaseCerts, // 테스트용 (없으면 auth가 구글 공개 인증서를 받아 씀)
-    // subscription 파트(A)가 생기면 getSubscription(userId)로 바꾼다. 지금은 모두 "구독 안 함".
+    // subscription 파트(곽희수)가 생기면 getSubscription(userId)로 바꾼다. 지금은 모두 "구독 안 함".
     getSubscription: () => null,
   };
 
   // ── 라우트 등록 (파트별 한 줄) ─────────────────────
-  const auth = registerAuthRoutes(router, ctx); // A: 회원가입·로그인 /api/auth/*
-  // registerSubscriptionRoutes(router, ctx);   // A: 구독·데모 결제 (예정)
-  // registerChatRoutes(router, ctx);           // B: 대화 (예정)
-  // registerCreditsRoutes(router, ctx);        // B: 크레딧 (예정)
+  const auth = registerAuthRoutes(router, ctx); // 김형민: 회원가입·로그인 /api/auth/*
+  // registerSubscriptionRoutes(router, ctx);   // 곽희수: 구독·데모 결제 (예정)
+  // registerChatRoutes(router, ctx);           // 곽희수: 대화 (예정)
+  // registerCreditsRoutes(router, ctx);        // 곽희수: 크레딧 (예정)
   // 로그인 회원 확인 (async): const user = await ctx.requireUser(req)
   ctx.currentUser = auth.currentUser;
   ctx.requireUser = auth.requireUser;
