@@ -1,20 +1,20 @@
 # backend
 
-백엔드는 두 명이 파트를 나눠 만듭니다. **각자 자기 폴더 안에서만 작업**하면 병합할 때 충돌이 거의 나지 않아요.
+백엔드는 두 명이 파트를 나눠 만듭니다. 각자 맡은 파트의 화면(프론트엔드)도 함께 만들어요. **각자 자기 폴더 안에서만 작업**하면 병합할 때 충돌이 거의 나지 않아요.
 
 ## 담당 나누기
 
 | 파트 | 폴더 | 담당 | API 주소 | 문서 |
 | --- | --- | --- | --- | --- |
-| 회원가입·로그인 | `auth/` | 백엔드 A (이름: ____) | `/api/auth/*` | [auth/README.md](auth/README.md) |
-| 구독·데모 결제 | `subscription/` | 백엔드 A | `/api/subscription/*`, `/api/config` | [subscription/README.md](subscription/README.md) |
-| 대화·자동 라우팅 | `chat/` | 백엔드 B (이름: ____) | `/api/chat/*` | [chat/README.md](chat/README.md) |
-| 크레딧 | `credits/` | 백엔드 B | `/api/credits/*` | [credits/README.md](credits/README.md) |
-| 공통 약속 | `shared/` | A·B 함께 | — | [shared/README.md](shared/README.md) |
+| 회원가입·로그인 | `auth/` | 김형민 | `/api/auth/*` | [auth/README.md](auth/README.md) |
+| 구독·데모 결제 | `subscription/` | 곽희수 | `/api/subscription/*`, `/api/config` | [subscription/README.md](subscription/README.md) |
+| 대화·자동 라우팅 | `chat/` | 곽희수 | `/api/chat/*` | [chat/README.md](chat/README.md) |
+| 크레딧 | `credits/` | 곽희수 | `/api/credits/*` | [credits/README.md](credits/README.md) |
+| 공통 약속 | `shared/` | 둘이 함께 | — | [shared/README.md](shared/README.md) |
 
-- **A는 "사람과 돈"**: 누가 가입했고 무엇을 구독했는지.
-- **B는 "사용"**: 요청을 어느 AI에 보내고 크레딧을 얼마나 빼는지.
-- B는 A가 만든 함수 두 개(로그인 사용자 확인, 구독 구성 조회)만 불러 써요. 서로 주고받는 함수는 [shared/README.md](shared/README.md) 3장에 적혀 있어요.
+- **김형민:** 회원가입·로그인 (화면 + API)
+- **곽희수:** 홈페이지 전체 흐름. 구독·결제·대화·크레딧 (화면 + API)
+- 곽희수는 김형민이 만든 "로그인한 사용자 확인" 함수만 불러 써요. 주고받는 함수는 [shared/README.md](shared/README.md) 3장에 적혀 있어요.
 
 ## 폴더 구조 (예정)
 
@@ -22,10 +22,10 @@
 backend/
 ├── README.md          ← 지금 이 파일 (분담·병합 규칙)
 ├── shared/            ← 공통: 서버 시작, DB 연결, 오류 형식, 인증 확인. 둘이 합의해서만 고친다
-├── auth/              ← A: 회원가입·로그인 코드 + 이 파트의 DB 테이블
-├── subscription/      ← A: 구독·데모 결제 코드 + 이 파트의 DB 테이블
-├── chat/              ← B: 대화·라우팅·AI 호출 코드
-└── credits/           ← B: 크레딧 지갑 코드 + 이 파트의 DB 테이블
+├── auth/              ← 김형민: 회원가입·로그인 코드 + 이 파트의 DB 테이블
+├── subscription/      ← 곽희수: 구독·데모 결제 코드 + 이 파트의 DB 테이블
+├── chat/              ← 곽희수: 대화·라우팅·AI 호출 코드
+└── credits/           ← 곽희수: 크레딧 지갑 코드 + 이 파트의 DB 테이블
 ```
 
 각 폴더의 README에 그 파트가 만들 API, 다루는 데이터, 다른 파트와 주고받는 것이 적혀 있어요.
@@ -43,8 +43,8 @@ backend/
 ## 작업 순서
 
 1. **1일차, 둘이 같이:** `shared/README.md`의 미정 항목(언어·프레임워크, DB 종류)을 정하고, 서버 시작·DB 연결·오류 형식을 `shared/`에 먼저 올린다.
-2. **A:** `auth` → `subscription` 순서로. 로그인 사용자 확인 함수와 구독 구성 조회 함수를 일찍 올려 주면 B가 기다리지 않아요.
-3. **B:** A의 함수가 오기 전에는 가짜 함수(항상 테스트 사용자, 고정 구독 구성)로 `chat`과 `credits`를 먼저 만든다.
-4. **합치기:** 가짜 함수를 A의 진짜 함수로 바꾸고, 가입 → 구독 → 대화 → 크레딧 확인 흐름을 같이 시험한다.
+2. **김형민:** `auth`를 만든다. "로그인한 사용자 확인" 함수(`currentUser`, `requireUser`)를 일찍 올려 주면 곽희수가 기다리지 않아요.
+3. **곽희수:** 김형민의 함수가 오기 전에는 가짜 함수(항상 테스트 사용자)로 `subscription` → `chat`·`credits`를 먼저 만든다.
+4. **합치기:** 가짜 함수를 진짜 함수로 바꾸고, 가입 → 구독 → 대화 → 크레딧 확인 흐름을 둘이 같이 시험한다.
 
 기획 기준은 [`docs/PRD.md`](../docs/PRD.md)예요. 기획과 코드가 다르면 PRD를 따르고, 애매하면 PRD 9장 "열린 질문"에 적어 주세요.

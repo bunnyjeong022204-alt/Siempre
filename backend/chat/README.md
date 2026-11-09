@@ -1,4 +1,4 @@
-# chat — 대화·자동 라우팅 (백엔드 B)
+# chat — 대화·자동 라우팅 (곽희수)
 
 PRD 4-2(요청 유형별 차감), 4-3(비용 안전장치), 5-3(대화). 한 대화창에서 요청을 분류하고 알맞은 AI에 보내요.
 
@@ -42,7 +42,7 @@ PRD 4-2(요청 유형별 차감), 4-3(비용 안전장치), 5-3(대화). 한 대
 
 ## 다른 파트에서 받는 것
 
-- `requireUser` (auth, A), `getSubscription` (subscription, A), `spendCredits` (credits, 같은 B)
+- `requireUser` (auth, 김형민), `getSubscription` (subscription), `spendCredits` (credits)
 
 ## 오류 코드
 
