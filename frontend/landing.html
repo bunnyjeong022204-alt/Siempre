@@ -202,14 +202,30 @@ section.sec{max-width:1180px;margin:0 auto;padding:110px var(--gut)}
 .sec-h p{margin:0;color:var(--mute);font-size:17px}
 
 /* AI 카드 */
-.ais{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
-.ai{background:#fff;border-radius:24px;padding:22px 18px;box-shadow:0 0 0 1px var(--line);transform-style:preserve-3d;transition:box-shadow .3s;min-width:0}
+/* 이야기 구간이 도착 섹션 위에 그려져야 휴대폰이 내려올 때 가려지지 않는다 */
+.story{z-index:3}
+.carrier{position:relative;display:grid;place-items:center;transform-style:preserve-3d;will-change:transform}
+.dock{position:relative;z-index:1;min-height:100vh;min-height:100svh;max-width:1180px;margin:0 auto;padding:84px var(--gut) 40px}
+.dock-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px minmax(0,1fr);gap:40px;align-items:start}
+.dock-col{display:flex;flex-direction:column;gap:14px;min-width:0}
+.dock-col:last-child{padding-top:40px}
+.dock-h .k{font-size:14px;font-weight:800;color:var(--pink-d);letter-spacing:.08em;margin-bottom:8px}
+.dock-h h2{word-break:keep-all;margin:0 0 8px;font-size:clamp(24px,2.6vw,34px);line-height:1.2;letter-spacing:-.03em;text-wrap:balance}
+.dock-h p{margin:0 0 6px;color:var(--mute);font-size:15px}
+.slot{width:300px;height:614px}
+.dock-cta{align-self:flex-start;margin-top:4px}
+.ai{display:flex;gap:14px;align-items:flex-start;background:#fff;border-radius:22px;padding:18px;box-shadow:0 0 0 1px var(--line);transition:box-shadow .3s;min-width:0}
 .ai:hover{box-shadow:0 20px 40px rgba(120,30,80,.12),0 0 0 1px var(--line)}
-.ai .ic{width:48px;height:48px;border-radius:14px;font-size:20px;margin-bottom:16px}
-.ai h3{margin:0 0 4px;font-size:19px}
-.ai .role{font-size:14px;color:var(--mute);margin-bottom:14px}
-.ai .free{font-size:13px;font-weight:700;border-top:1px dashed var(--line);padding-top:12px}
-.ai .free span{display:block;font-size:11px;color:var(--mute);font-weight:600}
+.ai .ic{width:46px;height:46px;border-radius:14px;font-size:19px;flex:none}
+.ai h3{margin:0 0 2px;font-size:18px}
+.ai .role{font-size:14px;color:var(--mute);margin-bottom:8px}
+.ai .free{font-size:13px;font-weight:700}
+.ai .free span{display:inline-block;font-size:11px;color:var(--pink-d);background:var(--pink-xl);border-radius:6px;padding:1px 6px;margin-right:6px;font-weight:700}
+/* 진행 점: 지금 단계만 길고 진하게 */
+.dots span{transition:width .35s}
+.dots span.on{width:44px}
+.dots span.on i,.dots span.done i{transform:scaleX(1)}
+.dots span.done i{opacity:.35}
 
 /* 가격 */
 .price-wrap{overflow-x:auto;border-radius:24px;background:#fff;box-shadow:0 0 0 1px var(--line)}
@@ -276,7 +292,7 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   .opt{padding:5px 4px;font-size:9.5px;white-space:nowrap}.opt .chip{padding:2px 5px;font-size:8.5px}
   .est{font-size:9.5px;padding:6px 8px;white-space:nowrap}
   .inp{font-size:10px;padding:6px 6px 6px 10px}.inp .send{width:22px;height:22px}
-  [data-scr="1"] .m{font-size:10.5px}
+  [data-scr="3"] .m{font-size:10.5px}
   .face{border-radius:36px}.screen{border-radius:28px}
   .scr{font-size:11px;padding-top:38px}
   .notch{width:72px;height:20px}
@@ -289,12 +305,17 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   .o1{left:2%;top:8%}.o2{right:2%;top:4%}.o3{right:0;top:62%}.o4{left:0;top:70%}.o5{display:none}
   .dots{left:50%;transform:translateX(-50%);bottom:14px}
   .hint{display:none}
-  .ais{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dock{padding-top:64px}
+  .dock-grid{grid-template-columns:1fr;gap:14px;justify-items:center}
+  .dock-col{width:100%}.dock-col:last-child{padding-top:0}
+  .dock-grid .dock-col:first-child{order:0}.slot{order:1;width:auto;height:min(450px,54svh);aspect-ratio:.49}.dock-grid .dock-col:last-child{order:2}
+  .dock-h{text-align:center}
+  .dock-cta{align-self:stretch;justify-content:center}
   .notes,.steps{grid-template-columns:1fr}
   .steps svg{display:none}
   section.sec{padding:80px var(--gut)}
 }
-@media (max-width:420px){.ais{grid-template-columns:1fr}}
+.static .slot{display:none}
 
 /* 움직임 줄이기 설정: 이야기 구간을 고정하지 않고 모두 펼쳐서 보여 준다 */
 .static .story{height:auto;display:block}
@@ -325,29 +346,30 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
       <p>대본·번역·음성·이미지를 한 대화에서 요청하면, 담아 둔 AI 중 알맞은 모델이 자동으로 답해요.</p>
       <div class="ctas"><a class="btn btn-p" href="/siempre-figma-prototype.html">무료로 시작하기</a><a class="btn btn-g" href="#price">가격 보기</a></div>
     </div>
+    <!-- 순서는 실제 사용 흐름: 담기 → 시작 → 대화 → 크레딧 확인 -->
     <div class="panel" data-step="1">
-      <div class="step-no">01 · 자동으로 알맞은 AI</div>
-      <h2>보내기 전에 <em>예상 크레딧</em>부터</h2>
-      <p>입력하는 동안 어떤 AI가 답할지, 크레딧이 얼마나 드는지 먼저 보여 줘요. 답변마다 고른 모델과 이유도 함께 나와요.</p>
-      <ul class="facts"><li>글쓰기 <b>Claude</b></li><li>번역·요약 <b>Qwen</b></li><li>가벼운 대화 <b>Mistral</b></li></ul>
-    </div>
-    <div class="panel" data-step="2">
-      <div class="step-no">02 · 장바구니처럼</div>
+      <div class="step-no">01 · 구독 구성</div>
       <h2>쓸 AI만, <em>쓸 만큼만</em> 담기</h2>
       <p>AI마다 무료·라이트·스탠다드·헤비 중 하나를 고르면 월 요금이 바로 계산돼요. 안 쓰는 AI에는 돈을 내지 않아요.</p>
       <ul class="facts"><li>유료 2개 <b>5%</b> 할인</li><li>3개 이상 <b>10%</b></li><li>연간 <b>15%</b> 추가</li></ul>
     </div>
+    <div class="panel" data-step="2">
+      <div class="step-no">02 · 시작하기</div>
+      <h2><em>결제 없이</em> 바로 시작</h2>
+      <p>AI마다 무료 단계가 있어요. 2개만 담으면 결제창 없이 바로 대화를 시작할 수 있어요.</p>
+      <div class="ctas"><a class="btn btn-p" href="/siempre-figma-prototype.html">무료로 시작하기</a><a class="btn btn-g" href="/signup">회원가입</a></div>
+    </div>
     <div class="panel" data-step="3">
-      <div class="step-no">03 · 크레딧 확인</div>
+      <div class="step-no">03 · 대화</div>
+      <h2>보내기 전에 <em>예상 크레딧</em>부터</h2>
+      <p>입력하는 동안 어떤 AI가 답할지, 크레딧이 얼마나 드는지 먼저 보여 줘요. 답변마다 고른 모델과 이유도 함께 나와요.</p>
+      <ul class="facts"><li>글쓰기 <b>Claude</b></li><li>번역·요약 <b>Qwen</b></li><li>가벼운 대화 <b>Mistral</b></li></ul>
+    </div>
+    <div class="panel" data-step="4">
+      <div class="step-no">04 · 크레딧 확인</div>
       <h2>AI별 크레딧을 <em>한 화면에서</em></h2>
       <p>AI마다 남은 크레딧과 사용 내용을 바로 확인해요. 모자라면 그 AI만 추가 충전하면 돼요.</p>
       <ul class="facts"><li>매주 <b>새로 충전</b></li><li>남은 크레딧은 <b>이월 안 됨</b></li></ul>
-    </div>
-    <div class="panel" data-step="4">
-      <div class="step-no">04 · 지금 바로</div>
-      <h2><em>결제 없이</em> 시작하세요</h2>
-      <p>AI마다 무료 단계가 있어요. 2개만 담으면 결제창 없이 바로 대화를 시작할 수 있어요.</p>
-      <div class="ctas"><a class="btn btn-p" href="/siempre-figma-prototype.html">무료로 시작하기</a><a class="btn btn-g" href="/signup">회원가입</a></div>
     </div>
   </div>
 
@@ -357,6 +379,7 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
     <div class="orb o3">M<small>Mistral</small></div>
     <div class="orb o4">E<small>ElevenLabs</small></div>
     <div class="orb o5">N<small>Nano Banana</small></div>
+    <div class="carrier" id="carrier">
     <div class="shadow" id="shadow"></div>
     <div class="hover" id="hover">
     <div class="phone" id="phone">
@@ -381,8 +404,8 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
             <div class="inp">메시지를 입력하세요<span class="send">↑</span></div>
           </div>
 
-          <!-- 화면 1: 예상 크레딧 -->
-          <div class="scr" data-scr="1">
+          <!-- 화면 3: 예상 크레딧 (대화) -->
+          <div class="scr" data-scr="3">
             <div class="scr-h"><b>새 대화</b><small>자동 선택</small></div>
             <div class="m a on"><span class="chip c-qwen">Qwen · 번역 · 2크레딧</span><br>“Saving 10 million won a year on a 3 million won salary…”<span class="why">번역 요청이라 자동 선택</span></div>
             <div class="sheet">
@@ -395,8 +418,8 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
             <div class="inp"><span class="typed" id="typed"></span><span class="caret"></span><span class="send">↑</span></div>
           </div>
 
-          <!-- 화면 2: 장바구니 -->
-          <div class="scr" data-scr="2">
+          <!-- 화면 1: 장바구니 -->
+          <div class="scr" data-scr="1">
             <div class="scr-h"><b>내 구독 구성</b><small>월 구독</small></div>
             <div class="row"><span class="ic c-claude">C</span><span class="nm">Claude</span><span class="tiers" data-pick="2"><span>무료</span><span>라이트</span><span>스탠다드</span><span>헤비</span></span></div>
             <div class="row"><span class="ic c-qwen">Q</span><span class="nm">Qwen</span><span class="tiers" data-pick="1"><span>무료</span><span>라이트</span><span>스탠다드</span><span>헤비</span></span></div>
@@ -405,8 +428,8 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
             <div class="sum"><div class="l">월 결제액 (부가세 포함)</div><div class="v" id="total">₩0</div><span class="d">유료 3개 묶음 할인 10%</span></div>
           </div>
 
-          <!-- 화면 3: 크레딧 -->
-          <div class="scr" data-scr="3">
+          <!-- 화면 4: 크레딧 -->
+          <div class="scr" data-scr="4">
             <div class="scr-h"><b>크레딧</b><small>이번 주</small></div>
             <div class="cr"><div class="t">Claude <small>스탠다드</small></div><div class="bar"><i style="background:var(--claude-f)" data-w="62"></i></div><div class="u">대본 작성·다듬기 · 62% 사용</div></div>
             <div class="cr"><div class="t">Qwen <small>라이트</small></div><div class="bar"><i style="background:var(--qwen-f)" data-w="35"></i></div><div class="u">번역·요약 · 35% 사용</div></div>
@@ -415,8 +438,8 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
             <div class="band">남은 크레딧은 다음 충전 전에 사라져요</div>
           </div>
 
-          <!-- 화면 4: 무료로 시작 -->
-          <div class="scr" data-scr="4">
+          <!-- 화면 2: 무료로 시작 -->
+          <div class="scr" data-scr="2">
             <div class="free-top"><div class="big">₩0</div><small>무료 단계만 담으면 결제창 없이 시작</small></div>
             <div class="fr"><span class="ic c-claude">C</span>Claude<b>깊은 분석·코딩 3번</b></div>
             <div class="fr"><span class="ic c-qwen">Q</span>Qwen<b>적당한 분석 10번</b></div>
@@ -430,24 +453,32 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
       <div class="face back"><div class="cam"><i></i><i></i><i></i></div><img src="/brand/siempre-symbol-96.png" alt=""></div>
     </div>
     </div>
+    </div>
   </div>
 
   <div class="dots" id="dots" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
   <div class="hint" id="hint" aria-hidden="true"><span class="mouse"></span>스크롤해 보세요</div>
 </div>
 
-<div class="mq-wrap"><div class="marquee" aria-hidden="true"><div class="track" id="track"><span>유튜브 대본</span><span>내레이션</span><span>썸네일</span><span>광고 카피</span><span>번역</span><span>발표 요약</span><span>포스터</span><span>리뷰 답글</span><span>상품 설명</span><span>유튜브 대본</span><span>내레이션</span><span>썸네일</span><span>광고 카피</span><span>번역</span><span>발표 요약</span><span>포스터</span><span>리뷰 답글</span><span>상품 설명</span></div></div></div>
-
-<section class="sec" id="ais">
-  <div class="sec-h reveal"><div class="k">담을 수 있는 AI</div><h2>잘하는 일이 다른 AI 5개, 필요한 것만 고르세요</h2><p>요청 종류에 따라 담아 둔 AI 중 알맞은 모델이 자동으로 답해요. 담지 않은 AI가 필요한 요청이면 안내해 줘요.</p></div>
-  <div class="ais">
-    <article class="ai tilt"><div class="ic c-claude">C</div><h3>Claude</h3><div class="role">대본 · 글쓰기 · 코딩</div><div class="free"><span>무료</span>깊은 분석·코딩 3번</div></article>
-    <article class="ai tilt"><div class="ic c-qwen">Q</div><h3>Qwen</h3><div class="role">번역 · 요약 · 다국어</div><div class="free"><span>무료</span>적당한 분석 10번</div></article>
-    <article class="ai tilt"><div class="ic c-mis">M</div><h3>Mistral</h3><div class="role">가볍고 빠른 대화 · 간단한 분석</div><div class="free"><span>무료</span>가벼운 분석 10번</div></article>
-    <article class="ai tilt"><div class="ic c-el">E</div><h3>ElevenLabs</h3><div class="role">음성 · 내레이션</div><div class="free"><span>무료</span>3,000자 (한국어 약 7분)</div></article>
-    <article class="ai tilt"><div class="ic c-nano">N</div><h3>Nano Banana</h3><div class="role">이미지 · 썸네일 · 포스터</div><div class="free"><span>무료</span>일반 이미지 2장</div></article>
+<!-- 도착 섹션: 이야기 구간이 끝나면 휴대폰이 아래로 내려와 가운데 자리(.slot)에 앉고, 양옆에 AI 카드가 붙는다 -->
+<section class="dock" id="ais">
+  <div class="dock-grid">
+    <div class="dock-col">
+      <div class="dock-h"><div class="k">담을 수 있는 AI</div><h2>잘하는 일이 다른 AI 5개, 필요한 것만 고르세요</h2><p>요청 종류에 따라 담아 둔 AI 중 알맞은 모델이 자동으로 답해요.</p></div>
+      <article class="ai tilt" data-from="r"><div class="ic c-claude">C</div><div><h3>Claude</h3><div class="role">대본 · 글쓰기 · 코딩</div><div class="free"><span>무료</span>깊은 분석·코딩 3번</div></div></article>
+      <article class="ai tilt" data-from="r"><div class="ic c-qwen">Q</div><div><h3>Qwen</h3><div class="role">번역 · 요약 · 다국어</div><div class="free"><span>무료</span>적당한 분석 10번</div></div></article>
+    </div>
+    <div class="slot" id="slot" aria-hidden="true"></div>
+    <div class="dock-col">
+      <article class="ai tilt" data-from="l"><div class="ic c-mis">M</div><div><h3>Mistral</h3><div class="role">가볍고 빠른 대화 · 간단한 분석</div><div class="free"><span>무료</span>가벼운 분석 10번</div></div></article>
+      <article class="ai tilt" data-from="l"><div class="ic c-el">E</div><div><h3>ElevenLabs</h3><div class="role">음성 · 내레이션</div><div class="free"><span>무료</span>3,000자 (한국어 약 7분)</div></div></article>
+      <article class="ai tilt" data-from="l"><div class="ic c-nano">N</div><div><h3>Nano Banana</h3><div class="role">이미지 · 썸네일 · 포스터</div><div class="free"><span>무료</span>일반 이미지 2장</div></div></article>
+      <a class="dock-cta btn btn-p" href="/siempre-figma-prototype.html">2개 담고 무료로 시작하기</a>
+    </div>
   </div>
 </section>
+
+<div class="mq-wrap"><div class="marquee" aria-hidden="true"><div class="track" id="track"><span>유튜브 대본</span><span>내레이션</span><span>썸네일</span><span>광고 카피</span><span>번역</span><span>발표 요약</span><span>포스터</span><span>리뷰 답글</span><span>상품 설명</span><span>유튜브 대본</span><span>내레이션</span><span>썸네일</span><span>광고 카피</span><span>번역</span><span>발표 요약</span><span>포스터</span><span>리뷰 답글</span><span>상품 설명</span></div></div></div>
 
 <section class="sec" id="price">
   <div class="sec-h reveal"><div class="k">가격</div><h2>AI마다 단계를 고르면, 월 요금이 바로 나와요</h2><p>월 구독, 부가세 포함. 텍스트 AI는 주 단위, 이미지·음성은 월 단위 사용량이에요.</p></div>
@@ -577,7 +608,7 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
 
   // 화면 2: 단계 고르기 + 금액 올라가기
   function playCart(){
-    var tiers=$$('[data-scr="2"] .tiers'); tiers.forEach(function(t){ $$('span',t).forEach(function(s){s.classList.remove('on')}) });
+    var tiers=$$('[data-scr="1"] .tiers'); tiers.forEach(function(t){ $$('span',t).forEach(function(s){s.classList.remove('on')}) });
     tiers.forEach(function(t,ix){ setTimeout(function(){ $$('span',t)[+t.dataset.pick].classList.add('on') }, 250+ix*280) });
     countTo($('#total'), 23670, 1400, 900);
   }
@@ -587,9 +618,10 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   }
 
   // 화면 3: 막대 채우기
-  function playBars(){ var bars=$$('[data-scr="3"] .bar i'); bars.forEach(function(b){b.style.width='0'}); setTimeout(function(){ bars.forEach(function(b){ b.style.width=b.dataset.w+'%' }) },120) }
+  function playBars(){ var bars=$$('[data-scr="4"] .bar i'); bars.forEach(function(b){b.style.width='0'}); setTimeout(function(){ bars.forEach(function(b){ b.style.width=b.dataset.w+'%' }) },120) }
 
-  var players=[playChat, playTyping, playCart, playBars, function(){}];
+  // 화면 번호 순서: 0 채팅 → 1 담기 → 2 무료 시작 → 3 예상 크레딧 → 4 크레딧
+  var players=[playChat, playCart, function(){}, playTyping, playBars];
   var screens=$$('.scr'), current=-1;
   function showScreen(n){
     if(n===current) return; current=n;
@@ -642,19 +674,25 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   // 떠다니는 칩 (계속)
   $$('.orb').forEach(function(o,i){ gsap.to(o,{y:'+=14',x:(i%2?'-=8':'+=8'),rotation:i%2?-6:6,duration:2.4+i*.3,yoyo:true,repeat:-1,ease:'sine.inOut'}) });
 
-  // 이야기 구간: 고정 + 스크롤에 따라 글·휴대폰 바뀜
+  // 한 단계 = 1.6칸: 앞 0.9칸은 바뀌는 동작, 뒤 0.7칸은 읽을 수 있게 멈춤. 맨 앞에도 0.5칸 멈춤
+  var STEP=1.6, LEAD=.5, dotSpans=$$('#dots span');
+  function stepAt(t){ var k=0; for(var j=1;j<N;j++){ if(t>=LEAD+(j-1)*STEP+.5) k=j } return k }
+  function setDots(k){ dotSpans.forEach(function(s,i){ s.classList.toggle('on',i===k); s.classList.toggle('done',i<k) }) }
+  setDots(0);
+
+  // 이야기 구간: 고정 + 스크롤에 따라 글·휴대폰 바뀜. 한 바퀴 돌고 나면 그 단계에서 멈추도록 스냅
   var tl=gsap.timeline({defaults:{ease:'power2.inOut'}, scrollTrigger:{
     trigger:'#story', start:'top top', end:'+='+(N*110)+'%', pin:true, scrub:.8, anticipatePin:1,
+    snap:{snapTo:'labelsDirectional', inertia:false, duration:{min:.3,max:.9}, delay:.08, ease:'power2.inOut'},
     onUpdate:function(self){
-      var t=self.progress*tl.duration(), p=Math.max(0,(t-LEAD)/STEP);
-      dots.forEach(function(d,i){ gsap.set(d,{scaleX:Math.max(0,Math.min(1,p-i+1))}) });
+      setDots(stepAt(self.progress*tl.duration()));
       $('#hint').style.opacity = self.progress>0.02?0:1;
     }
   }});
-  // 한 단계 = 1.6칸: 앞 0.9칸은 바뀌는 동작, 뒤 0.7칸은 읽을 수 있게 멈춤. 맨 앞에도 0.5칸 멈춤
-  var STEP=1.6, LEAD=.5;
+  tl.addLabel('s0',0);
   for(var i=1;i<N;i++){
     var at=LEAD+(i-1)*STEP;
+    tl.addLabel('s'+i, at+1.25);
     // 글: 이전 것은 위로 사라지고 새 것은 아래에서 올라옴
     tl.to(panels[i-1],{autoAlpha:0,y:-60,duration:.35},at+.1)
       .fromTo(panels[i],{autoAlpha:0,y:60},{autoAlpha:1,y:0,duration:.35},at+.55)
@@ -670,6 +708,26 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   }
   tl.to({}, {duration:.7});
 
+  // 마지막: 휴대폰이 아래로 쭉 내려가 다음 섹션 가운데 자리(.slot)에 앉는다.
+  // 도착 섹션이 화면 아래에서 위까지 올라오는 동안(=화면 높이 1개) 휴대폰을 그만큼 + 자리 차이만큼 옮긴다
+  var carrier=$('#carrier'), slot=$('#slot'), story=$('#story'), dock=$('#ais');
+  function dockDelta(axis){
+    var c=carrier.getBoundingClientRect(), s=slot.getBoundingClientRect(), st=story.getBoundingClientRect(), dk=dock.getBoundingClientRect();
+    var curX=gsap.getProperty(carrier,'x')||0, curY=gsap.getProperty(carrier,'y')||0;
+    if(axis==='x') return (s.left+s.width/2)-(c.left+c.width/2-curX);
+    return story.offsetHeight + ((s.top+s.height/2)-dk.top) - ((c.top+c.height/2-curY)-st.top);
+  }
+  var cards=$$('.dock .ai, .dock-h, .dock-cta');
+  var land=gsap.timeline({scrollTrigger:{trigger:dock, start:'top bottom', end:'top top', scrub:.6, invalidateOnRefresh:true,
+    snap:{snapTo:[0,1], duration:{min:.3,max:.9}, delay:.08, directional:true, ease:'power2.inOut'}}});
+  land.to(carrier,{x:function(){return dockDelta('x')}, y:function(){return dockDelta('y')}, ease:'power1.inOut', duration:1},0)
+      .to(phone,{rotationY:'+=18', rotationX:0, scale:1, ease:'power2.inOut', duration:1},0)
+      .to(panels[N-1],{autoAlpha:0, y:-40, duration:.35},0)
+      .to('#dots',{autoAlpha:0, duration:.2},0)
+      .to('.orb',{autoAlpha:0, scale:.4, duration:.4},0)
+      .fromTo(cards,{autoAlpha:0, x:function(k,el){return el.dataset.from==='l'?-60:el.dataset.from==='r'?60:0}, y:30},
+                    {autoAlpha:1, x:0, y:0, stagger:.06, duration:.4, ease:'power2.out'},.55);
+
   // 띠 흐르기 (스크롤 방향 따라 속도)
   var track=$('#track');
   gsap.to(track,{xPercent:-50,ease:'none',duration:22,repeat:-1});
@@ -678,7 +736,6 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   $$('.reveal').forEach(function(el){
     gsap.from(el,{y:50,autoAlpha:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
   });
-  gsap.from('.ai',{y:80,rotationX:-30,autoAlpha:0,duration:.9,stagger:.1,ease:'back.out(1.4)',scrollTrigger:{trigger:'.ais',start:'top 85%'}});
   gsap.from('tbody tr',{x:-40,autoAlpha:0,duration:.6,stagger:.08,scrollTrigger:{trigger:'.price-wrap',start:'top 80%'}});
   ScrollTrigger.create({trigger:'.example',start:'top 85%',once:true,onEnter:function(){ countTo($('.example .v'),23670,1500) }});
   var line=$('#line'); if(line){ var L=900; gsap.fromTo(line,{strokeDashoffset:L,strokeDasharray:'8 8'},{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:'.steps',start:'top 80%',end:'top 40%',scrub:true}}) }
