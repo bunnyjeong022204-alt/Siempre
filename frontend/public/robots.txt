@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://siempreboomboom.netlify.app/sitemap.xml
+Sitemap: https://startling-bavarois-ac36bd.netlify.app/sitemap.xml

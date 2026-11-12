@@ -1,6 +1,6 @@
 # Siempre SEO 작업 정리
 
-- 배포 사이트: https://siempreboomboom.netlify.app
+- 배포 사이트: https://startling-bavarois-ac36bd.netlify.app
 - 작업일: 2026-11-12
 - 기준: SEO 실전 체크리스트 (기본 설정 · 콘텐츠 · 기술, 9개 항목)
 
@@ -30,7 +30,7 @@ Google이나 네이버의 검색 로봇은 사이트에 오면 먼저 `/robots.t
 User-agent: *          ← 모든 검색 로봇에게 하는 말
 Allow: /               ← 사이트 전체를 둘러봐도 돼요
 Disallow: /api/        ← 서버 통신 주소는 볼 필요 없어요
-Sitemap: https://siempreboomboom.netlify.app/sitemap.xml   ← 사이트 지도 위치
+Sitemap: https://startling-bavarois-ac36bd.netlify.app/sitemap.xml   ← 사이트 지도 위치
 ```
 
 **약관·가입 완료 화면을 여기서 막지 않은 이유**
@@ -148,16 +148,16 @@ PC 검색 결과에서는 앞쪽 80~90자 정도만 보이고 나머지는 "…"
 | `/` | 서비스 화면으로 바로 넘어가요 |
 
 ### Google Search Console (https://search.google.com/search-console)
-1. 속성 추가 → **URL 접두어** 선택 → `https://siempreboomboom.netlify.app/` 입력
+1. 속성 추가 → **URL 접두어** 선택 → `https://startling-bavarois-ac36bd.netlify.app/` 입력
 2. 소유 확인: **Google 애널리틱스** 선택. 배포된 사이트에 이미 GA 태그가 있어서 바로 확인돼요. 안 되면 **HTML 태그**를 골라 `<meta name="google-site-verification" ...>` 한 줄을 받아요.
 3. 왼쪽 **Sitemaps** → `sitemap.xml` 입력 → 제출
 4. **URL 검사**에 서비스 화면 주소를 넣고 **색인 생성 요청**
 
 ### 네이버 서치어드바이저 (https://searchadvisor.naver.com)
-1. 웹마스터 도구 → 사이트 등록 → `https://siempreboomboom.netlify.app` 입력
+1. 웹마스터 도구 → 사이트 등록 → `https://startling-bavarois-ac36bd.netlify.app` 입력
 2. 소유 확인: **HTML 태그** 선택 → `<meta name="naver-site-verification" ...>` 한 줄을 받아요.
 3. 받은 태그를 [`siempre-figma-prototype.html`](siempre-figma-prototype.html)과 [`index.html`](index.html)의 `<head>`에 넣고 다시 배포한 뒤 **소유확인**
-4. 요청 → **사이트맵 제출** → `https://siempreboomboom.netlify.app/sitemap.xml`
+4. 요청 → **사이트맵 제출** → `https://startling-bavarois-ac36bd.netlify.app/sitemap.xml`
 5. 요청 → **웹 페이지 수집**에 서비스 화면 주소 넣기
 
 ### 속도 측정

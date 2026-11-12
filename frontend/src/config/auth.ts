@@ -41,7 +41,7 @@ export const HOME_PATH = '/';
 export const SERVICE_PAGE = '/siempre-figma-prototype.html';
 
 /** 사이트 주소. 검색엔진에 알리는 대표 주소(canonical)를 만들 때 쓴다. */
-export const SITE_URL = 'https://siempreboomboom.netlify.app';
+export const SITE_URL = 'https://startling-bavarois-ac36bd.netlify.app';
 
 /**
  * 화면별 검색 노출 정보. 핵심 검색어: 로그인 → "Siempre 로그인", 회원가입 → "Siempre 회원가입".
