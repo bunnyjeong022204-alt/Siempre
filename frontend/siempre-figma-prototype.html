@@ -434,6 +434,26 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
   .toast{bottom:calc(var(--tabH) + var(--safeB) + 78px);max-width:92%;text-align:center;z-index:70}
 }
 @media(max-width:700px) and (display-mode:standalone){.install{display:none!important}}
+/* ===== 휴대폰 보완 (리뷰 제안) =====
+   1. "홈 화면에 추가" 안내는 구독 화면에서만 → 대화 화면 높이 계산이 어긋나 모델 선택 줄이 탭바에 가려지던 문제 해결
+   2. 대화 화면: 상단 정보 한 줄, 빠른 요청 칩·입력창을 줄여 답변이 보이는 영역을 넓힘
+   3. 모델 선택을 입력창 첫 줄로 올려 엄지로 바로 누를 수 있게 */
+@media(max-width:700px){
+  body:not([data-screen="subscribe"]) .install{display:none!important}
+  .ch-head{flex-wrap:nowrap;padding:6px 12px;min-height:0}
+  .ch-head>span{flex:1 1 auto;min-width:0;font-size:12.5px}
+  .ch-head small{flex:0 0 auto;width:auto;font-size:12px}
+  .ch-head small .gauge{display:none}
+  .quick{margin:0 8px}.quick button{min-height:32px;padding:0 12px;font-size:12.5px}
+  .composer{margin:4px 8px 6px;padding:8px 10px}
+  .comp-row{gap:6px}
+  .pick{order:-1;flex:1 1 100%}.pick select{height:34px}
+  .clip{width:36px;height:36px}
+  .send{padding:9px 18px}
+  .est{font-size:12px}
+  .acts{flex-wrap:wrap}.acts button{padding:7px 12px;font-size:12.5px}
+}
+
 </style>
 </head>
 <body>
