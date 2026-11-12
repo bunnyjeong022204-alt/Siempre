@@ -9,7 +9,7 @@
 <meta name="apple-mobile-web-app-title" content="Siempre">
 <title>Siempre | 쓸 AI만 골라 담는 AI 통합 구독</title>
 <meta name="description" content="Siempre는 Claude·Qwen·Mistral·ElevenLabs·Nano Banana 중 쓸 AI만 골라 담는 AI 통합 구독 서비스예요. 대본·번역·음성·이미지를 한 대화에서 요청하면 알맞은 AI가 자동으로 답하고, 보내기 전에 예상 크레딧을 보여 줘요. 결제 없이 무료로 시작할 수 있어요.">
-<link rel="canonical" href="https://startling-bavarois-ac36bd.netlify.app/landing.html">
+<link rel="canonical" href="https://startling-bavarois-ac36bd.netlify.app/">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="/brand/siempre-favicon-64.png">
@@ -27,7 +27,8 @@
   --gl:max(18px, env(safe-area-inset-left,0px)); --gr:max(18px, env(safe-area-inset-right,0px));
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-snap-type:y mandatory;scroll-behavior:smooth;background:var(--bg)}
+/* 화면 단위 붙기는 가까울 때만(proximity). mandatory로 하면 휴대폰 높이보다 긴 화면에서 시작점으로 계속 되돌려 스크롤이 안 내려간다 */
+html{scroll-snap-type:y proximity;scroll-behavior:smooth;background:var(--bg)}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 var(--font);-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%;text-rendering:optimizeLegibility;overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
@@ -47,8 +48,8 @@ a{color:inherit}
 .cta-bar a:active{transform:scale(.98)}
 
 /* 화면 한 장 */
-.page{position:relative;min-height:100vh;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;padding:calc(58px + var(--st)) var(--gr) calc(96px + var(--sb)) var(--gl);overflow:hidden}
-.page.free-scroll{scroll-snap-align:none}
+.page{position:relative;min-height:100vh;min-height:100svh;scroll-snap-align:start;display:flex;flex-direction:column;padding:calc(58px + var(--st)) var(--gr) calc(96px + var(--sb)) var(--gl);overflow:hidden}
+.page.free-scroll{scroll-snap-align:start}
 .k{font-size:13px;font-weight:800;color:var(--pink-d);letter-spacing:.06em;margin:6px 0 6px}
 h1,h2{margin:0 0 8px;font-weight:800;letter-spacing:-.03em;line-height:1.22;text-wrap:balance;word-break:keep-all}
 h1{font-size:30px}h2{font-size:26px}
