@@ -1,0 +1,6 @@
+# Siempre 검색엔진 수집 규칙
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://siempreboomboom.netlify.app/sitemap.xml
