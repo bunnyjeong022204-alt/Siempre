@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f678b6">
+<title>Siempre | 쓸 AI만 골라 담는 AI 통합 구독</title>
+<meta name="description" content="Siempre는 Claude·Qwen·Mistral·ElevenLabs·Nano Banana 중 쓸 AI만 골라 담는 AI 통합 구독 서비스예요. 대본·번역·음성·이미지를 한 대화에서 요청하면 알맞은 AI가 자동으로 답하고, 보내기 전에 예상 크레딧을 보여 줘요. 결제 없이 무료로 시작할 수 있어요.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Siempre">
+<meta property="og:title" content="Siempre | 쓸 AI만 골라 담는 AI 통합 구독">
+<meta property="og:description" content="쓸 AI만 골라 담고, 한 대화에서 끝내세요. 요청마다 알맞은 AI가 자동으로 답해요.">
+<meta property="og:image" content="https://startling-bavarois-ac36bd.netlify.app/brand/og-image.png">
+<link rel="canonical" href="https://startling-bavarois-ac36bd.netlify.app/landing.html">
+<script>
+/* 휴대폰(터치·좁은 화면)이나 홈 화면 앱으로 열면 글자가 선명한 앱 버전으로 보낸다. ?web=1 이면 그대로 */
+(function(){try{var q=location.search.indexOf('web=1')>-1, phone=matchMedia('(max-width: 760px) and (pointer: coarse)').matches, app=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(!q&&(phone||app))location.replace('/landing-app.html'+location.hash)}catch(e){}})();
+</script>
+<link rel="icon" type="image/png" href="/brand/siempre-favicon-64.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+/* 레이아웃: 고정되는 이야기 구간(왼쪽 글 · 오른쪽 휴대폰) → AI 카드 → 가격 → 시작 방법 → FAQ → 마지막 CTA */
+:root{
+  --pink:#f678b6; --pink-d:#d63384; --pink-l:#f8cfe3; --pink-xl:#fbe4ef;
+  --bg:#f6eaf1; --ink:#1b1b22; --mute:#6b6676; --line:#ece3ea; --card:#fff;
+  --claude:#ffd9cf; --claude-f:#b4482a; --qwen:#b8cfff; --qwen-f:#2b4ba8;
+  --mis:#b5fcc9; --mis-f:#1e7a45; --el:#d6b5d8; --el-f:#6b2e7a; --nano:#fae39e; --nano-f:#7a5a00;
+  --font:"Pretendard Variable","Pretendard","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+  --gut:max(20px, env(safe-area-inset-left, 0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 var(--font);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--pink-d);outline-offset:3px;border-radius:8px}
+
+/* 배경 덩어리 */
+.blobs{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55}
+.b1{width:520px;height:520px;background:#ffc6e2;left:-140px;top:-120px}
+.b2{width:460px;height:460px;background:#e7d3ff;right:-160px;top:30vh}
+.b3{width:380px;height:380px;background:#ffe3c4;left:30vw;bottom:-160px}
+
+/* 상단바 */
+.top{position:fixed;top:0;left:0;right:0;z-index:50;padding:12px var(--gut);padding-top:calc(12px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:space-between;transition:background .3s,box-shadow .3s}
+.top.solid{background:rgba(255,255,255,.82);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line)}
+.logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo .s{height:32px;width:auto}.logo .w{height:24px;width:auto}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:12px 22px;font:700 15px/1 var(--font);text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s,background .2s}
+.btn-p{background:var(--ink);color:#fff;box-shadow:0 8px 24px rgba(27,27,34,.18)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(27,27,34,.24)}
+.btn-g{background:#fff;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--line)}
+.btn-g:hover{background:var(--pink-xl)}
+.btn-sm{padding:9px 16px;font-size:14px}
+
+/* 이야기 구간 */
+.story{position:relative;height:100vh;height:100svh;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;max-width:1180px;margin:0 auto;padding:80px var(--gut) 24px}
+.panels{position:relative;height:380px}
+.panel{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--pink-d);letter-spacing:.02em;margin-bottom:14px}
+.eyebrow i{width:8px;height:8px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 4px rgba(246,120,182,.25)}
+.step-no{font:800 13px/1 var(--font);color:var(--mute);letter-spacing:.12em;margin-bottom:12px}
+.panel h1,.panel h2{margin:0 0 16px;font-size:clamp(32px,4.4vw,56px);line-height:1.15;letter-spacing:-.035em;font-weight:800;text-wrap:balance}
+.panel h2{font-size:clamp(28px,3.6vw,46px)}
+.panel h1 em,.panel h2 em{font-style:normal;color:var(--pink-d)}
+.panel p{margin:0 0 22px;font-size:clamp(16px,1.5vw,19px);color:var(--mute);max-width:30em}
+.panel .ctas{display:flex;gap:10px;flex-wrap:wrap}
+.word{display:inline-block;overflow:hidden;vertical-align:top}
+.word>span{display:inline-block}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.facts li{background:#fff;border-radius:999px;padding:7px 14px;font-size:14px;font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}
+.facts b{color:var(--pink-d)}
+
+/* 진행 점 */
+.dots{position:absolute;left:var(--gut);bottom:28px;display:flex;gap:8px}
+.dots span{width:28px;height:4px;border-radius:4px;background:rgba(27,27,34,.12);overflow:hidden;position:relative}
+.dots span i{position:absolute;inset:0;background:var(--ink);transform-origin:left;transform:scaleX(0)}
+.hint{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);font-size:13px;color:var(--mute);display:flex;flex-direction:column;align-items:center;gap:6px}
+.hint .mouse{width:22px;height:34px;border-radius:12px;border:2px solid var(--mute);position:relative}
+.hint .mouse::after{content:"";position:absolute;left:50%;top:6px;width:4px;height:7px;border-radius:2px;background:var(--mute);transform:translateX(-50%);animation:wheel 1.6s infinite}
+@keyframes wheel{0%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,10px)}}
+
+/* 휴대폰 */
+.stage{position:relative;display:grid;place-items:center;perspective:1400px;perspective-origin:50% 40%;height:100%}
+/* 휴대폰 3D: 바깥(.hover)은 둥실·마우스 기울기, 안쪽(.phone)은 스크롤 회전 */
+.hover{position:relative;transform-style:preserve-3d;will-change:transform}
+.phone{--t:20px;--r:46px;position:relative;width:300px;height:614px;transform-style:preserve-3d;will-change:transform}
+.face{position:absolute;inset:0;border-radius:var(--r);backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.front{transform:translateZ(calc(var(--t) / 2));background:#0e0e13;padding:12px;box-shadow:0 0 0 1.5px #3a3a44 inset,0 0 0 4px #121218 inset}
+.back{transform:rotateY(180deg) translateZ(calc(var(--t) / 2));background:linear-gradient(145deg,#ffb3d6,#f678b6 42%,#d63384);display:grid;place-items:center;overflow:hidden}
+.back::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);transform:translateX(calc(var(--gx,0) * 160% - 80%))}
+/* 옆면: 같은 모양 판을 여러 장 겹쳐 두께와 둥근 모서리를 만든다 */
+.slice{position:absolute;inset:0;border-radius:var(--r);background:linear-gradient(90deg,#b8457c,#f4a3c9 12%,#e07aaa 30%,#c95890 50%,#e07aaa 70%,#f4a3c9 88%,#b8457c);pointer-events:none}
+.side-btn{position:absolute;width:6px;border-radius:3px;background:linear-gradient(90deg,#a63c70,#f19ac2,#a63c70)}
+.sb1{right:-3px;top:150px;height:70px}
+.sb2{left:-3px;top:120px;height:34px}.sb3{left:-3px;top:166px;height:54px}.sb4{left:-3px;top:228px;height:54px}
+/* 화면 유리 반사 (회전에 따라 움직임) */
+.gloss{position:absolute;inset:0;border-radius:36px;pointer-events:none;z-index:8;background:linear-gradient(115deg,rgba(255,255,255,0) 35%,rgba(255,255,255,.28) 48%,rgba(255,255,255,0) 60%);transform:translateX(calc(var(--gx,0) * 140% - 70%));mix-blend-mode:screen}
+.glass{position:absolute;inset:0;border-radius:36px;pointer-events:none;z-index:7;box-shadow:inset 0 0 0 1px rgba(255,255,255,.06),inset 0 30px 60px -40px rgba(255,255,255,.25)}
+/* 바닥 그림자 */
+.shadow{position:absolute;left:50%;bottom:calc(50% - 345px);width:260px;height:36px;margin-left:-130px;border-radius:50%;background:radial-gradient(closest-side,rgba(120,30,80,.38),rgba(120,30,80,0));filter:blur(4px);transform:scaleX(var(--sx,1));will-change:transform}
+.back .cam{position:absolute;top:22px;left:22px;width:84px;height:84px;border-radius:24px;background:rgba(0,0,0,.18);display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px}
+.back .cam i{border-radius:50%;background:#1b1b22;box-shadow:inset 0 0 0 4px #33333d}
+.back img{width:120px;filter:brightness(0) invert(1);opacity:.95}
+.screen{position:relative;width:100%;height:100%;border-radius:36px;background:#fff;overflow:hidden}
+.notch{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:20px;background:#121218;z-index:5}
+.scr{position:absolute;inset:0;padding:44px 14px 14px;display:flex;flex-direction:column;font-size:12.5px;line-height:1.5;background:#fff}
+.scr-h{display:flex;align-items:center;justify-content:space-between;padding:0 2px 10px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.scr-h b{font-size:14px}
+.scr-h small{font-size:11px;color:var(--mute)}
+.chips{display:flex;gap:4px}
+.chip{font-size:10px;font-weight:700;border-radius:999px;padding:3px 8px;white-space:nowrap}
+.c-claude{background:var(--claude);color:var(--claude-f)}.c-qwen{background:var(--qwen);color:var(--qwen-f)}.c-mis{background:var(--mis);color:var(--mis-f)}.c-el{background:var(--el);color:var(--el-f)}.c-nano{background:var(--nano);color:var(--nano-f)}
+
+/* 채팅 화면 */
+.msgs{display:flex;flex-direction:column;gap:8px;flex:1;overflow:hidden}
+.m{max-width:86%;border-radius:16px;padding:8px 11px;opacity:0;transform:translateY(10px) scale(.96)}
+.m.on{opacity:1;transform:none;transition:opacity .35s,transform .45s cubic-bezier(.2,.9,.3,1.3)}
+.m.u{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:5px}
+.m.a{align-self:flex-start;background:#f5f1f4;border-bottom-left-radius:5px}
+.m.a .chip{display:inline-block;margin-bottom:4px}
+.m .why{display:block;font-size:10px;color:var(--mute);margin-top:4px}
+.typing{align-self:flex-start;background:#f5f1f4;border-radius:14px;padding:9px 12px;display:none;gap:4px}
+.typing.on{display:flex}
+.typing i{width:6px;height:6px;border-radius:50%;background:#b9b1bb;animation:bob 1s infinite}
+.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes bob{0%,60%,100%{transform:none;opacity:.5}30%{transform:translateY(-4px);opacity:1}}
+.wave{display:flex;align-items:center;gap:2px;height:22px;margin-top:2px}
+.wave i{width:3px;border-radius:2px;background:var(--el-f);animation:wv 1s infinite ease-in-out}
+@keyframes wv{0%,100%{height:4px}50%{height:20px}}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:4px}
+.thumbs img{border-radius:6px;aspect-ratio:16/9;object-fit:cover}
+.inp{margin-top:8px;display:flex;align-items:center;gap:6px;border-radius:14px;background:#f5f1f4;padding:8px 8px 8px 12px;font-size:11.5px;color:var(--mute)}
+.inp .send{margin-left:auto;width:26px;height:26px;border-radius:50%;background:var(--pink);display:grid;place-items:center;color:#fff;font-weight:900;flex:none}
+
+/* 예상 크레딧 화면 */
+.est{display:flex;align-items:center;gap:6px;background:var(--pink-xl);color:var(--pink-d);font-weight:700;font-size:11.5px;border-radius:10px;padding:7px 10px;margin-top:auto}
+.est .pulse{width:8px;height:8px;border-radius:50%;background:var(--pink-d);animation:pl 1.2s infinite}
+@keyframes pl{0%{box-shadow:0 0 0 0 rgba(214,51,132,.5)}100%{box-shadow:0 0 0 8px rgba(214,51,132,0)}}
+.sheet{margin-top:10px;border-radius:16px;background:#fff;box-shadow:0 -6px 24px rgba(0,0,0,.08),0 0 0 1px var(--line);padding:10px}
+.sheet b{display:block;font-size:12px;margin-bottom:6px}
+.opt{display:flex;align-items:center;justify-content:space-between;padding:7px 6px;border-radius:10px;font-size:11.5px}
+.opt+.opt{border-top:1px solid var(--line)}
+.opt.sel{background:var(--pink-xl)}
+.opt span:last-child{font-weight:700}
+.typed{color:var(--ink);font-weight:600}
+.caret{display:inline-block;width:1.5px;height:13px;background:var(--pink-d);vertical-align:-2px;animation:blink 1s step-end infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* 장바구니 화면 */
+.row{display:flex;align-items:center;gap:8px;padding:7px 2px;border-bottom:1px solid var(--line)}
+.ic{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none}
+.row .nm{font-weight:700;font-size:12px;flex:1}
+.tiers{display:flex;gap:3px}
+.tiers span{font-size:9.5px;font-weight:700;padding:3px 6px;border-radius:6px;background:#f5f1f4;color:var(--mute);transition:background .3s,color .3s;white-space:nowrap}
+.tiers span.on{background:var(--ink);color:#fff}
+.sum{margin-top:auto;border-radius:16px;background:var(--pink);color:#fff;padding:12px}
+.sum .l{font-size:11px;opacity:.9}
+.sum .v{font-size:26px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sum .d{font-size:11px;font-weight:700;background:rgba(255,255,255,.25);border-radius:6px;padding:2px 6px;display:inline-block}
+
+/* 크레딧 화면 */
+.cr{padding:9px 4px;border-bottom:1px solid var(--line)}
+.cr .t{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:5px}
+.cr .t small{font-weight:600;color:var(--mute)}
+.bar{height:8px;border-radius:8px;background:#f1eaef;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:8px;width:0;transition:width 1.2s cubic-bezier(.2,.8,.2,1)}
+.cr .u{font-size:10.5px;color:var(--mute);margin-top:3px}
+.band{margin-top:auto;border-radius:12px;background:#fff6e6;color:#8a5a00;font-size:11px;font-weight:600;padding:8px 10px}
+
+/* 무료 화면 */
+.free-top{text-align:center;padding:14px 0 6px}
+.free-top .big{font-size:40px;font-weight:900;letter-spacing:-.03em;color:var(--pink-d)}
+.free-top small{color:var(--mute)}
+.fr{display:flex;align-items:center;gap:8px;padding:7px 4px;font-size:12px}
+.fr b{margin-left:auto;font-size:11.5px}
+.go{margin-top:auto;border-radius:14px;background:var(--ink);color:#fff;text-align:center;padding:12px;font-weight:800;font-size:13px}
+
+/* 휴대폰 주변 떠다니는 AI 칩 */
+.orb{position:absolute;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;font-weight:900;font-size:18px;box-shadow:0 12px 30px rgba(0,0,0,.1);will-change:transform}
+.orb small{position:absolute;top:56px;font-size:11px;font-weight:700;color:var(--mute);white-space:nowrap}
+.o1{background:var(--claude);color:var(--claude-f);left:4%;top:16%}
+.o2{background:var(--qwen);color:var(--qwen-f);right:6%;top:10%}
+.o3{background:var(--mis);color:var(--mis-f);right:2%;top:58%}
+.o4{background:var(--el);color:var(--el-f);left:0;top:66%}
+.o5{background:var(--nano);color:var(--nano-f);right:16%;bottom:6%}
+
+/* 띠 */
+.mq-wrap{overflow:hidden;padding:40px 0}
+.marquee{overflow:hidden;background:var(--ink);color:#fff;padding:18px 0;transform:rotate(-2deg) scale(1.04)}
+.track{display:flex;gap:40px;width:max-content;font-size:clamp(20px,2.6vw,32px);font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.track span{display:flex;align-items:center;gap:40px}
+.track span::after{content:"✦";color:var(--pink)}
+
+/* 공통 섹션 */
+section.sec{max-width:1180px;margin:0 auto;padding:110px var(--gut)}
+.sec-h{max-width:720px;margin-bottom:48px}
+.sec-h .k{font-size:14px;font-weight:800;color:var(--pink-d);letter-spacing:.08em;margin-bottom:10px}
+.sec-h h2{margin:0 0 12px;font-size:clamp(28px,3.6vw,46px);line-height:1.18;letter-spacing:-.035em;text-wrap:balance}
+.sec-h p{margin:0;color:var(--mute);font-size:17px}
+
+/* AI 카드 */
+.ais{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.ai{background:#fff;border-radius:24px;padding:22px 18px;box-shadow:0 0 0 1px var(--line);transform-style:preserve-3d;transition:box-shadow .3s;min-width:0}
+.ai:hover{box-shadow:0 20px 40px rgba(120,30,80,.12),0 0 0 1px var(--line)}
+.ai .ic{width:48px;height:48px;border-radius:14px;font-size:20px;margin-bottom:16px}
+.ai h3{margin:0 0 4px;font-size:19px}
+.ai .role{font-size:14px;color:var(--mute);margin-bottom:14px}
+.ai .free{font-size:13px;font-weight:700;border-top:1px dashed var(--line);padding-top:12px}
+.ai .free span{display:block;font-size:11px;color:var(--mute);font-weight:600}
+
+/* 가격 */
+.price-wrap{overflow-x:auto;border-radius:24px;background:#fff;box-shadow:0 0 0 1px var(--line)}
+table{width:100%;border-collapse:collapse;min-width:720px;font-variant-numeric:tabular-nums}
+th,td{padding:16px 18px;text-align:left;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+th{font-size:13px;color:var(--mute);font-weight:700;background:#fcf8fa}
+td b{font-size:17px}
+td small{display:block;color:var(--mute);font-size:12.5px}
+tr:last-child td{border-bottom:0}
+.notes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+.note{background:#fff;border-radius:18px;padding:16px 18px;box-shadow:0 0 0 1px var(--line);font-size:14px;color:var(--mute)}
+.note b{display:block;color:var(--ink);font-size:16px;margin-bottom:2px}
+.example{margin-top:18px;border-radius:20px;background:var(--ink);color:#fff;padding:20px 22px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px 18px}
+.example .v{font-size:30px;font-weight:800;color:var(--pink);font-variant-numeric:tabular-nums}
+.example small{color:#cfc8d4}
+
+/* 시작 방법 */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;position:relative}
+.steps svg{position:absolute;left:0;right:0;top:34px;width:100%;height:8px;overflow:visible;pointer-events:none}
+.st{position:relative;background:#fff;border-radius:24px;padding:24px;box-shadow:0 0 0 1px var(--line)}
+.st .n{width:44px;height:44px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;font-weight:900;margin-bottom:14px;position:relative;z-index:1}
+.st h3{margin:0 0 6px;font-size:19px}
+.st p{margin:0;color:var(--mute);font-size:15px}
+
+/* FAQ */
+.faq{display:grid;gap:10px;max-width:860px}
+.more{margin-top:18px;background:transparent;box-shadow:none}
+.more>summary{font-size:13px;font-weight:600;color:var(--mute);padding:8px 40px 8px 4px}
+.more>summary::after{width:20px;height:20px;font-size:12px;right:6px}
+.more-body{display:grid;gap:8px;padding-top:6px}
+.more-body details summary{font-size:15px}
+.faq-g{margin:22px 0 2px;font-size:14px;font-weight:800;color:var(--pink-d);letter-spacing:.04em}.faq-g:first-child{margin-top:0}
+details{background:#fff;border-radius:18px;box-shadow:0 0 0 1px var(--line);overflow:hidden}
+summary{list-style:none;cursor:pointer;padding:18px 54px 18px 20px;font-weight:700;font-size:16px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:var(--pink-xl);color:var(--pink-d);display:grid;place-items:center;font-weight:900;transition:transform .3s}
+details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+details .ans{padding:0 20px 18px;color:var(--mute);font-size:15px}
+
+/* 마지막 CTA */
+.final{position:relative;overflow:hidden;text-align:center;padding:130px var(--gut) 140px;background:var(--ink);color:#fff;border-radius:48px 48px 0 0;margin-top:40px}
+.final h2{margin:0 0 18px;font-size:clamp(34px,6vw,76px);line-height:1.08;letter-spacing:-.04em;text-wrap:balance}
+.final h2 em{font-style:normal;color:var(--pink)}
+.final p{color:#cfc8d4;font-size:18px;margin:0 0 30px}
+.final .btn-p{background:var(--pink);color:var(--ink)}
+.final .btn-g{background:transparent;color:#fff;box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.35)}
+.final .btn-g:hover{background:rgba(255,255,255,.08)}
+.float{position:absolute;font-weight:800;font-size:14px;border-radius:999px;padding:8px 14px;opacity:.9}
+footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padding:0 var(--gut) calc(30px + env(safe-area-inset-bottom,0px))}
+
+/* 휴대폰 화면 폭 */
+@media (max-width:860px){
+  .story{grid-template-columns:1fr;grid-template-rows:auto 1fr;align-items:start;padding-top:72px;gap:4px}
+  .panels{height:230px;order:2}
+  .stage{order:1;height:auto;min-height:0}
+  .phone{--t:15px;--r:36px;height:min(450px,54svh);width:calc(min(450px,54svh) * .49)}
+  .gloss,.glass{border-radius:28px}
+  .shadow{width:180px;margin-left:-90px;bottom:-14px;height:26px}
+  .sb1{top:110px;height:52px}.sb2{top:88px;height:26px}.sb3{top:122px;height:40px}.sb4{top:168px;height:40px}
+  .tiers{gap:2px}.tiers span{font-size:7.5px;padding:2px 3px}
+  .row{gap:5px}.row .nm{font-size:10px}.row .ic{width:22px;height:22px;font-size:10px}
+  .sum .v{font-size:20px}
+  .sheet{padding:7px;margin-top:6px}.sheet b{font-size:10.5px;margin-bottom:3px}
+  .opt{padding:5px 4px;font-size:9.5px;white-space:nowrap}.opt .chip{padding:2px 5px;font-size:8.5px}
+  .est{font-size:9.5px;padding:6px 8px;white-space:nowrap}
+  .inp{font-size:10px;padding:6px 6px 6px 10px}.inp .send{width:22px;height:22px}
+  [data-scr="1"] .m{font-size:10.5px}
+  .face{border-radius:36px}.screen{border-radius:28px}
+  .scr{font-size:11px;padding-top:38px}
+  .notch{width:72px;height:20px}
+  .panel{justify-content:flex-start;text-align:center;align-items:center}
+  .panel h1{font-size:28px}.panel h2{font-size:24px;margin-bottom:8px}
+  .panel p{font-size:14.5px;margin-bottom:12px}
+  .eyebrow,.step-no{margin-bottom:6px}
+  .facts{justify-content:center}
+  .orb{width:40px;height:40px;font-size:14px;border-radius:12px}.orb small{display:none}
+  .o1{left:2%;top:8%}.o2{right:2%;top:4%}.o3{right:0;top:62%}.o4{left:0;top:70%}.o5{display:none}
+  .dots{left:50%;transform:translateX(-50%);bottom:14px}
+  .hint{display:none}
+  .ais{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .notes,.steps{grid-template-columns:1fr}
+  .steps svg{display:none}
+  section.sec{padding:80px var(--gut)}
+}
+@media (max-width:420px){.ais{grid-template-columns:1fr}}
+
+/* 움직임 줄이기 설정: 이야기 구간을 고정하지 않고 모두 펼쳐서 보여 준다 */
+.static .story{height:auto;display:block}
+.static .panels{height:auto}
+.static .panel{position:static;margin-bottom:32px}
+.static .stage{height:auto;padding:20px 0}
+.static .dots,.static .hint{display:none}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"ChatGPT랑 Claude 둘 다 구독하는데 너무 비싸요. 싸게 쓰는 방법 있어요?","acceptedAnswer":{"@type":"Answer","text":"AI마다 쓰는 만큼의 단계만 골라 하나로 묶으면 아낄 수 있어요. Siempre에서는 Claude를 라이트 ₩8,900(깊은 분석·코딩 주 10번)부터 담을 수 있고, 번역은 Qwen 라이트 ₩2,900, 가벼운 대화는 Mistral 라이트 ₩1,900처럼 작업에 맞는 AI를 따로 골라요. 유료 AI가 2개면 5%, 3개 이상이면 10% 할인돼요. 참고로 Siempre에서 고를 수 있는 AI는 Claude·Qwen·Mistral·ElevenLabs·Nano Banana이고, ChatGPT는 없어요."}},{"@type":"Question","name":"AI 구독료 아끼는 방법 알려줘","acceptedAnswer":{"@type":"Answer","text":"안 쓰는 AI는 빼고, 가끔 쓰는 AI는 무료나 낮은 단계로 담고, 여러 AI를 묶어 할인받으면 돼요. Siempre는 AI마다 무료·라이트·스탠다드·헤비 중 하나를 고르고, 묶음 할인(유료 2개 5%, 3개 이상 10%)과 연간 결제 15% 추가 할인이 있어요. 예를 들어 Claude 스탠다드 + Qwen 라이트 + Mistral 스탠다드 + Nano Banana 무료는 월 ₩23,670이에요."}},{"@type":"Question","name":"ChatGPT나 Claude 하나만 쓰면 되지 않아요?","acceptedAnswer":{"@type":"Answer","text":"작업마다 잘하는 AI가 달라요. 글은 Claude, 번역은 Qwen, 이미지는 Nano Banana예요. Siempre는 여러 AI를 따로 구독하지 않아도 한 곳에서 이어서 쓸 수 있게 해 줘요."}},{"@type":"Question","name":"여러 AI를 한 번에 구독할 수 있는 서비스가 있나요?","acceptedAnswer":{"@type":"Answer","text":"Siempre가 그런 서비스예요. Siempre에서는 Claude(글쓰기), Qwen(번역·요약), Mistral(가벼운 대화), Nano Banana(이미지)를 AI마다 무료·라이트·스탠다드·헤비 중 한 단계로 골라 하나의 구독으로 묶어요. AI는 최소 2개를 담아야 하고, 결제는 한 번에 해요."}},{"@type":"Question","name":"AI마다 같은 내용을 여러 번 설명하기 싫어요","acceptedAnswer":{"@type":"Answer","text":"Siempre에서는 한 대화 안에서 AI가 바뀌어도 앞 내용이 이어져요. 대본을 쓴 다음 같은 대화에서 번역이나 썸네일을 요청하면, 요청마다 알맞은 AI가 앞에서 정한 주제와 조건을 반영해 답해요. 서비스마다 내용을 복사해 다시 설명할 필요가 없어요."}},{"@type":"Question","name":"번역이랑 사진 만들어 주는 AI 한 번에 쓰는 방법 없어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre에서 Qwen(번역)과 Nano Banana(이미지)를 함께 담으면 한 대화에서 둘 다 쓸 수 있어요. 번역을 요청하면 Qwen이, 이미지를 요청하면 Nano Banana가 자동으로 답해요. 두 AI 모두 무료 단계가 있어서(Qwen 적당한 분석 10번, Nano Banana 일반 이미지 2장) 결제 없이 먼저 써 볼 수 있어요."}},{"@type":"Question","name":"유튜버나 1인 크리에이터에게 Siempre가 왜 유용한가요?","acceptedAnswer":{"@type":"Answer","text":"Siempre에서는 대본 작성, 번역, 썸네일 제작을 한 대화에서 이어서 할 수 있어요. 예를 들어 Claude로 8분 유튜브 대본을 쓴 뒤 같은 대화에서 '도입부 영어로 번역해줘'라고 하면 Qwen이, '이 영상 썸네일 3개'라고 하면 Nano Banana가 앞 대본 주제를 반영해 만들어요. 서비스마다 내용을 복사해 붙여 넣을 필요가 없어요."}},{"@type":"Question","name":"유튜브 대본이랑 썸네일까지 한 번에 만들 수 있는 AI 툴 있어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre에서 Claude(대본), ElevenLabs(내레이션), Nano Banana(썸네일)를 담으면 한 대화에서 대본 → 음성 → 썸네일 순서로 만들 수 있어요. 만든 음성과 이미지는 내려받을 수 있어요. 영상 편집과 자막 생성은 지원하지 않아요."}},{"@type":"Question","name":"광고 카피, 이미지, 번역까지 한 번에 되는 AI 추천해 주세요","acceptedAnswer":{"@type":"Answer","text":"Siempre에서 Claude(카피), Nano Banana(이미지), Qwen(번역)을 담으면 같은 캠페인 조건으로 카피·이미지 시안·영문 문구를 한 대화에서 이어서 만들 수 있어요. AI별 사용량도 크레딧 화면에서 따로 확인해요. 이미지 속 글자와 행사 조건은 게시 전에 직접 확인해 주세요. 팀 승인·협업 기능은 없어요."}},{"@type":"Question","name":"과제할 때 쓸 AI, 무료로 여러 개 쓰는 방법 있어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre는 무료 단계 AI 2개만 담아도 결제 없이 시작할 수 있어요. 예를 들어 Qwen 무료(적당한 분석 10번)와 Mistral 무료(가벼운 분석 10번)로 자료 요약과 번역을 해 볼 수 있어요. 파일 첨부는 아직 지원하지 않아서 요약할 부분은 글로 붙여 넣어 주세요. AI가 만든 인용은 원문과 꼭 대조해 주세요."}},{"@type":"Question","name":"보고서 쓰고 영어 메일로 번역까지 해 주는 AI 있어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre에서 Claude로 회의 메모를 보고서 초안으로 정리하고, 같은 대화에서 Qwen으로 영어 메일 번역까지 이어서 할 수 있어요. 메일 자동 전송은 지원하지 않아요. 입력한 대화는 답을 위해 AI 제공사로 전달되니, 회사 기밀이나 개인정보는 빼고 써 주세요."}},{"@type":"Question","name":"가게 홍보 글이랑 포스터 만들어 주는 AI 서비스 있어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre에서 Mistral로 짧은 홍보 글과 리뷰 답글을, Nano Banana로 포스터 이미지를 만들 수 있어요. Mistral은 라이트 월 ₩1,900부터, Nano Banana는 무료(일반 이미지 2장)부터 담을 수 있어요. 메뉴 가격·영업시간은 직접 확인해 주세요. SNS 자동 게시는 지원하지 않아요."}},{"@type":"Question","name":"Poe 같은 서비스 한국 거 있어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre는 여러 AI를 한 곳에서 쓰는 한국어 AI 통합 구독 서비스예요. Claude·Qwen·Mistral·ElevenLabs·Nano Banana 중 필요한 AI만 골라 담으면, 요청마다 알맞은 AI가 자동으로 답해요. 가격은 원화(부가세 포함)로 AI마다 따로 정해져 있어요."}},{"@type":"Question","name":"AI 쓴 만큼만 돈 내는 서비스 있어요?","acceptedAnswer":{"@type":"Answer","text":"Siempre는 완전히 쓴 만큼만 내는 방식은 아니에요. 대신 AI마다 필요한 만큼의 단계(무료·라이트·스탠다드·헤비)만 골라 월 구독하고, 크레딧이 모자라면 그 AI만 추가 충전해요. 안 쓰는 AI에는 돈을 내지 않아요. 매주 채워지는 크레딧은 남아도 다음 주로 넘어가지 않아요."}},{"@type":"Question","name":"무료로 써 볼 수 있어요?","acceptedAnswer":{"@type":"Answer","text":"네. AI마다 무료 단계가 있어서 결제 없이 시작할 수 있어요. 예를 들어 Claude는 깊은 분석·코딩 3번, Nano Banana는 일반 이미지 2장을 무료로 써요."}},{"@type":"Question","name":"AI를 하나만 골라도 돼요?","acceptedAnswer":{"@type":"Answer","text":"최소 2개를 담아야 시작할 수 있어요. 무료 단계로 담아도 돼요."}},{"@type":"Question","name":"어떤 AI가 답할지는 누가 정해요?","acceptedAnswer":{"@type":"Answer","text":"요청 내용을 보고 담아 둔 AI 중에서 자동으로 골라요. 답변마다 어떤 모델이 왜 골라졌는지, 크레딧이 얼마나 쓰였는지 보여 줘요. 원하면 보내기 전에 직접 고를 수도 있어요."}},{"@type":"Question","name":"크레딧은 남으면 다음 주로 넘어가요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 크레딧은 매주 채워지고, 남은 크레딧은 다음 충전 직전에 사라져요. 연간 구독은 1주까지 이월돼요."}},{"@type":"Question","name":"크레딧이 모자라면요?","acceptedAnswer":{"@type":"Answer","text":"부족한 AI의 크레딧만 따로 추가 충전할 수 있어요. 구성을 바꿔 다른 단계로 올려도 돼요."}},{"@type":"Question","name":"크레딧 환불돼요?","acceptedAnswer":{"@type":"Answer","text":"쓴 크레딧은 환급되지 않아요. 대신 보내기 전에 입력창에 예상 모델과 차감량을 보여 줘서 미리 알 수 있어요."}},{"@type":"Question","name":"영상 편집이나 자막도 해 줘요?","acceptedAnswer":{"@type":"Answer","text":"아니요. 영상 편집·자막 생성은 지원하지 않아요. 대본·음성·이미지까지 만들 수 있어요."}}]}
+</script>
+</head>
+<body>
+<div class="blobs" aria-hidden="true"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div></div>
+
+<header class="top" id="top">
+  <a class="logo" href="#" aria-label="Siempre 처음으로"><img class="s" src="/brand/siempre-symbol-96.png" alt="" width="35" height="32"><img class="w" src="/brand/siempre-wordmark-240.png" alt="Siempre" width="78" height="24"></a>
+  <a class="btn btn-p btn-sm" href="/siempre-figma-prototype.html">무료로 시작하기</a>
+</header>
+
+<main>
+<!-- 이야기 구간: 스크롤하면 글이 바뀌고 휴대폰이 한 바퀴씩 돌며 화면이 바뀐다 -->
+<div class="story" id="story">
+  <div class="panels" id="panels">
+    <div class="panel" data-step="0">
+      <div class="eyebrow"><i></i>AI 통합 구독 Siempre</div>
+      <h1 class="split">쓸 AI만 골라 담고, <em>한 대화에서</em> 끝내세요</h1>
+      <p>대본·번역·음성·이미지를 한 대화에서 요청하면, 담아 둔 AI 중 알맞은 모델이 자동으로 답해요.</p>
+      <div class="ctas"><a class="btn btn-p" href="/siempre-figma-prototype.html">무료로 시작하기</a><a class="btn btn-g" href="#price">가격 보기</a></div>
+    </div>
+    <div class="panel" data-step="1">
+      <div class="step-no">01 · 자동으로 알맞은 AI</div>
+      <h2>보내기 전에 <em>예상 크레딧</em>부터</h2>
+      <p>입력하는 동안 어떤 AI가 답할지, 크레딧이 얼마나 드는지 먼저 보여 줘요. 답변마다 고른 모델과 이유도 함께 나와요.</p>
+      <ul class="facts"><li>글쓰기 <b>Claude</b></li><li>번역·요약 <b>Qwen</b></li><li>가벼운 대화 <b>Mistral</b></li></ul>
+    </div>
+    <div class="panel" data-step="2">
+      <div class="step-no">02 · 장바구니처럼</div>
+      <h2>쓸 AI만, <em>쓸 만큼만</em> 담기</h2>
+      <p>AI마다 무료·라이트·스탠다드·헤비 중 하나를 고르면 월 요금이 바로 계산돼요. 안 쓰는 AI에는 돈을 내지 않아요.</p>
+      <ul class="facts"><li>유료 2개 <b>5%</b> 할인</li><li>3개 이상 <b>10%</b></li><li>연간 <b>15%</b> 추가</li></ul>
+    </div>
+    <div class="panel" data-step="3">
+      <div class="step-no">03 · 크레딧 확인</div>
+      <h2>AI별 크레딧을 <em>한 화면에서</em></h2>
+      <p>AI마다 남은 크레딧과 사용 내용을 바로 확인해요. 모자라면 그 AI만 추가 충전하면 돼요.</p>
+      <ul class="facts"><li>매주 <b>새로 충전</b></li><li>남은 크레딧은 <b>이월 안 됨</b></li></ul>
+    </div>
+    <div class="panel" data-step="4">
+      <div class="step-no">04 · 지금 바로</div>
+      <h2><em>결제 없이</em> 시작하세요</h2>
+      <p>AI마다 무료 단계가 있어요. 2개만 담으면 결제창 없이 바로 대화를 시작할 수 있어요.</p>
+      <div class="ctas"><a class="btn btn-p" href="/siempre-figma-prototype.html">무료로 시작하기</a><a class="btn btn-g" href="/signup">회원가입</a></div>
+    </div>
+  </div>
+
+  <div class="stage" id="stage" aria-hidden="true">
+    <div class="orb o1">C<small>Claude</small></div>
+    <div class="orb o2">Q<small>Qwen</small></div>
+    <div class="orb o3">M<small>Mistral</small></div>
+    <div class="orb o4">E<small>ElevenLabs</small></div>
+    <div class="orb o5">N<small>Nano Banana</small></div>
+    <div class="shadow" id="shadow"></div>
+    <div class="hover" id="hover">
+    <div class="phone" id="phone">
+      <div id="slices"></div>
+      <div class="face front">
+        <div class="screen">
+          <div class="glass"></div><div class="gloss"></div>
+          <div class="notch"></div>
+
+          <!-- 화면 0: 채팅 -->
+          <div class="scr" data-scr="0">
+            <div class="scr-h"><b>새 대화</b><div class="chips"><span class="chip c-claude">C</span><span class="chip c-el">E</span><span class="chip c-nano">N</span></div></div>
+            <div class="msgs" id="msgs">
+              <div class="m u">월급 300만 원으로 1년에 1,000만 원 모으는 법, 8분 유튜브 대본 써줘</div>
+              <div class="m a"><span class="chip c-claude">Claude · 글쓰기 · 5크레딧</span><br>“한 달 83만 원, 생각보다 가까워요.” 도입 30초는 숫자로 시작할게요…<span class="why">글쓰기 요청이라 자동 선택</span></div>
+              <div class="m u">이 대본 차분한 목소리로 읽어줘</div>
+              <div class="m a"><span class="chip c-el">ElevenLabs · 음성 생성</span><div class="wave"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.4s"></i><i style="animation-delay:.5s"></i><i style="animation-delay:.6s"></i><i style="animation-delay:.7s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.4s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.3s"></i></div></div>
+              <div class="m u">썸네일 시안 3개, 큰 글씨는 ‘1년에 1,000만 원’</div>
+              <div class="m a"><span class="chip c-nano">Nano Banana · 이미지 · 17크레딧</span><div class="thumbs"><img src="/demo/thumbnail-a.webp" alt=""><img src="/demo/thumbnail-b.webp" alt=""><img src="/demo/thumbnail-c.webp" alt=""></div></div>
+              <div class="typing" id="typing"><i></i><i></i><i></i></div>
+            </div>
+            <div class="inp">메시지를 입력하세요<span class="send">↑</span></div>
+          </div>
+
+          <!-- 화면 1: 예상 크레딧 -->
+          <div class="scr" data-scr="1">
+            <div class="scr-h"><b>새 대화</b><small>자동 선택</small></div>
+            <div class="m a on"><span class="chip c-qwen">Qwen · 번역 · 2크레딧</span><br>“Saving 10 million won a year on a 3 million won salary…”<span class="why">번역 요청이라 자동 선택</span></div>
+            <div class="sheet">
+              <b>다른 모델로 다시 받기</b>
+              <div class="opt"><span><span class="chip c-claude">Claude</span> 글쓰기</span><span>5크레딧</span></div>
+              <div class="opt sel"><span><span class="chip c-qwen">Qwen</span> 번역</span><span>2크레딧</span></div>
+              <div class="opt"><span><span class="chip c-mis">Mistral</span> 가벼운 분석</span><span>1크레딧</span></div>
+            </div>
+            <div class="est"><span class="pulse"></span>예상: Claude · 글쓰기 · 5크레딧</div>
+            <div class="inp"><span class="typed" id="typed"></span><span class="caret"></span><span class="send">↑</span></div>
+          </div>
+
+          <!-- 화면 2: 장바구니 -->
+          <div class="scr" data-scr="2">
+            <div class="scr-h"><b>내 구독 구성</b><small>월 구독</small></div>
+            <div class="row"><span class="ic c-claude">C</span><span class="nm">Claude</span><span class="tiers" data-pick="2"><span>무료</span><span>라이트</span><span>스탠다드</span><span>헤비</span></span></div>
+            <div class="row"><span class="ic c-qwen">Q</span><span class="nm">Qwen</span><span class="tiers" data-pick="1"><span>무료</span><span>라이트</span><span>스탠다드</span><span>헤비</span></span></div>
+            <div class="row"><span class="ic c-mis">M</span><span class="nm">Mistral</span><span class="tiers" data-pick="2"><span>무료</span><span>라이트</span><span>스탠다드</span><span>헤비</span></span></div>
+            <div class="row"><span class="ic c-nano">N</span><span class="nm">Nano Banana</span><span class="tiers" data-pick="0"><span>무료</span><span>라이트</span><span>스탠다드</span><span>헤비</span></span></div>
+            <div class="sum"><div class="l">월 결제액 (부가세 포함)</div><div class="v" id="total">₩0</div><span class="d">유료 3개 묶음 할인 10%</span></div>
+          </div>
+
+          <!-- 화면 3: 크레딧 -->
+          <div class="scr" data-scr="3">
+            <div class="scr-h"><b>크레딧</b><small>이번 주</small></div>
+            <div class="cr"><div class="t">Claude <small>스탠다드</small></div><div class="bar"><i style="background:var(--claude-f)" data-w="62"></i></div><div class="u">대본 작성·다듬기 · 62% 사용</div></div>
+            <div class="cr"><div class="t">Qwen <small>라이트</small></div><div class="bar"><i style="background:var(--qwen-f)" data-w="35"></i></div><div class="u">번역·요약 · 35% 사용</div></div>
+            <div class="cr"><div class="t">Mistral <small>스탠다드</small></div><div class="bar"><i style="background:var(--mis-f)" data-w="18"></i></div><div class="u">가벼운 분석 · 18% 사용</div></div>
+            <div class="cr"><div class="t">Nano Banana <small>무료</small></div><div class="bar"><i style="background:var(--nano-f)" data-w="100"></i></div><div class="u">이미지 2장 · 다 썼어요 → 추가 충전</div></div>
+            <div class="band">남은 크레딧은 다음 충전 전에 사라져요</div>
+          </div>
+
+          <!-- 화면 4: 무료로 시작 -->
+          <div class="scr" data-scr="4">
+            <div class="free-top"><div class="big">₩0</div><small>무료 단계만 담으면 결제창 없이 시작</small></div>
+            <div class="fr"><span class="ic c-claude">C</span>Claude<b>깊은 분석·코딩 3번</b></div>
+            <div class="fr"><span class="ic c-qwen">Q</span>Qwen<b>적당한 분석 10번</b></div>
+            <div class="fr"><span class="ic c-mis">M</span>Mistral<b>가벼운 분석 10번</b></div>
+            <div class="fr"><span class="ic c-el">E</span>ElevenLabs<b>3,000자 (약 7분)</b></div>
+            <div class="fr"><span class="ic c-nano">N</span>Nano Banana<b>일반 이미지 2장</b></div>
+            <div class="go">무료로 시작하기</div>
+          </div>
+        </div>
+      </div>
+      <div class="face back"><div class="cam"><i></i><i></i><i></i></div><img src="/brand/siempre-symbol-96.png" alt=""></div>
+    </div>
+    </div>
+  </div>
+
+  <div class="dots" id="dots" aria-hidden="true"><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span><span><i></i></span></div>
+  <div class="hint" id="hint" aria-hidden="true"><span class="mouse"></span>스크롤해 보세요</div>
+</div>
+
+<div class="mq-wrap"><div class="marquee" aria-hidden="true"><div class="track" id="track"><span>유튜브 대본</span><span>내레이션</span><span>썸네일</span><span>광고 카피</span><span>번역</span><span>발표 요약</span><span>포스터</span><span>리뷰 답글</span><span>상품 설명</span><span>유튜브 대본</span><span>내레이션</span><span>썸네일</span><span>광고 카피</span><span>번역</span><span>발표 요약</span><span>포스터</span><span>리뷰 답글</span><span>상품 설명</span></div></div></div>
+
+<section class="sec" id="ais">
+  <div class="sec-h reveal"><div class="k">담을 수 있는 AI</div><h2>잘하는 일이 다른 AI 5개, 필요한 것만 고르세요</h2><p>요청 종류에 따라 담아 둔 AI 중 알맞은 모델이 자동으로 답해요. 담지 않은 AI가 필요한 요청이면 안내해 줘요.</p></div>
+  <div class="ais">
+    <article class="ai tilt"><div class="ic c-claude">C</div><h3>Claude</h3><div class="role">대본 · 글쓰기 · 코딩</div><div class="free"><span>무료</span>깊은 분석·코딩 3번</div></article>
+    <article class="ai tilt"><div class="ic c-qwen">Q</div><h3>Qwen</h3><div class="role">번역 · 요약 · 다국어</div><div class="free"><span>무료</span>적당한 분석 10번</div></article>
+    <article class="ai tilt"><div class="ic c-mis">M</div><h3>Mistral</h3><div class="role">가볍고 빠른 대화 · 간단한 분석</div><div class="free"><span>무료</span>가벼운 분석 10번</div></article>
+    <article class="ai tilt"><div class="ic c-el">E</div><h3>ElevenLabs</h3><div class="role">음성 · 내레이션</div><div class="free"><span>무료</span>3,000자 (한국어 약 7분)</div></article>
+    <article class="ai tilt"><div class="ic c-nano">N</div><h3>Nano Banana</h3><div class="role">이미지 · 썸네일 · 포스터</div><div class="free"><span>무료</span>일반 이미지 2장</div></article>
+  </div>
+</section>
+
+<section class="sec" id="price">
+  <div class="sec-h reveal"><div class="k">가격</div><h2>AI마다 단계를 고르면, 월 요금이 바로 나와요</h2><p>월 구독, 부가세 포함. 텍스트 AI는 주 단위, 이미지·음성은 월 단위 사용량이에요.</p></div>
+  <div class="price-wrap reveal">
+    <table>
+      <thead><tr><th>AI</th><th>무료</th><th>라이트</th><th>스탠다드</th><th>헤비</th></tr></thead>
+      <tbody>
+        <tr><td><b>Claude</b></td><td><b>₩0</b><small>깊은 분석·코딩 3번</small></td><td><b>₩8,900</b><small>주 10번</small></td><td><b>₩17,900</b><small>주 30번</small></td><td><b>₩44,900</b><small>주 100번</small></td></tr>
+        <tr><td><b>Qwen</b></td><td><b>₩0</b><small>적당한 분석 10번</small></td><td><b>₩2,900</b><small>주 50번</small></td><td><b>₩7,900</b><small>주 120번</small></td><td><b>₩19,900</b><small>주 250번</small></td></tr>
+        <tr><td><b>Mistral</b></td><td><b>₩0</b><small>가벼운 분석 10번</small></td><td><b>₩1,900</b><small>주 50번</small></td><td><b>₩5,500</b><small>주 120번</small></td><td><b>₩14,900</b><small>주 350번</small></td></tr>
+        <tr><td><b>Nano Banana</b></td><td><b>₩0</b><small>일반 이미지 2장</small></td><td><b>₩9,900</b><small>월 일반 70장 · 고화질 35장</small></td><td><b>₩19,900</b><small>월 일반 145장 · 고화질 70장</small></td><td><b>₩39,900</b><small>월 일반 290장 · 고화질 140장</small></td></tr>
+        <tr><td><b>ElevenLabs</b></td><td><b>₩0</b><small>3,000자 (약 7분)</small></td><td><b>₩9,900</b><small>월 35,000자 (약 80분)</small></td><td><b>₩19,900</b><small>월 70,000자 (약 155분)</small></td><td><b>₩39,900</b><small>월 140,000자 (약 310분)</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="notes">
+    <div class="note reveal"><b>최소 2개</b>AI를 2개 이상 담아야 시작해요. 무료 단계로 담아도 돼요.</div>
+    <div class="note reveal"><b>묶음 할인</b>유료 AI 2개 5%, 3개 이상 10%. 연간 결제는 15% 더 할인돼요.</div>
+    <div class="note reveal"><b>크레딧 규칙</b>AI마다 따로 매주 충전, 남으면 사라지고 환급은 없어요. 부족한 AI만 추가 충전해요.</div>
+  </div>
+  <div class="example reveal"><small>예시 · Claude 스탠다드 + Qwen 라이트 + Mistral 스탠다드 + Nano Banana 무료</small><span class="v" data-count="23670">₩23,670</span><small>₩26,300에서 유료 3개 묶음 할인 10%</small></div>
+</section>
+
+<section class="sec" id="how">
+  <div class="sec-h reveal"><div class="k">시작 방법</div><h2>세 단계면 첫 대화까지</h2></div>
+  <div class="steps">
+    <svg viewBox="0 0 1000 8" preserveAspectRatio="none" aria-hidden="true"><path id="line" d="M60 4 H940" stroke="#f678b6" stroke-width="3" stroke-dasharray="8 8" fill="none"/></svg>
+    <div class="st reveal"><div class="n">1</div><h3>AI 담기</h3><p>쓸 AI를 2개 이상 고르고 단계를 정해요. 월 요금이 바로 계산돼요.</p></div>
+    <div class="st reveal"><div class="n">2</div><h3>시작하기</h3><p>무료 단계만 담았다면 결제 없이 바로, 유료면 결제 후 이번 주 크레딧이 채워져요.</p></div>
+    <div class="st reveal"><div class="n">3</div><h3>한 대화에서 요청</h3><p>대본, 번역, 음성, 이미지를 이어서 요청해요. 알맞은 AI가 자동으로 답해요.</p></div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="sec-h reveal"><div class="k">자주 묻는 질문</div><h2>이런 걸 많이 물어봐요</h2></div>
+  <div class="faq">
+    <details class="reveal"><summary>ChatGPT나 Claude 하나만 쓰면 되지 않아요?</summary><div class="ans">작업마다 잘하는 AI가 달라요. 글은 Claude, 번역은 Qwen, 이미지는 Nano Banana예요. Siempre는 여러 AI를 따로 구독하지 않아도 한 곳에서 이어서 쓸 수 있게 해 줘요.</div></details>
+    <details class="reveal"><summary>여러 AI를 한 번에 구독할 수 있는 서비스가 있나요?</summary><div class="ans">Siempre가 그런 서비스예요. Siempre에서는 Claude(글쓰기), Qwen(번역·요약), Mistral(가벼운 대화), Nano Banana(이미지)를 AI마다 무료·라이트·스탠다드·헤비 중 한 단계로 골라 하나의 구독으로 묶어요. AI는 최소 2개를 담아야 하고, 결제는 한 번에 해요.</div></details>
+    <details class="reveal"><summary>유튜버나 1인 크리에이터에게 Siempre가 왜 유용한가요?</summary><div class="ans">Siempre에서는 대본 작성, 번역, 썸네일 제작을 한 대화에서 이어서 할 수 있어요. 예를 들어 Claude로 8분 유튜브 대본을 쓴 뒤 같은 대화에서 '도입부 영어로 번역해줘'라고 하면 Qwen이, '이 영상 썸네일 3개'라고 하면 Nano Banana가 앞 대본 주제를 반영해 만들어요. 서비스마다 내용을 복사해 붙여 넣을 필요가 없어요.</div></details>
+    <details class="reveal"><summary>무료로 써 볼 수 있어요?</summary><div class="ans">네. AI마다 무료 단계가 있어서 결제 없이 시작할 수 있어요. 예를 들어 Claude는 깊은 분석·코딩 3번, Nano Banana는 일반 이미지 2장을 무료로 써요.</div></details>
+    <details class="reveal"><summary>어떤 AI가 답할지는 누가 정해요?</summary><div class="ans">요청 내용을 보고 담아 둔 AI 중에서 자동으로 골라요. 답변마다 어떤 모델이 왜 골라졌는지, 크레딧이 얼마나 쓰였는지 보여 줘요. 원하면 보내기 전에 직접 고를 수도 있어요.</div></details>
+    <details class="reveal"><summary>크레딧은 남으면 다음 주로 넘어가요?</summary><div class="ans">아니요. 크레딧은 매주 채워지고, 남은 크레딧은 다음 충전 직전에 사라져요. 연간 구독은 1주까지 이월돼요.</div></details>
+    <details class="reveal"><summary>크레딧 환불돼요?</summary><div class="ans">쓴 크레딧은 환급되지 않아요. 대신 보내기 전에 입력창에 예상 모델과 차감량을 보여 줘서 미리 알 수 있어요.</div></details>
+    <details class="more"><summary>자주 검색되는 질문 더 보기</summary>
+      <div class="more-body">
+      <h3 class="faq-g">구독료</h3>
+      <details><summary>ChatGPT랑 Claude 둘 다 구독하는데 너무 비싸요. 싸게 쓰는 방법 있어요?</summary><div class="ans">AI마다 쓰는 만큼의 단계만 골라 하나로 묶으면 아낄 수 있어요. Siempre에서는 Claude를 라이트 ₩8,900(깊은 분석·코딩 주 10번)부터 담을 수 있고, 번역은 Qwen 라이트 ₩2,900, 가벼운 대화는 Mistral 라이트 ₩1,900처럼 작업에 맞는 AI를 따로 골라요. 유료 AI가 2개면 5%, 3개 이상이면 10% 할인돼요. 참고로 Siempre에서 고를 수 있는 AI는 Claude·Qwen·Mistral·ElevenLabs·Nano Banana이고, ChatGPT는 없어요.</div></details>
+      <details><summary>AI 구독료 아끼는 방법 알려줘</summary><div class="ans">안 쓰는 AI는 빼고, 가끔 쓰는 AI는 무료나 낮은 단계로 담고, 여러 AI를 묶어 할인받으면 돼요. Siempre는 AI마다 무료·라이트·스탠다드·헤비 중 하나를 고르고, 묶음 할인(유료 2개 5%, 3개 이상 10%)과 연간 결제 15% 추가 할인이 있어요. 예를 들어 Claude 스탠다드 + Qwen 라이트 + Mistral 스탠다드 + Nano Banana 무료는 월 ₩23,670이에요.</div></details>
+      <h3 class="faq-g">여러 AI를 한 곳에서</h3>
+      <details><summary>AI마다 같은 내용을 여러 번 설명하기 싫어요</summary><div class="ans">Siempre에서는 한 대화 안에서 AI가 바뀌어도 앞 내용이 이어져요. 대본을 쓴 다음 같은 대화에서 번역이나 썸네일을 요청하면, 요청마다 알맞은 AI가 앞에서 정한 주제와 조건을 반영해 답해요. 서비스마다 내용을 복사해 다시 설명할 필요가 없어요.</div></details>
+      <details><summary>번역이랑 사진 만들어 주는 AI 한 번에 쓰는 방법 없어요?</summary><div class="ans">Siempre에서 Qwen(번역)과 Nano Banana(이미지)를 함께 담으면 한 대화에서 둘 다 쓸 수 있어요. 번역을 요청하면 Qwen이, 이미지를 요청하면 Nano Banana가 자동으로 답해요. 두 AI 모두 무료 단계가 있어서(Qwen 적당한 분석 10번, Nano Banana 일반 이미지 2장) 결제 없이 먼저 써 볼 수 있어요.</div></details>
+      <h3 class="faq-g">직군별 작업</h3>
+      <details><summary>유튜브 대본이랑 썸네일까지 한 번에 만들 수 있는 AI 툴 있어요?</summary><div class="ans">Siempre에서 Claude(대본), ElevenLabs(내레이션), Nano Banana(썸네일)를 담으면 한 대화에서 대본 → 음성 → 썸네일 순서로 만들 수 있어요. 만든 음성과 이미지는 내려받을 수 있어요. 영상 편집과 자막 생성은 지원하지 않아요.</div></details>
+      <details><summary>광고 카피, 이미지, 번역까지 한 번에 되는 AI 추천해 주세요</summary><div class="ans">Siempre에서 Claude(카피), Nano Banana(이미지), Qwen(번역)을 담으면 같은 캠페인 조건으로 카피·이미지 시안·영문 문구를 한 대화에서 이어서 만들 수 있어요. AI별 사용량도 크레딧 화면에서 따로 확인해요. 이미지 속 글자와 행사 조건은 게시 전에 직접 확인해 주세요. 팀 승인·협업 기능은 없어요.</div></details>
+      <details><summary>과제할 때 쓸 AI, 무료로 여러 개 쓰는 방법 있어요?</summary><div class="ans">Siempre는 무료 단계 AI 2개만 담아도 결제 없이 시작할 수 있어요. 예를 들어 Qwen 무료(적당한 분석 10번)와 Mistral 무료(가벼운 분석 10번)로 자료 요약과 번역을 해 볼 수 있어요. 파일 첨부는 아직 지원하지 않아서 요약할 부분은 글로 붙여 넣어 주세요. AI가 만든 인용은 원문과 꼭 대조해 주세요.</div></details>
+      <details><summary>보고서 쓰고 영어 메일로 번역까지 해 주는 AI 있어요?</summary><div class="ans">Siempre에서 Claude로 회의 메모를 보고서 초안으로 정리하고, 같은 대화에서 Qwen으로 영어 메일 번역까지 이어서 할 수 있어요. 메일 자동 전송은 지원하지 않아요. 입력한 대화는 답을 위해 AI 제공사로 전달되니, 회사 기밀이나 개인정보는 빼고 써 주세요.</div></details>
+      <details><summary>가게 홍보 글이랑 포스터 만들어 주는 AI 서비스 있어요?</summary><div class="ans">Siempre에서 Mistral로 짧은 홍보 글과 리뷰 답글을, Nano Banana로 포스터 이미지를 만들 수 있어요. Mistral은 라이트 월 ₩1,900부터, Nano Banana는 무료(일반 이미지 2장)부터 담을 수 있어요. 메뉴 가격·영업시간은 직접 확인해 주세요. SNS 자동 게시는 지원하지 않아요.</div></details>
+      <h3 class="faq-g">비교·요금 방식</h3>
+      <details><summary>Poe 같은 서비스 한국 거 있어요?</summary><div class="ans">Siempre는 여러 AI를 한 곳에서 쓰는 한국어 AI 통합 구독 서비스예요. Claude·Qwen·Mistral·ElevenLabs·Nano Banana 중 필요한 AI만 골라 담으면, 요청마다 알맞은 AI가 자동으로 답해요. 가격은 원화(부가세 포함)로 AI마다 따로 정해져 있어요.</div></details>
+      <details><summary>AI 쓴 만큼만 돈 내는 서비스 있어요?</summary><div class="ans">Siempre는 완전히 쓴 만큼만 내는 방식은 아니에요. 대신 AI마다 필요한 만큼의 단계(무료·라이트·스탠다드·헤비)만 골라 월 구독하고, 크레딧이 모자라면 그 AI만 추가 충전해요. 안 쓰는 AI에는 돈을 내지 않아요. 매주 채워지는 크레딧은 남아도 다음 주로 넘어가지 않아요.</div></details>
+      <h3 class="faq-g">이용 규칙</h3>
+      <details><summary>AI를 하나만 골라도 돼요?</summary><div class="ans">최소 2개를 담아야 시작할 수 있어요. 무료 단계로 담아도 돼요.</div></details>
+      <details><summary>크레딧이 모자라면요?</summary><div class="ans">부족한 AI의 크레딧만 따로 추가 충전할 수 있어요. 구성을 바꿔 다른 단계로 올려도 돼요.</div></details>
+      <details><summary>영상 편집이나 자막도 해 줘요?</summary><div class="ans">아니요. 영상 편집·자막 생성은 지원하지 않아요. 대본·음성·이미지까지 만들 수 있어요.</div></details>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="final" id="final">
+  <span class="float c-claude" style="left:8%;top:18%">Claude</span>
+  <span class="float c-qwen" style="right:10%;top:14%">Qwen</span>
+  <span class="float c-mis" style="left:14%;bottom:18%">Mistral</span>
+  <span class="float c-el" style="right:14%;bottom:22%">ElevenLabs</span>
+  <span class="float c-nano" style="left:46%;top:8%">Nano Banana</span>
+  <h2 class="split">여러 AI, <em>한 대화</em>로</h2>
+  <p>결제 없이 무료 단계로 먼저 써 보세요.</p>
+  <div class="ctas" style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap"><a class="btn btn-p" href="/siempre-figma-prototype.html">무료로 시작하기</a><a class="btn btn-g" href="/signup">회원가입</a></div>
+</section>
+</main>
+<footer>© 2026 Siempre · 쓸 AI만 골라 담는 AI 통합 구독</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s,r){return (r||document).querySelector(s)}, $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  // 상단바 배경
+  var top = $('#top');
+  addEventListener('scroll', function(){ top.classList.toggle('solid', scrollY > 30) }, {passive:true});
+
+  // 제목 글자를 단어로 나눠 아래에서 올라오게
+  $$('.split').forEach(function(h){
+    var out=[]; h.childNodes.forEach(function(n){
+      if(n.nodeType===3){ n.textContent.split(/(\s+)/).forEach(function(w){ if(!w) return; out.push(/^\s+$/.test(w)?w:'<span class="word"><span>'+w+'</span></span>') }) }
+      else { out.push('<span class="word"><span>'+n.outerHTML+'</span></span>') }
+    }); h.innerHTML=out.join('');
+  });
+
+  // 휴대폰 옆면(두께): 같은 모양 판을 앞뒤로 겹쳐 쌓는다. 가운데 판에 측면 버튼을 붙인다
+  (function buildSlices(){
+    var ph=$('#phone'), box=$('#slices'), t=parseFloat(getComputedStyle(ph).getPropertyValue('--t'))||20, N=16, html='';
+    for(var k=0;k<N;k++){
+      var z=-t/2+0.6+k*(t-1.2)/(N-1), light=.72+.42*Math.sin(Math.PI*k/(N-1));
+      html+='<div class="slice" style="transform:translateZ('+z.toFixed(2)+'px);filter:brightness('+light.toFixed(2)+')">'+(k===Math.floor(N/2)?'<i class="side-btn sb1"></i><i class="side-btn sb2"></i><i class="side-btn sb3"></i><i class="side-btn sb4"></i>':'')+'</div>';
+    }
+    box.innerHTML=html;
+  })();
+
+  // 채팅 메시지 차례로 나타나기 (반복)
+  var msgs=$$('#msgs .m'), typing=$('#typing'), chatTimer=null;
+  function playChat(){
+    clearTimeout(chatTimer); msgs.forEach(function(m){m.classList.remove('on')}); var i=0;
+    (function next(){
+      if(i>=msgs.length){ chatTimer=setTimeout(playChat,3200); return }
+      var m=msgs[i], isAi=m.classList.contains('a');
+      if(isAi){ typing.classList.add('on'); msgs[0].parentNode.insertBefore(typing,m); chatTimer=setTimeout(function(){ typing.classList.remove('on'); m.classList.add('on'); i++; chatTimer=setTimeout(next,700) },900) }
+      else { m.classList.add('on'); i++; chatTimer=setTimeout(next,800) }
+    })();
+  }
+
+  // 화면 1: 입력창에 글자 치기
+  var typedEl=$('#typed'), typeTimer=null, typeText='이 대본 블로그 글로 다시 써줘';
+  function playTyping(){ clearTimeout(typeTimer); var k=0; typedEl.textContent=''; (function t(){ typedEl.textContent=typeText.slice(0,k++); if(k<=typeText.length) typeTimer=setTimeout(t,90); else typeTimer=setTimeout(playTyping,2200) })() }
+
+  // 화면 2: 단계 고르기 + 금액 올라가기
+  function playCart(){
+    var tiers=$$('[data-scr="2"] .tiers'); tiers.forEach(function(t){ $$('span',t).forEach(function(s){s.classList.remove('on')}) });
+    tiers.forEach(function(t,ix){ setTimeout(function(){ $$('span',t)[+t.dataset.pick].classList.add('on') }, 250+ix*280) });
+    countTo($('#total'), 23670, 1400, 900);
+  }
+  function countTo(el, to, dur, delay){
+    if(reduce || !window.requestAnimationFrame){ el.textContent='₩'+to.toLocaleString('ko-KR'); return }
+    setTimeout(function(){ var t0=null; requestAnimationFrame(function step(ts){ t0=t0||ts; var p=Math.min((ts-t0)/dur,1), e=1-Math.pow(1-p,3); el.textContent='₩'+Math.round(to*e).toLocaleString('ko-KR'); if(p<1) requestAnimationFrame(step) }) }, delay||0);
+  }
+
+  // 화면 3: 막대 채우기
+  function playBars(){ var bars=$$('[data-scr="3"] .bar i'); bars.forEach(function(b){b.style.width='0'}); setTimeout(function(){ bars.forEach(function(b){ b.style.width=b.dataset.w+'%' }) },120) }
+
+  var players=[playChat, playTyping, playCart, playBars, function(){}];
+  var screens=$$('.scr'), current=-1;
+  function showScreen(n){
+    if(n===current) return; current=n;
+    screens.forEach(function(s){ s.style.visibility = (+s.dataset.scr===n)?'visible':'hidden' });
+    clearTimeout(chatTimer); clearTimeout(typeTimer);
+    players[n]();
+  }
+
+  var hasGsap = window.gsap && window.ScrollTrigger;
+  if(reduce || !hasGsap){
+    // 움직임 없이 모두 보여 주기
+    document.documentElement.classList.add('static');
+    showScreen(0);
+    if(!reduce){ playChat() }
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  showScreen(0);
+
+  var panels=$$('.panel'), dots=$$('#dots i'), N=panels.length;
+  var phone=$('#phone'), hover=$('#hover'), shadow=$('#shadow');
+  gsap.set(panels.slice(1), {autoAlpha:0, y:60});
+  // 가만히 있을 때도 옆면이 보이게 살짝 비스듬히
+  gsap.set(phone,{rotationY:-18, rotationX:6, transformPerspective:0});
+
+  // 회전 각도에 따라 유리 반사·바닥 그림자 바꾸기
+  gsap.ticker.add(function(){
+    var ry=(gsap.getProperty(phone,'rotationY')||0)+(gsap.getProperty(hover,'rotationY')||0), rad=ry*Math.PI/180;
+    var frac=((ry%360)+360)%360/360;
+    phone.style.setProperty('--gx', frac.toFixed(3));
+    shadow.style.setProperty('--sx', (0.45+0.55*Math.abs(Math.cos(rad))).toFixed(3));
+  });
+
+  // 둥실 떠 있기 + 마우스 따라 기울기
+  gsap.to(hover,{y:-12,duration:2.6,yoyo:true,repeat:-1,ease:'sine.inOut'});
+  if(window.matchMedia('(hover:hover)').matches){
+    var rx=gsap.quickTo(hover,'rotationX',{duration:.8,ease:'power3.out'}), ryq=gsap.quickTo(hover,'rotationY',{duration:.8,ease:'power3.out'});
+    addEventListener('mousemove',function(e){ ryq((e.clientX/innerWidth-.5)*22); rx(-(e.clientY/innerHeight-.5)*14) });
+  }
+
+  // 첫 화면 등장
+  var intro=gsap.timeline();
+  intro.from('.panel[data-step="0"] .eyebrow',{y:20,autoAlpha:0,duration:.6})
+       .from('.panel[data-step="0"] h1 .word>span',{yPercent:110,duration:.8,stagger:.06,ease:'power4.out'},'-=.3')
+       .from('.panel[data-step="0"] p, .panel[data-step="0"] .ctas',{y:24,autoAlpha:0,duration:.6,stagger:.12},'-=.4')
+       .from(phone,{y:120,rotationX:25,rotationY:-30,autoAlpha:0,duration:1.2,ease:'power3.out'},0.2)
+       .from('.orb',{scale:0,autoAlpha:0,duration:.6,stagger:.08,ease:'back.out(2)'},'-=.6');
+
+  // 떠다니는 칩 (계속)
+  $$('.orb').forEach(function(o,i){ gsap.to(o,{y:'+=14',x:(i%2?'-=8':'+=8'),rotation:i%2?-6:6,duration:2.4+i*.3,yoyo:true,repeat:-1,ease:'sine.inOut'}) });
+
+  // 이야기 구간: 고정 + 스크롤에 따라 글·휴대폰 바뀜
+  var tl=gsap.timeline({defaults:{ease:'power2.inOut'}, scrollTrigger:{
+    trigger:'#story', start:'top top', end:'+='+(N*110)+'%', pin:true, scrub:.8, anticipatePin:1,
+    onUpdate:function(self){
+      var t=self.progress*tl.duration(), p=Math.max(0,(t-LEAD)/STEP);
+      dots.forEach(function(d,i){ gsap.set(d,{scaleX:Math.max(0,Math.min(1,p-i+1))}) });
+      $('#hint').style.opacity = self.progress>0.02?0:1;
+    }
+  }});
+  // 한 단계 = 1.6칸: 앞 0.9칸은 바뀌는 동작, 뒤 0.7칸은 읽을 수 있게 멈춤. 맨 앞에도 0.5칸 멈춤
+  var STEP=1.6, LEAD=.5;
+  for(var i=1;i<N;i++){
+    var at=LEAD+(i-1)*STEP;
+    // 글: 이전 것은 위로 사라지고 새 것은 아래에서 올라옴
+    tl.to(panels[i-1],{autoAlpha:0,y:-60,duration:.35},at+.1)
+      .fromTo(panels[i],{autoAlpha:0,y:60},{autoAlpha:1,y:0,duration:.35},at+.55)
+    // 휴대폰: 한 바퀴 + 살짝 작아졌다 커짐 + 뒷면이 보일 때 화면 교체
+      .to(phone,{rotationY:'+=360',duration:.8,ease:'power3.inOut'},at+.1)
+      .to(phone,{scale:.86,y:-10,duration:.4,ease:'power1.out'},at+.1)
+      .to(phone,{scale:1,y:0,duration:.4,ease:'power1.in'},at+.5)
+      .call(showScreen,[i],at+.5)
+      .call(showScreen,[i-1],at+.49)
+      .to('.orb',{x:function(k){return (k%2?-1:1)*(20+i*6)},y:function(k){return (k%3-1)*24},duration:.8},at+.1)
+      .to('.b1',{x:i*60,y:i*40,duration:1},at)
+      .to('.b2',{x:-i*50,y:-i*30,duration:1},at);
+  }
+  tl.to({}, {duration:.7});
+
+  // 띠 흐르기 (스크롤 방향 따라 속도)
+  var track=$('#track');
+  gsap.to(track,{xPercent:-50,ease:'none',duration:22,repeat:-1});
+
+  // 아래 섹션: 나타나기
+  $$('.reveal').forEach(function(el){
+    gsap.from(el,{y:50,autoAlpha:0,duration:.8,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+  gsap.from('.ai',{y:80,rotationX:-30,autoAlpha:0,duration:.9,stagger:.1,ease:'back.out(1.4)',scrollTrigger:{trigger:'.ais',start:'top 85%'}});
+  gsap.from('tbody tr',{x:-40,autoAlpha:0,duration:.6,stagger:.08,scrollTrigger:{trigger:'.price-wrap',start:'top 80%'}});
+  ScrollTrigger.create({trigger:'.example',start:'top 85%',once:true,onEnter:function(){ countTo($('.example .v'),23670,1500) }});
+  var line=$('#line'); if(line){ var L=900; gsap.fromTo(line,{strokeDashoffset:L,strokeDasharray:'8 8'},{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:'.steps',start:'top 80%',end:'top 40%',scrub:true}}) }
+  gsap.from('.st .n',{scale:0,duration:.6,stagger:.2,ease:'back.out(2.5)',scrollTrigger:{trigger:'.steps',start:'top 80%'}});
+
+  // 마지막 CTA
+  gsap.from('.final h2 .word>span',{yPercent:110,duration:.9,stagger:.08,ease:'power4.out',scrollTrigger:{trigger:'.final',start:'top 70%'}});
+  $$('.float').forEach(function(f,i){
+    gsap.from(f,{scale:0,autoAlpha:0,duration:.6,delay:i*.08,ease:'back.out(2)',scrollTrigger:{trigger:'.final',start:'top 70%'}});
+    gsap.to(f,{y:(i%2?-30:30),rotation:(i%2?-8:8),ease:'none',scrollTrigger:{trigger:'.final',start:'top bottom',end:'bottom top',scrub:true}});
+  });
+
+  // AI 카드 마우스 따라 기울기
+  if(window.matchMedia('(hover:hover)').matches){
+    $$('.tilt').forEach(function(c){
+      c.addEventListener('mousemove',function(e){ var r=c.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; gsap.to(c,{rotationY:x*14,rotationX:-y*14,transformPerspective:700,duration:.4}) });
+      c.addEventListener('mouseleave',function(){ gsap.to(c,{rotationY:0,rotationX:0,duration:.6,ease:'elastic.out(1,.5)'}) });
+    });
+  }
+
+  // 화면 크기가 바뀌면 다시 계산
+  addEventListener('load', function(){ ScrollTrigger.refresh() });
+})();
+</script>
+</body>
+</html>

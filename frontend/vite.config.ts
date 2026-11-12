@@ -5,11 +5,14 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   build: {
-    // 페이지 두 개: 회원가입·로그인(React, index.html)과 권희수 님 화면(siempre-figma-prototype.html)
+    // 페이지: 회원가입·로그인(React, index.html), 권희수 님 화면(siempre-figma-prototype.html),
+    // 소개 랜딩 웹 버전(landing.html)과 휴대폰용 앱 버전(landing-app.html)
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
         prototype: resolve(__dirname, 'siempre-figma-prototype.html'),
+        landing: resolve(__dirname, 'landing.html'),
+        landingApp: resolve(__dirname, 'landing-app.html'),
       },
     },
   },
