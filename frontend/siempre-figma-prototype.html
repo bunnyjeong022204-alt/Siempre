@@ -2,7 +2,14 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f678b6">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Siempre">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/brand/apple-touch-icon.png">
 <title>Siempre · 피그마 프로토타입</title>
 <link rel="icon" type="image/png" href="/brand/siempre-favicon-64.png">
 <style>
@@ -332,6 +339,101 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
   #chat{grid-template-columns:1fr}.side{display:none}.msgs{padding:16px}
   .thumbs{grid-template-columns:1fr}.u,.ai{max-width:92%}
 }
+/* ================= 휴대폰(앱 버전) =================
+   폭 700px 이하에서만 적용. 데스크톱 화면은 그대로.
+   - 상단 메뉴(대화·크레딧·구독 구성) → 하단 탭바 (같은 버튼이라 로그인 연결·통계 코드는 그대로 동작)
+   - 구독 화면 하단에 합계 + "시작하기" 바, 창(모달)은 아래에서 올라오는 시트
+   - 기기 하단 안전 영역(홈 바)과 주소창 높이 변화(dvh) 반영 */
+.minicart,.install{display:none}
+@media(max-width:700px){
+  :root{--topH:54px;--tabH:60px;--safeB:env(safe-area-inset-bottom,0px)}
+  html{-webkit-text-size-adjust:100%}
+  body{padding-bottom:calc(var(--tabH) + var(--safeB));-webkit-tap-highlight-color:transparent;overscroll-behavior-y:none}
+  button,select{touch-action:manipulation}
+  .demo{display:none}                                   /* 발표용 시연 바는 휴대폰에서 숨김 */
+
+  /* 상단바: 로고 + 사용자 */
+  header.gnb{display:flex;justify-content:space-between;height:calc(var(--topH) + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 14px 0;z-index:30}
+  .logo .s{height:30px}.logo .w{height:22px}
+  .user{gap:8px}.avatar{width:32px;height:32px;font-size:13px}
+  header .user [data-auth-guest] button,header .user [data-auth-member]{min-height:38px!important;padding:0 11px!important;font-size:12px!important}
+
+  /* 하단 탭바: 구독 구성(홈) · 대화 · 크레딧 */
+  header.gnb nav{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;height:calc(var(--tabH) + var(--safeB));padding:6px 8px var(--safeB);background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 14px rgba(120,60,100,.06)}
+  nav button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px 0;border-radius:14px;background:none;color:#8a8090;font-size:11.5px;font-weight:700;min-height:48px}
+  nav button.on{background:var(--pink-xl);color:var(--pink-d)}
+  nav button::before{content:'';width:24px;height:24px;background:currentColor;-webkit-mask:var(--ic) center/contain no-repeat;mask:var(--ic) center/contain no-repeat}
+  #n-subscribe{order:-1;--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='3' width='7' height='7' rx='2'/%3E%3Crect x='14' y='3' width='7' height='7' rx='2'/%3E%3Crect x='3' y='14' width='7' height='7' rx='2'/%3E%3Crect x='14' y='14' width='7' height='7' rx='2'/%3E%3C/svg%3E")}
+  #n-chat{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 12a8 8 0 0 1-11.5 7.2L4 21l1.8-4.6A8 8 0 1 1 21 12z'/%3E%3C/svg%3E")}
+  #n-credit{--ic:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v10M9.5 9.8c.6-1 1.6-1.6 2.5-1.6 1.5 0 2.5.8 2.5 2s-1 1.6-2.5 2-2.5.8-2.5 2 1 2 2.5 2c1 0 1.9-.6 2.5-1.6'/%3E%3C/svg%3E")}
+
+  /* 홈 화면에 추가 안내 */
+  .install:not([hidden]){display:flex;align-items:center;gap:8px;background:var(--pink-xl);padding:8px 12px;font-size:12.5px;line-height:1.35}
+  .install span{flex:1}
+  .install button{min-height:36px;padding:0 12px;border-radius:999px;background:var(--pink);color:#fff;font-weight:700;font-size:12.5px}
+  .install button.x{background:none;color:#8a8090;padding:0 8px;font-size:15px}
+
+  /* 구독 화면 */
+  #subscribe{padding:16px 14px calc(120px + var(--safeB))}
+  #subscribe h1{font-size:26px;margin:6px 0 6px;letter-spacing:-.5px}
+  #subscribe .lead{font-size:14px;margin:0 0 14px}
+  .sub-grid{gap:12px}
+  .ai-card{padding:16px;border-radius:18px;margin-bottom:12px}
+  .ai-head{gap:10px;margin-bottom:12px}.ai-head h3{font-size:18px}.ai-head .tag{display:none}
+  .tiers{gap:8px}.tier{padding:12px;min-height:88px}.tier .p{font-size:17px}
+  .cart{padding:20px;border-radius:22px}.total{font-size:36px}
+  .cta{padding:14px;font-size:15px}
+  .minicart{position:fixed;left:10px;right:10px;bottom:calc(var(--tabH) + var(--safeB) + 8px);z-index:35;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:10px 10px 10px 16px;box-shadow:0 6px 22px rgba(120,60,100,.18)}
+  body[data-screen="subscribe"] .minicart{display:flex}
+  .minicart .mc-l{flex:1;min-width:0;display:flex;flex-direction:column}
+  .minicart b{font-size:17px;line-height:1.2}.minicart small{font-size:11.5px;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .minicart button{min-height:44px;padding:0 20px;border-radius:13px;background:var(--pink);color:#fff;font-weight:800;font-size:15px;flex:none}
+
+  /* 대화 화면: 화면 높이에서 상단바·탭바를 뺀 만큼 */
+  #chat{height:calc(100vh - var(--topH) - var(--tabH) - var(--safeB));height:calc(100dvh - var(--topH) - var(--tabH) - var(--safeB) - env(safe-area-inset-top,0px))}
+  .ch-head{height:auto;min-height:44px;padding:8px 12px;flex-wrap:wrap;gap:4px 10px}
+  .ch-head>span{flex:1 1 100%;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .ch-head small{flex:1 1 100%;width:100%}
+  .ch-head small .gauge{flex:1;width:auto;min-width:60px}
+  .msgs{padding:12px 12px 8px}
+  .u{max-width:86%}.ai{max-width:94%}.bub{padding:12px 14px}
+  .acts button{padding:8px 14px}
+  .quick{width:calc(100% - 16px);margin:0 8px 2px;flex-wrap:nowrap;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+  .quick::-webkit-scrollbar{display:none}.quick button{flex:none;min-height:34px}
+  .composer{width:calc(100% - 16px);margin:6px 8px 8px;padding:10px 12px;border-radius:16px}
+  .composer .hint{display:none}
+  .composer input{font-size:16px}
+  .comp-row{flex-wrap:wrap;gap:8px}
+  .clip{width:40px;height:40px}
+  .est{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .send{padding:11px 22px;margin-left:auto}
+  .pick{order:5;flex:1 1 100%}.pick select{flex:1;height:38px;font-size:16px}
+  .alert{width:100%}
+  .thumbs{grid-template-columns:1fr!important}          /* 썸네일 개수만큼 열을 나누는 인라인 스타일을 폰에서는 한 줄 한 장으로 */
+  .mini{flex-wrap:wrap}.mini button{min-height:36px}
+
+  /* 크레딧 화면 */
+  #credit{margin-top:12px}
+  .cr-wrap{padding:16px 14px 24px}
+  .cr-top h1{font-size:24px}
+  .kpis{grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+  .kpi{border-radius:18px!important;padding:16px;min-height:0}
+  .kpi.a{grid-column:1/-1}.kpi.a .v{font-size:44px;margin:12px 0 8px}.kpi .v{font-size:22px;margin:8px 0 4px}
+  .aic{grid-template-columns:1fr;border-radius:18px}.aic>div{border-right:0;border-bottom:1px solid var(--line)}.aic>div:last-child{border-bottom:0}
+  .pan{padding:16px;border-radius:18px}.pan .v{font-size:34px}.stack{width:100%}
+  .pan table{display:block;overflow-x:auto}
+  .annual{margin:16px 14px 20px;flex-direction:column;align-items:stretch;gap:12px;padding:16px}
+
+  /* 창(모달): 아래에서 올라오는 시트 */
+  .dim{padding:0;align-items:end;place-items:end center;z-index:60}
+  .modal,.modal.pay,.modal.pay.done,.modal.pay.freeend{width:100%!important;max-width:100%;border-radius:22px 22px 0 0;max-height:92vh;max-height:92dvh;overflow:auto;padding-bottom:calc(24px + var(--safeB));animation:sheetUp .22s ease-out}
+  .modal.pay{padding:20px 16px calc(20px + var(--safeB))}
+  @keyframes sheetUp{from{transform:translateY(40px);opacity:.6}to{transform:none;opacity:1}}
+  .pay-f input,.pay-f select,.keybox input,.keybox select{font-size:16px}   /* 16px 미만이면 아이폰이 입력할 때 화면을 확대해 버림 */
+  .lightbox{z-index:65}
+  .toast{bottom:calc(var(--tabH) + var(--safeB) + 78px);max-width:92%;text-align:center;z-index:70}
+}
+@media(max-width:700px) and (display-mode:standalone){.install{display:none!important}}
 </style>
 </head>
 <body>
@@ -359,6 +461,8 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
   </nav>
   <div class="user"><span>도윤 님</span><div class="avatar">도</div></div>
 </header>
+
+<div class="install" id="installBar" hidden><span id="installTxt"></span><button type="button" id="installGo">설치</button><button type="button" class="x" id="installX" aria-label="닫기">✕</button></div>
 
 <!-- 01 구독 선택 -->
 <section id="subscribe">
@@ -420,6 +524,7 @@ td{padding:14px 0;border-bottom:1px solid var(--line)}th:last-child,td:last-chil
 </div></div>
 <div class="dim hidden" id="freeEnd"><div class="modal pay freeend" id="freeBox" role="dialog" aria-modal="true" aria-labelledby="feTitle"></div></div>
 <div class="lightbox hidden" id="lightbox" onclick="this.classList.add('hidden')"><img id="lightboxImg" alt="썸네일 시안 크게 보기"></div>
+<div class="minicart" id="miniCart"><div class="mc-l"><b id="mcPrice"></b><small id="mcSub"></small></div><button type="button" id="mcGo">시작하기</button></div>
 <div class="toast hidden" id="toast"></div>
 
 <script>
@@ -461,7 +566,7 @@ const cartCalc=()=>{
 /* ---------- 라우팅 ---------- */
 const subscribed=id=>true;   // 무료 구간도 바로 쓸 수 있어서 모든 AI가 사용 가능
 function show(name){
-  S.screen=name;
+  S.screen=name; document.body.dataset.screen=name;   // CSS가 어느 화면인지 알 수 있게 (휴대폰 하단 요약 바 표시용)
   ['subscribe','chat','credit'].forEach(k=>$('#'+k).classList.toggle('hidden',k!==name));
   $$('nav button').forEach(b=>b.classList.remove('on')); $('#n-'+name).classList.add('on');
   if(name==='subscribe')renderSub(); if(name==='credit')renderCredit(); if(name==='chat'){renderMine();renderPick();updBal();setTimeout(()=>{$('#msgs').scrollTop=1e6;$('#inp').focus()},0)}
@@ -1016,6 +1121,37 @@ document.addEventListener('click',e=>{
   if(e.target.closest?.('[data-act="free-end"]'))openFreeEnd(true);
 });
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('#freeEnd').classList.contains('hidden'))closeFreeEnd()});
+
+/* ---------- 휴대폰(앱 버전) ---------- */
+// 구독 화면 하단 요약 바: 합계와 "시작하기". 눌렀을 때는 화면의 원래 버튼(#start / #startFree)을 대신 눌러 준다.
+// 그래서 로그인 확인·결제 창 같은 기존 동작이 그대로 이어진다.
+function updMini(){
+  const c=cartCalc(), paidOk=c.n>=2, yr=S.cycle==='year';
+  $('#mcPrice').textContent=paidOk?`${yr?'1년':'월'} ${won(payTotal(c))}`:'무료로 시작해 볼까요?';
+  $('#mcSub').textContent=paidOk?`매주 ${c.credits}크레딧 · ${c.n}개 담음`:(c.n===1?'유료 AI를 2개 이상 담으면 결제할 수 있어요':'쓸 AI를 골라 담아 보세요');
+  $('#mcGo').textContent=paidOk?'시작하기':'무료로 시작';
+}
+{ const _renderCart=renderCart; renderCart=function(){_renderCart();updMini()}; }   // 구성이 바뀔 때마다 같이 갱신
+$('#mcGo').onclick=()=>document.getElementById(cartCalc().n>=2?'start':'startFree')?.click();
+updMini();
+// 이미지는 나중에 크기가 정해져서, 새 답변의 이미지가 다 뜬 뒤에도 맨 아래를 보여 준다
+$('#msgs').addEventListener('load',e=>{ if(e.target.tagName==='IMG'&&e.target.closest('.ai')===$('#msgs').querySelector('.ai:last-of-type'))$('#msgs').scrollTop=$('#msgs').scrollHeight; },true);
+
+// 홈 화면에 추가(설치) 안내: 폰에서, 아직 앱으로 안 열었고, 닫은 적이 없을 때만
+(function(){
+  const bar=$('#installBar'); if(!bar)return;
+  const standalone=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;
+  let dismissed=false; try{dismissed=localStorage.getItem('siempre:installDismissed')==='1'}catch(e){}
+  if(standalone||dismissed||!matchMedia('(max-width:700px)').matches)return;
+  let deferred=null;
+  const open=(text,canInstall)=>{ $('#installTxt').textContent=text; $('#installGo').hidden=!canInstall; bar.hidden=false; };
+  // 안드로이드 크롬: 설치할 수 있을 때만 브라우저가 알려 준다
+  addEventListener('beforeinstallprompt',e=>{ e.preventDefault(); deferred=e; open('앱처럼 쓰려면 홈 화면에 설치하세요',true); });
+  // 아이폰 사파리: 설치 버튼이 없어서 방법을 글로 안내
+  if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!/crios|fxios/i.test(navigator.userAgent)) open('공유 버튼 → "홈 화면에 추가"로 앱처럼 쓸 수 있어요',false);
+  $('#installGo').onclick=async()=>{ if(!deferred)return; deferred.prompt(); await deferred.userChoice.catch(()=>{}); deferred=null; bar.hidden=true; };
+  $('#installX').onclick=()=>{ bar.hidden=true; try{localStorage.setItem('siempre:installDismissed','1')}catch(e){} };
+})();
 
 /* ---------- 데모 바 ---------- */
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.add('hidden'),2200)}
