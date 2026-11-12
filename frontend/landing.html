@@ -205,6 +205,7 @@ section.sec{max-width:1180px;margin:0 auto;padding:110px var(--gut)}
 /* 이야기 구간이 도착 섹션 위에 그려져야 휴대폰이 내려올 때 가려지지 않는다 */
 .story{z-index:3}
 .carrier{position:relative;display:grid;place-items:center;transform-style:preserve-3d;will-change:transform}
+.orbs{position:absolute;inset:0;pointer-events:none}
 .dock{position:relative;z-index:1;min-height:100vh;min-height:100svh;max-width:1180px;margin:0 auto;padding:84px var(--gut) 40px}
 .dock-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px minmax(0,1fr);gap:40px;align-items:start}
 .dock-col{display:flex;flex-direction:column;gap:14px;min-width:0}
@@ -374,11 +375,13 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   </div>
 
   <div class="stage" id="stage" aria-hidden="true">
+    <div class="orbs" id="orbs">
     <div class="orb o1">C<small>Claude</small></div>
     <div class="orb o2">Q<small>Qwen</small></div>
     <div class="orb o3">M<small>Mistral</small></div>
     <div class="orb o4">E<small>ElevenLabs</small></div>
     <div class="orb o5">N<small>Nano Banana</small></div>
+    </div>
     <div class="carrier" id="carrier">
     <div class="shadow" id="shadow"></div>
     <div class="hover" id="hover">
@@ -720,11 +723,13 @@ footer{background:var(--ink);color:#8f8898;font-size:13px;text-align:center;padd
   var cards=$$('.dock .ai, .dock-h, .dock-cta');
   var land=gsap.timeline({scrollTrigger:{trigger:dock, start:'top bottom', end:'top top', scrub:.6, invalidateOnRefresh:true,
     snap:{snapTo:[0,1], duration:{min:.3,max:.9}, delay:.08, directional:true, ease:'power2.inOut'}}});
-  land.to(carrier,{x:function(){return dockDelta('x')}, y:function(){return dockDelta('y')}, ease:'power1.inOut', duration:1},0)
-      .to(phone,{rotationY:'+=18', rotationX:0, scale:1, ease:'power2.inOut', duration:1},0)
-      .to(panels[N-1],{autoAlpha:0, y:-40, duration:.35},0)
+  // 주의: 단계 애니메이션(tl)이 움직이는 요소(각 글, 휴대폰, 각 AI 아이콘)는 여기서 건드리지 않는다.
+  // 같은 요소를 두 애니메이션이 움직이면, 빠르게 위로 올라갈 때 늦게 처리된 쪽이 값을 덮어써 글이 겹친다.
+  // 그래서 바깥 묶음(#panels, #orbs, #carrier)만 움직인다.
+  land.to(carrier,{x:function(){return dockDelta('x')}, y:function(){return dockDelta('y')}, rotationY:18, rotationX:-6, ease:'power1.inOut', duration:1},0)
+      .to('#panels',{autoAlpha:0, y:-40, duration:.35},0)
       .to('#dots',{autoAlpha:0, duration:.2},0)
-      .to('.orb',{autoAlpha:0, scale:.4, duration:.4},0)
+      .to('#orbs',{autoAlpha:0, scale:.85, duration:.4},0)
       .fromTo(cards,{autoAlpha:0, x:function(k,el){return el.dataset.from==='l'?-60:el.dataset.from==='r'?60:0}, y:30},
                     {autoAlpha:1, x:0, y:0, stagger:.06, duration:.4, ease:'power2.out'},.55);
 
