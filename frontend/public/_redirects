@@ -1,7 +1,8 @@
 # Netlify 주소 규칙 (위에서부터 먼저 맞는 줄이 적용돼요)
-# 첫 화면은 서비스 페이지로 바로 보낸다. 검색엔진에도 영구 이동(301)으로 알린다.
+# 첫 화면(/)은 소개 랜딩 페이지를 보여 준다. 주소는 / 그대로 두고 내용만 landing.html (200 = 이동 없이 보여 주기)
 # 끝의 !는 dist/index.html이 있어도 이 규칙을 먼저 쓰라는 뜻 (없으면 Netlify가 index.html을 그냥 보여 줌)
-/          /siempre-figma-prototype.html   301!
+# 휴대폰으로 열면 landing.html 안의 스크립트가 /landing-app.html 로 보낸다
+/          /landing.html                   200!
 # 구글 Search Console이 서비스 페이지 주소 아래에서 확인 파일을 찾으므로 같은 파일을 보여 준다.
 /siempre-figma-prototype.html/google9bd0f378abb603a0.html   /google9bd0f378abb603a0.html   200!
 # /login, /signup 같은 React 화면을 직접 열어도 404가 나지 않게 index.html을 보여준다.
