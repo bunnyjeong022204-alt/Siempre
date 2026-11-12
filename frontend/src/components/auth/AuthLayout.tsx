@@ -1,6 +1,22 @@
 import { useEffect, type ReactNode } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { BENEFITS, SIGNUP_STEPS, type SignupStepId } from '../../config/auth';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { BENEFITS, PAGE_META, SIGNUP_STEPS, SITE_URL, type SignupStepId } from '../../config/auth';
+
+/** <head>에 meta·link 태그를 하나만 두고 값을 바꾼다 (없으면 만든다). */
+function setHeadTag(tag: 'meta' | 'link', key: string, attr: string, value: string | null) {
+  const selector = tag === 'meta' ? `meta[name="${key}"]` : `link[rel="${key}"]`;
+  let el = document.head.querySelector<HTMLElement>(selector);
+  if (value === null) {
+    el?.remove();
+    return;
+  }
+  if (!el) {
+    el = document.createElement(tag);
+    el.setAttribute(tag === 'meta' ? 'name' : 'rel', key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute(attr, value);
+}
 import { ArrowLeftIcon, CheckIcon } from './icons';
 
 /**
@@ -55,12 +71,18 @@ function AuthAside({ step }: { step?: SignupStepId }) {
 /** 회원가입·로그인 공통 틀: 상단바 + 소개 패널 + 입력 카드 */
 export function AuthLayout({ step, title, sub, back, children }: { step?: SignupStepId; title: string; sub?: string; back?: boolean; children: ReactNode }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const idx = step ? SIGNUP_STEPS.findIndex((s) => s.id === step) : -1;
 
   useEffect(() => {
-    document.title = `${title} · Siempre`;
+    const path = pathname.replace(/\/+$/, '') || '/';
+    const meta = PAGE_META[path];
+    document.title = meta?.title ?? `${title} · Siempre`;
+    if (meta) setHeadTag('meta', 'description', 'content', meta.description);
+    setHeadTag('meta', 'robots', 'content', meta?.noindex ? 'noindex, follow' : null);
+    setHeadTag('link', 'canonical', 'href', meta && !meta.noindex ? SITE_URL + path : null);
     window.scrollTo(0, 0);
-  }, [title]);
+  }, [title, pathname]);
 
   return (
     <div className="min-h-screen bg-page text-ink">

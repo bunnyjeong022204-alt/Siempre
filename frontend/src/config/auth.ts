@@ -39,3 +39,35 @@ export const HOME_PATH = '/';
 
 /** 로그인한 사람이 쓰는 서비스 화면: 권희수 님의 구독·대화·크레딧 페이지 (React 밖의 별도 HTML) */
 export const SERVICE_PAGE = '/siempre-figma-prototype.html';
+
+/** 사이트 주소. 검색엔진에 알리는 대표 주소(canonical)를 만들 때 쓴다. */
+export const SITE_URL = 'https://startling-bavarois-ac36bd.netlify.app';
+
+/**
+ * 화면별 검색 노출 정보. 핵심 검색어: 로그인 → "Siempre 로그인", 회원가입 → "Siempre 회원가입".
+ * 약관·가입 완료 화면은 혼자 들어와서 볼 화면이 아니라 검색 결과에 안 나오게(noindex) 한다.
+ */
+export const PAGE_META: Record<string, { title: string; description: string; noindex?: boolean }> = {
+  '/login': {
+    title: 'Siempre 로그인 | AI 통합 구독',
+    description:
+      'Siempre 로그인. 가입한 이메일과 비밀번호로 로그인하면 담아 둔 AI와 이번 주 남은 크레딧을 바로 확인하고 대화를 이어갈 수 있어요. 크레딧은 매주 결제일과 같은 요일에 채워져요. 아직 계정이 없다면 이메일과 닉네임만으로 1분 만에 회원가입하세요.',
+  },
+  '/signup': {
+    title: 'Siempre 회원가입 | 쓸 AI만 골라 담는 구독',
+    description:
+      'Siempre 회원가입. 이메일과 닉네임만 정하면 1분 만에 가입이 끝나요. 가입하면 Claude·Qwen·Mistral·ElevenLabs·Nano Banana 중 쓸 AI만 골라 담고, 한 대화창에서 대본·번역·음성·이미지 작업을 크레딧 하나로 이어갈 수 있어요. 무료 사용량으로 먼저 써 보세요.',
+  },
+  '/signup/terms': {
+    title: 'Siempre 약관 동의',
+    description:
+      'Siempre 회원가입 약관 동의 단계예요. 서비스 이용약관, 개인정보 수집·이용, 만 14세 이상 확인, 외부 AI 제공사로 대화 전달에 동의하면 가입이 끝나요. 할인·새 AI 입점 소식 받기는 선택이에요.',
+    noindex: true,
+  },
+  '/signup/done': {
+    title: 'Siempre 가입 완료',
+    description:
+      'Siempre 가입이 끝났어요. 이제 Claude·Qwen·Mistral·ElevenLabs·Nano Banana 중 쓸 AI를 골라 나만의 구독을 만들고, 한 대화창에서 크레딧 하나로 써 보세요.',
+    noindex: true,
+  },
+};

@@ -72,3 +72,9 @@ npm run build             # 타입 검사 + 배포용 빌드
 - 바뀔 수 있는 값·문구는 `src/config/auth.ts`, 검사 함수는 `src/lib/auth.ts`, Firebase 연결·오류 문구는 `src/lib/firebase.ts`, API 호출은 `src/api/auth.ts` (로그인 필요 요청에 Firebase ID 토큰을 붙임).
 - 색·글꼴 토큰은 `tailwind.config.js` (디자인 명세 2장 색, 글꼴 Pretendard).
 - 디자인 시안: Figma `siempre · 확정용 > 회원가입 시안` (https://www.figma.com/design/gBNj0gHsS4457DHLWG7N0O)
+
+---
+
+## 검색 노출 (SEO, 2026-11-12)
+
+robots.txt, sitemap.xml, 화면별 메타 제목·설명, Google·네이버 등록 방법은 [`SEO.md`](SEO.md)에 정리했어요.
